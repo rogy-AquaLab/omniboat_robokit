@@ -21,3 +21,18 @@ jobs:
         run: pip install --upgrade platformio
       - name: Run PlatformIO
         run: pio run
+
+  format:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Check clang-format
+        uses: DoozyX/clang-format-lint-action@v0.14
+        with:
+          source: "./src ./include"
+          extensions: "h,hpp,c,cpp"
+          clangFormatVersion: 11
+          style: file
+          inplace: false
