@@ -7,34 +7,14 @@
 
 2023新歓で使うロボキット
 
+## Usage
+
+詳細な解説は[GitHub Pages](ここにURL)を参照してください。
+
 ## Requirements
 
-- [VSCode](https://code.visualstudio.com/)
-- [PlatformIO](https://platformio.org/)
+[VSCode](https://code.visualstudio.com/)と[PlatformIO](https://platformio.org/)をインストールする必要があります。
 
-以下は各OSごとのインストール方法の記事です。
+## Device
 
-- Windows
-    - [VSCode-PlatformIO IDEを使って、ESP32の開発環境を構築およびLチカ](https://zenn.dev/kotaproj/articles/esp32_vscode_pio)
-- Mac
-    - [Mac環境でPlatformIO IDEを用いてハードウェアコーディングをする時の環境セットアップについて - Qiita](https://qiita.com/sss463/items/e9f6173f13532960d6c5)
-- Ubuntu
-    1. [Running Visual Studio Code on Linux](https://code.visualstudio.com/docs/setup/linux)
-    2. [Installation · PlatformIO](https://platformio.org/install/ide?install=vscode)
-
-PlatformIOのインストールまでできたら次に進んでください。
-
-## Build
-
-プログラムをコンパイルする方法です。
-
-https://user-images.githubusercontent.com/54711422/226151624-13bab5bc-eb08-43a8-b263-44089ec6c027.mp4
-
-ソースコード(`src/main.cpp`)を開くと右上に表示されます。
-
-## Upload
-
-1. Nucleo F303K8(ロボキットに入っていた白い基板)とパソコンをケーブルで繋ぐ
-2. 上述の`Build`ボタンの下にある`Upload`ボタンを押す
-
-コンパイルで生成されたバイナリファイルが基板に書き込まれます。
+[Nucleo F303K8](https://www.st.com/ja/evaluation-tools/nucleo-f303k8.html)に対応しています。
