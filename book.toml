@@ -1,0 +1,7 @@
+[book]
+authors = ["H1rono"]
+language = "ja"
+multilingual = false
+src = "docs"
+title = "2023 Robokit"
+description = "Robokitの開発に関するドキュメントです。"
