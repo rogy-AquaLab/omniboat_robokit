@@ -1,0 +1,14 @@
+[book]
+authors = ["H1rono"]
+language = "ja"
+multilingual = false
+src = "docs"
+title = "2023 Robokit"
+description = "Robokitの開発に関するドキュメントです。"
+
+[output.html]
+git-repository-url = "https://github.com/rogy-AquaLab/2023_robokit"
+git-repository-icon = "fa-github"
+
+[output.html.playground]
+runnable = false
