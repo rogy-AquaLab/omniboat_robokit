@@ -1,5 +1,4 @@
 {
-    "files.autoSave": "afterDelay",
     "editor.tabSize": 4,
     "editor.formatOnSave": true,
     "C_Cpp.clang_format_style": "file",
