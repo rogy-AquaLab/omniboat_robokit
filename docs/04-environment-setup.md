@@ -14,26 +14,31 @@
 
 [VSCode](https://code.visualstudio.com/)(**V**isual **S**tudio **Code**)とは、microsoftが無料で公開しているコードエディタです。プログラミングを行う際はこのエディタを使うことが多いです。
 
+まずはインストールに必要なファイルをダウンロードします。次のURLを開いてください。
+
+[https://code.visualstudio.com/](https://code.visualstudio.com/)
+
+VSCodeをインストールするのに適切なファイルをダウンロードするボタンがページの真ん中あたりに表示されています。Macの場合は以下のようなものです。
+
+<img src="./assets/vscode-download-button-mac.png" style="max-width: 300px;">
+
+このボタンを押すとダウンロードが始まります。ダウンロード後の作業はOSごとに手順が違うので注意してください。
+
 ### Windows
 
-<!-- TODO -->
-PowerShellで↓
+ダウンロードされたものはVSCodeのインストーラです。ファイルを開いて実行すると、VSCodeをインストールするためのウィンドウが開きます。
 
-```shell
-winget upgrade --all
-winget install -e --id Microsoft.VisualStudioCode
-```
+以降はウィンドウの指示に従って進めてください。オプションが何個かありますが、迷った場合/わからなかった場合はとりあえずチェックを入れておくのが吉です。
+
+ダウンロード後のスクリーンショット付きの説明は[VSCode | Visual Studio Codeのダウンロードとインストール #Visual Studio Codeをインストールする](https://www.javadrive.jp/vscode/install/index1.html#section2)を参照してください。
 
 ### Mac
 
-<!-- TODO -->
-Terminal.appで↓
+ダウンロードされたものはVSCodeアプリのzipファイルです。展開すると`Visual Studio Code.app`という名前のファイルができます。このファイルを「アプリケーション」フォルダに移動させてから開いてください。
 
-```shell
-xcode-select -install
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-brew install --cask visual-studio-code
-```
+開く際に警告が出る可能性がありますが、構わず進めてください。
+
+ダウンロード後のスクリーンショット付きの説明は[MacOSでVisual Studio Codeをインストールする手順 - Qiita #3. ダウンロードしたファイルを開く（解凍する）](https://qiita.com/watamura/items/51c70fbb848e5f956fd6#3-%E3%83%80%E3%82%A6%E3%83%B3%E3%83%AD%E3%83%BC%E3%83%89%E3%81%97%E3%81%9F%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E9%96%8B%E3%81%8F%E8%A7%A3%E5%87%8D%E3%81%99%E3%82%8B)を参照してください。
 
 ## 2: プログラムをダウンロードする
 
@@ -71,8 +76,11 @@ VSCodeでは拡張機能と呼ばれるものをインストールしてVSCode�
 
 ## 参考
 
-- [winget ツールを使用したアプリケーションのインストールと管理 | Microsoft Learn](https://learn.microsoft.com/ja-jp/windows/package-manager/winget/)
-- [Download and install Microsoft Visual Studio Code with winget](https://winget.run/pkg/Microsoft/VisualStudioCode)
-- [Homebrew — The Missing Package Manager for macOS (or Linux)](https://brew.sh/)
+- [VSCode | Visual Studio Codeのダウンロードとインストール](https://www.javadrive.jp/vscode/install/index1.html)
+- [MacOSでVisual Studio Codeをインストールする手順 - Qiita](https://qiita.com/watamura/items/51c70fbb848e5f956fd6)
+- [Setting up Visual Studio Code](https://code.visualstudio.com/docs/setup/setup-overview)
+- [Running Visual Studio Code on Linux](https://code.visualstudio.com/docs/setup/linux)
+- [Running Visual Studio Code on macOS](https://code.visualstudio.com/docs/setup/mac)
+- [Running Visual Studio Code on Windows](https://code.visualstudio.com/docs/setup/windows)
 - [visual-studio-code — Homebrew Formulae](https://formulae.brew.sh/cask/visual-studio-code)
 - [PlatformIO IDE for VSCode — PlatformIO stable documentation #Installation](https://docs.platformio.org/en/stable/integration/ide/vscode.html#installation)
