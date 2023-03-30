@@ -58,7 +58,11 @@ void Schneider::init() {
 void Schneider::one_step() {
     using std::abs;
     led(3);
+
+    // ジャイロセンサの値を読み取る
     mpu.getGyro(gyro.data());
+
+    // ジョイコンの値を読み取る
     joy_read(adcIn1.read(), adcIn2.read(), 0.0);
 
     volume_ = volume.read();
