@@ -72,13 +72,13 @@ private:
     /**
      * @brief ヤコビ行列
      */
-    std::array<std::array<float, 3>, 4> t_jacobianmatrix;  
+    std::array<std::array<float, 3>, 4> t_jacobianmatrix;
 
     /**
      * @brief ジョイスティックからの入力(目標値)
      */
     std::array<float, 3> x_d;
-    
+
     /**
      * @brief 入力値
      */
@@ -105,7 +105,8 @@ private:
     void state_equation();
 
     /**
-     * @brief モータへの出力を計算する関数\nモータへの出力は、勾配を使って目的関数を最小化するように計算する
+     * @brief
+     * モータへの出力を計算する関数\nモータへの出力は、勾配を使って目的関数を最小化するように計算する
      */
     void cal_q();
 
@@ -116,7 +117,7 @@ private:
 
     /**
      * @brief ジョイコンの値を読み取って、x_dに格納する
-     * 
+     *
      * @param joy_x ジョイコンのx軸の値
      * @param joy_y ジョイコンのy軸の値
      * @param rotate 回転の値
@@ -136,8 +137,8 @@ private:
 
     PwmOut servo_1;  // servo
     PwmOut servo_2;  // servo
-    PwmOut fet_1;  // DC
-    PwmOut fet_2;  // DC
+    PwmOut fet_1;    // DC
+    PwmOut fet_2;    // DC
 
     DigitalOut led1;
     DigitalOut led2;
