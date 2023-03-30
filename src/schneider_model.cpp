@@ -10,6 +10,9 @@
 
 namespace omniboat {
 
+/**
+ * @brief コンストラクタ
+ */
 Schneider::Schneider() :
     phi(0),
     gyro(),
@@ -40,6 +43,9 @@ Schneider::Schneider() :
     servo_2.period_ms(20);
 }
 
+/**
+ * @brief デストラクタ
+*/
 Schneider::~Schneider() {
     led(1);
 }
@@ -55,10 +61,17 @@ void Schneider::init() {
     cal_tjacob();
 }
 
+/**
+ * @brief 1ステップごとに呼び出される関数\nモータへの入力値を計算し、モータへの出力を行う
+*/
 void Schneider::one_step() {
     using std::abs;
     led(3);
+
+    // ジャイロセンサの値を読み取る
     mpu.getGyro(gyro.data());
+
+    // ジョイコンの値を読み取る
     joy_read(adcIn1.read(), adcIn2.read(), 0.0);
 
     volume_ = volume.read();
@@ -91,6 +104,12 @@ void Schneider::debug() {
     // printf("\n");
 }
 
+/**
+ * @brief ジョイコンの値を読み取って、x_dに格納する
+ * @param joy_x ジョイコンのx軸の値 
+ * @param joy_y ジョイコンのy軸の値
+ * @param rotate 回転の値
+*/
 void Schneider::joy_read(float joy_x, float joy_y, int rotate) {
     x_d[0] = (joy_x - 0.5f) * 2;
     x_d[1] = (joy_y - 0.5f) * 2;
@@ -106,6 +125,9 @@ void Schneider::flip_shneider() {
     NVIC_SystemReset();
 }
 
+/**
+ * @brief ヤコビ行列の計算を行う\nヤコビ行列は、入力からモータの出力を計算するための行列
+*/
 inline void Schneider::cal_tjacob() {
     using std::cos;
     using std::sin;
@@ -123,6 +145,9 @@ inline void Schneider::cal_tjacob() {
     t_jacobianmatrix[3][2] = -q[1] * cos(q[3]) / I;
 }
 
+/**
+ * @brief モータへの出力を計算する関数\nモータへの出力は、勾配法を使って目的関数を最小化するように計算する関数
+*/
 void Schneider::cal_q() {
     using std::pow;
     // 初期値
@@ -154,6 +179,9 @@ void Schneider::cal_q() {
     led(2);
 }
 
+/**
+ * @brief 状態方程式の計算を行う関数
+*/
 inline void Schneider::state_equation() {
     using std::cos;
     using std::sin;
@@ -162,6 +190,9 @@ inline void Schneider::state_equation() {
     x[2] = (a * (q[0] - q[1]) + q[0] * sin(q[2]) - q[1] * sin(q[3])) / I;
 }
 
+/**
+ * @brief モータへの信号値に変換する関数
+*/
 void Schneider::set_q() {
     using std::abs;
     if (abs(q[0] <= 0.4f)) {
@@ -208,6 +239,10 @@ void Schneider::rotate() {
     }
 }
 
+/**
+ * @brief ledを点滅させる関数
+ * @param num 点滅させるledの番号
+*/
 void Schneider::led(int num) {
     switch (num) {
     case 1: led1 = !led1; break;
@@ -217,6 +252,9 @@ void Schneider::led(int num) {
     }
 }
 
+/**
+ * @brief ボタンが押されたときに機体を停止させる関数(割り込み処理)
+*/
 void Schneider::ticker_flip() {
     if (button == 0) {
         flip_shneider();
