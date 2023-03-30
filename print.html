@@ -258,7 +258,19 @@
 <li><a href="https://docs.platformio.org/en/stable/integration/ide/vscode.html#installation">PlatformIO IDE for VSCode — PlatformIO stable documentation #Installation</a></li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="コンパイル"><a class="header" href="#コンパイル">コンパイル</a></h1>
-<p>TODO: コンパイルとは何かとその方法説明</p>
+<p>このページでは、「コンパイル」とは何か、またその方法について説明します。</p>
+<h2 id="コンパイルとは何か"><a class="header" href="#コンパイルとは何か">コンパイルとは何か</a></h2>
+<p>私たちがコンピュータ上で計算を実行したいとき、まずは<strong>プログラミング言語</strong>と呼ばれる言語を用いて<strong>プログラム</strong>を記述します。プログラミング言語は日本語、英語といった自然言語とは違い、コンピュータが行う計算内容を記述するための言語です。ちなみに、ロボキットを動かすために使われているプログラミング言語はC++というものです。プログラミング言語の文法はとても厳密に定義されているため、1文字でもミスがあればコンピュータは思い通りに動いてくれません。(書いた通りに動く、とも言えます)</p>
+<p>また、私たちが書いたプログラムはコンピュータにそのまま解釈されるわけではなく、一度<strong>機械語</strong>という別の言語に翻訳されます。この機械語は<code>1000110111011001...</code>といった<code>0</code>と<code>1</code>の列で表され、これを人間が記述するのは困難です。そのため、プログラミング言語で記述されたものを機械語に翻訳します。この翻訳を<strong>コンパイル</strong>といいます。</p>
+<p>コンパイルを行うには、<strong>コンパイラ</strong>というソフトウェアを使用します。私たちは前ページの<a href="./04-environment-setup.html">環境構築</a>で必要なコンパイラをすでに入手しています。</p>
+<p>より詳しい説明は<a href="https://9cguide.appspot.com/01-02.html">コンパイラは翻訳ソフト - 苦しんで覚えるC言語</a>を参照してください。</p>
+<h2 id="コンパイルのやり方"><a class="header" href="#コンパイルのやり方">コンパイルのやり方</a></h2>
+<blockquote>
+<p>ここで紹介するのはコンパイル方法のあくまで1種です。動かしたいコンピューターの種類、扱っているプログラミング言語の種類などによってコンパイル方法は変わってきます。</p>
+</blockquote>
+<p>まずは<code>src</code>フォルダ内にある<code>main.cpp</code>を開いてみてください。このようなウィンドウ表示になるはずです。</p>
+<p><img src="./assets/open-main-cpp.png" alt="" /></p>
+<p>右上、または下のバー(<em>ステータスバー</em>といいます)にあるチェックマークを押すとコンパイルが始まります。<code>SUCCESS</code>と緑色の文字で表示されたらコンパイル成功です。</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="アップロード"><a class="header" href="#アップロード">アップロード</a></h1>
 <p>TODO: コンパイルの成果物をボードに書き込む方法</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="プログラムの解説"><a class="header" href="#プログラムの解説">プログラムの解説</a></h1>
