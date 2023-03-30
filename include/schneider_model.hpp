@@ -12,17 +12,17 @@ constexpr float schneider_PI = 3.141592653589;
 namespace omniboat {
 
 /** 
- * @brief z軸周りの慣性モーメント 
+ * @brief z軸周りの慣性モーメント
  * @note もっと正確な値の方がいいかも
  */
 constexpr float I = 1;
 /** 
- * @brief ステップ幅 
+ * @brief ステップ幅
  */
 constexpr float e = 0.01;
 constexpr float a = 0.1;
 /** 
- * @brief 試行回数 
+ * @brief 試行回数
  */
 constexpr int trial_num = 1000;
 
@@ -60,7 +60,7 @@ private:
     float phi;                  
 
     /** 
-     * @brief ジャイロセンサの値 
+     * @brief ジャイロセンサの値
      */ 
     std::array<float, 3> gyro;
 
@@ -80,12 +80,12 @@ private:
     std::array<float, 3> x_d;
     
     /** 
-     * @brief 入力値 
+     * @brief 入力値
      */
     std::array<float, 4> q;    
 
     /** 
-     * @brief qに対しての出力 
+     * @brief qに対しての出力
      */
     std::array<float, 3> x;
 
@@ -117,7 +117,7 @@ private:
     /**
      * @brief ジョイコンの値を読み取って、x_dに格納する
      * 
-     * @param joy_x ジョイコンのx軸の値 
+     * @param joy_x ジョイコンのx軸の値
      * @param joy_y ジョイコンのy軸の値
      * @param rotate 回転の値
      */
@@ -132,12 +132,12 @@ private:
     AnalogIn adcIn1;  // ジョイスティック
     AnalogIn adcIn2;  // ジョイスティック
     AnalogIn volume;
-    MPU6050 mpu;      // 慣性計測ユニット(imu)
+    MPU6050 mpu;  // 慣性計測ユニット(imu)
 
-    PwmOut servo_1;   // servo
-    PwmOut servo_2;   // servo
-    PwmOut fet_1;     // DC
-    PwmOut fet_2;     // DC
+    PwmOut servo_1;  // servo
+    PwmOut servo_2;  // servo
+    PwmOut fet_1;  // DC
+    PwmOut fet_2;  // DC
 
     DigitalOut led1;
     DigitalOut led2;
