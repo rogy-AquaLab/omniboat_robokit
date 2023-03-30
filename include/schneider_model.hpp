@@ -11,17 +11,17 @@ constexpr float schneider_PI = 3.141592653589;
 
 namespace omniboat {
 
-/** 
+/**
  * @brief z軸周りの慣性モーメント
  * @note もっと正確な値の方がいいかも
  */
 constexpr float I = 1;
-/** 
+/**
  * @brief ステップ幅
  */
 constexpr float e = 0.01;
 constexpr float a = 0.1;
-/** 
+/**
  * @brief 試行回数
  */
 constexpr int trial_num = 1000;
@@ -40,7 +40,7 @@ public:
      */
     void one_step();
     void init();
-    
+
     /**
      * @brief 機体を停止させる関数
      */
@@ -48,7 +48,7 @@ public:
 
     /**
      * @brief ledを点滅させる関数
-     * 
+     *
      * @param num 点滅させるledの番号
      */
     void led(int num);
@@ -57,11 +57,11 @@ private:
     /**
      * @brief 機体の姿勢
      */
-    float phi;                  
+    float phi;
 
-    /** 
+    /**
      * @brief ジャイロセンサの値
-     */ 
+     */
     std::array<float, 3> gyro;
 
     /**
@@ -79,12 +79,12 @@ private:
      */
     std::array<float, 3> x_d;
     
-    /** 
+    /**
      * @brief 入力値
      */
-    std::array<float, 4> q;    
+    std::array<float, 4> q;
 
-    /** 
+    /**
      * @brief qに対しての出力
      */
     std::array<float, 3> x;
