@@ -26,7 +26,7 @@
 ### 内容物
 | パーツ名 | 個数 | 写真 |
 | :--| :-- |:-- |
-| **board1** | **2個** | <img src="./assets/part_board1. |jpeg" style="max-width: 300px;"> |
+| **board1** | **2個** | <img src="./assets/part_board1.jpeg" style="max-width: 300px;"> |
 | **board2** | **2個** | <img src="./assets/part_board2.jpeg" style="max-width: 300px;"> |
 | **pillar1** | **2個** | <img src="./assets/part_pillar1.jpeg" style="max-width: 300px;"> |
 | **pillar2** | **4個** | <img src="./assets/part_pillar2.jpeg" style="max-width: 300px;"> |
