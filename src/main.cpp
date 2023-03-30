@@ -1,4 +1,4 @@
-#include "schneider_model.h"
+#include "schneider_model.hpp"
 
 int main() {
     omniboat::Schneider schneider;
