@@ -11,12 +11,19 @@ constexpr float schneider_PI = 3.141592653589;
 
 namespace omniboat {
 
-/** z軸周りの慣性モーメント @note もっと正確な値の方がいいかも*/
+/** 
+ * @brief z軸周りの慣性モーメント 
+ * @note もっと正確な値の方がいいかも
+ */
 constexpr float I = 1;
-/** ステップ幅 */
+/** 
+ * @brief ステップ幅 
+ */
 constexpr float e = 0.01;
 constexpr float a = 0.1;
-/** 試行回数 */
+/** 
+ * @brief 試行回数 
+ */
 constexpr int trial_num = 1000;
 
 /**
@@ -27,40 +34,98 @@ public:
     Schneider();
     ~Schneider();
     void debug();
+
+    /**
+     * @brief 1ステップ毎にモータへの入力値を計算する関数
+     */
     void one_step();
     void init();
+    
+    /**
+     * @brief 機体を停止させる関数
+     */
     void flip_shneider();
-    void led(int num);  // 点灯
+
+    /**
+     * @brief ledを点滅させる関数
+     * 
+     * @param num 点滅させるledの番号
+     */
+    void led(int num);
 
 private:
-    /** 機体の姿勢 */
+    /**
+     * @brief 機体の姿勢
+     */
     float phi;                  
 
-    /** ジャイロセンサの値 */ 
+    /** 
+     * @brief ジャイロセンサの値 
+     */ 
     std::array<float, 3> gyro;
 
+    /**
+     * @brief ボタンが押されたときに機体を停止させる関数(割り込み処理)
+     */
     void ticker_flip();
 
-    /** ヤコビ行列*/
+    /**
+     * @brief ヤコビ行列
+     */
     std::array<std::array<float, 3>, 4> t_jacobianmatrix;  
 
-    /** ジョイスティックからの入力(目標値) */
+    /**
+     * @brief ジョイスティックからの入力(目標値)
+     */
     std::array<float, 3> x_d;
     
-    /** 入力値 */
+    /** 
+     * @brief 入力値 
+     */
     std::array<float, 4> q;    
 
-    /** qに対しての出力 */
+    /** 
+     * @brief qに対しての出力 
+     */
     std::array<float, 3> x;
 
-    /** つまみの入力値 */
+    /**
+     * @brief つまみの入力値
+     */
     float volume_;
 
-    void cal_tjacob();      // 転置したヤコビ行列の計算
-    void state_equation();  // 機体の状態の計算
-    void cal_q();           // 入力の推定と更新
-    void set_q();           // モーターへの入力
+    /**
+     * @brief ヤコビ行列の計算を行う関数\nヤコビ行列は、入力からモータの出力を計算するための行列
+     */
+    void cal_tjacob();
+
+    /**
+     * @brief 状態方程式の計算を行う関数
+     */
+    void state_equation();
+
+    /**
+     * @brief モータへの出力を計算する関数\nモータへの出力は、勾配を使って目的関数を最小化するように計算する
+     */
+    void cal_q();
+
+    /**
+     * @brief モータへの信号値に変換する関数
+     */
+    void set_q();
+
+    /**
+     * @brief ジョイコンの値を読み取って、x_dに格納する
+     * 
+     * @param joy_x ジョイコンのx軸の値 
+     * @param joy_y ジョイコンのy軸の値
+     * @param rotate 回転の値
+     */
     void joy_read(float joy_x, float joy_y, int rotate);
+
+    /**
+     * @brief つまみの値をから機体を回転させる関数
+     */
     void rotate();
 
 private:
