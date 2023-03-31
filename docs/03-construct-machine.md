@@ -19,42 +19,6 @@
 モーターが高速で回転するため、回転中にパーツが外れると非常に危険です。空中で回転実験する際は<span style="color: red; ">**プロペラ部分をのぞきこまない**</span>ようにしてください。もしのぞき込む場合は防護眼鏡などを着用してください。
 
 
-## パーツの名称(:個数)
-### board1: 2個
-<p align="center"><img src="https://drive.google.com/uc?export=view&id=1rVmG3RK-q81aBvB9DMg1esqYNSv85s8N" width=200 /></p>
-
-### board2: 2個
-<p align="center"><img src="https://drive.google.com/uc?export=view&id=18ve6_p6MheuzsnwSMNXbHizQDxLaDksv" width=200 /></p>
-
-### pillar1: 2個
-<p align="center"><img src="https://drive.google.com/uc?export=view&id=1tcvF_HePjaRNHa2DWuXLbOTA-oWY-YTq" width=200 /></p>
-
-### pillar2: 4個
-<p align="center"><img src="https://drive.google.com/uc?export=view&id=11mS3Rn_IhIznhMYhaInXfd2Y535TlYGH" width=200 /></p>
-
-### motorCover: 2個
-<p align="center"><img src="https://drive.google.com/uc?export=view&id=1_Xb_TautbLrQ5m4_CkzEi8GaTEnLGsBO" width=200 /></p>
-
-### pulley1: 2個
-<p align="center"><img src="https://drive.google.com/uc?export=view&id=110fEH3jroAAzyE8nufBZSikfPnD87lYi" width=200 /></p>
-
-### pulley2: 2個
-<p align="center"><img src="https://drive.google.com/uc?export=view&id=1-1Jefk2mgxEGzQKu6XTzYf2hhS26JzSD" width=200 /></p>
-
-### link: 2個
-<p align="center"><img src="https://drive.google.com/uc?export=view&id=1lzBY2w48r58CKluO9AXotFNsyjsp5aGs" width=200 /></p>
-
-### propeller1~propeller5: 各2個
-<p align="center"><img src="https://drive.google.com/uc?export=view&id=1mN4S9YIdgCv7xrDjZUfZNCYWZvPk6k0o"
-width=200 /></p>
-
-### motorshaftStopper: 2個
-<p align="center"><img src="https://drive.google.com/uc?export=view&id=1P48ytpQjrnsQMlgb_4S8AqRxsRPe9hGL" width=200 /></p>
-
-### servoConnector: 2個
-<p align="center"><img src="https://drive.google.com/uc?export=view&id=1BA4O-CcWMk2TEgsgItSKcD1DZIsz7_GR" width=200 /></p>
-
-
 ## 用意するもの
 組み立てには次の道具が必要です。工具は一般のご家庭にあるもので問題ありません。そこまで高品質なものでなくとも十分なので100均やホームセンターで売っているものでも大丈夫です。
 - プラスドライバー
