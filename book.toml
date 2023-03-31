@@ -9,6 +9,7 @@ description = "Robokitの開発に関するドキュメントです。"
 [output.html]
 git-repository-url = "https://github.com/rogy-AquaLab/2023_robokit"
 git-repository-icon = "fa-github"
+mathjax-support = true
 
 [output.html.playground]
 runnable = false
