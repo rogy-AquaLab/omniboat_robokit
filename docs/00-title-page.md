@@ -30,12 +30,12 @@
 ロボット技術研究会への連絡先は以下の通りです。
 
 - Twitterアカウント: [@titech_ssr](https://twitter.com/titech_ssr)
-- メールアドレス: [info@rogiken.org](mailto:info@rogiken.org)
+- メールアドレス: `info[ at ]rogiken.org`(`[ at ]`を`@`に置き換えてください)
 
 アクア研への連絡先は以下の通りです。
 
 - Twitterアカウント: [@rogy_aqua](https://twitter.com/rogy_aqua)
-- メールアドレス: [rogy.aqua@gmail.com](mailto:rogy.aqua@gmail.com)
+- メールアドレス: `rogy.aqua[ at ]gmail.com`(`[ at ]`を`@`に置き換えてください)
 
 また、[東京工業大学ロボット技術研究会2023年度新歓ページ](https://www.rogiken.org/shinkan/2023/)も参照してください。
 
