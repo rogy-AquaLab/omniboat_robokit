@@ -148,7 +148,20 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="アップロード"><a class="header" href="#アップロード">アップロード</a></h1>
-<p>TODO: コンパイルの成果物をボードに書き込む方法</p>
+<h2 id="アップロードとは何か"><a class="header" href="#アップロードとは何か">アップロードとは何か</a></h2>
+<p>コンパイルで生成されたバイナリファイルをコンピュータに与えることで、記述したプログラム(をコンパイルしたもの)を実行することができます。与える方法は環境によって異なりますが、ロボキットに載せられているコンピュータにプログラムを与えるためには成果物の<strong>アップロード</strong>(書き込み)を行う必要があります。</p>
+<blockquote>
+<p>ロボキットに載っているのは<a href="https://www.st.com/ja/evaluation-tools/nucleo-f303k8.html">Nucleo-F303K8</a>という種類のコンピュータで、これはマイコンと呼ばれるコンピュータの一種です。マイコンには他に<a href="https://www.arduino.cc/">Arduino</a>などがあります。マイコンでコンパイル済みのプログラムを実行するには書き込みを行う必要があります。</p>
+</blockquote>
+<p>書き込みでは、マイコンのメモリにバイナリファイルがそのまま配置されます。そのため、書き込みが完了した後にマイコンに電源を入れると即座にプログラムの実行が始まります。</p>
+<h2 id="アップロードの方法"><a class="header" href="#アップロードの方法">アップロードの方法</a></h2>
+<p><a href="./05-compile.html#%E3%82%B3%E3%83%B3%E3%83%91%E3%82%A4%E3%83%AB%E3%81%AE%E3%82%84%E3%82%8A%E6%96%B9">コンパイルの方法</a>で載せた、プログラムをVSCodeで開いた場合の画面を再掲します。</p>
+<p><img src="./assets/open-main-cpp.png" alt="" /></p>
+<p>右上のチェックマークの横にある<code>v</code>のようなボタンを押して<code>Upload</code>選択する、またはステータスバーにある<code>→</code>を押すとアップロードが始まります。こちらもコンパイルと同様、<code>SUCCESS</code>と緑色の文字で表示されたら成功です。</p>
+<h2 id="参考文献"><a class="header" href="#参考文献">参考文献</a></h2>
+<ul>
+<li><a href="http://idken.net/posts/2017-09-30-stm32_flash/">STM32のFlashにデータを保存する</a></li>
+</ul>
 
                     </main>
 
