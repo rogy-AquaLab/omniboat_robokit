@@ -147,9 +147,199 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="機体の組み立て方"><a class="header" href="#機体の組み立て方">機体の組み立て方</a></h1>
-<p>TODO: robokitの組み立て方(機体)</p>
-<p>TODO1: ドライブに写真を全部写す</p>
+                        <h1 id="オムニボートの機体組み立て方法"><a class="header" href="#オムニボートの機体組み立て方法">オムニボートの機体組み立て方法</a></h1>
+<p><span style="color: red; "><strong>分からないことがあったら遠慮なく聞いてください!!</strong></span></p>
+<p><strong>パーツが破損するなど、予備が必要な場合も遠慮せずに申し出てください!!</strong></p>
+<h2 id="注意点"><a class="header" href="#注意点">注意点</a></h2>
+<h3 id="パーツは優しく扱おう"><a class="header" href="#パーツは優しく扱おう">パーツは優しく扱おう</a></h3>
+<p>3Dプリンターで出力したパーツは一般にプロトタイピング用のパーツとして扱われており、その分他の造形方法に比べて脆いです。<span style="color: red; "><strong>やさしく扱ってください。</strong></span></p>
+<h3 id="パーツ紛失に注意"><a class="header" href="#パーツ紛失に注意">パーツ紛失に注意</a></h3>
+<p>小さいパーツが多いのでとても無くしやすいです(体験談)。<span style="color: red; "><strong>片付いた部屋や机の上で作業する</strong></span>ことを勧めます。</p>
+<h3 id="水没厳禁"><a class="header" href="#水没厳禁">水没厳禁</a></h3>
+<p>今回のキットの機械(モーター周りや端子)、回路は防水性能を持ちません。水上で想定されるちょっとした水しぶきを防ぐ程度の防御性能はありますが、DCモーターやサーボモーターが水没すると壊れます。そのため水上実験の際は<span style="color: red; "><strong>board2より上は水に付けない</strong></span>ようにしましょう。</p>
+<h3 id="安全対策"><a class="header" href="#安全対策">安全対策</a></h3>
+<p>モーターが高速で回転するため、回転中にパーツが外れると非常に危険です。空中で回転実験する際は<span style="color: red; "><strong>プロペラ部分をのぞきこまない</strong></span>ようにしてください。もしのぞき込む場合は防護眼鏡などを着用してください。</p>
+<h2 id="用意するもの"><a class="header" href="#用意するもの">用意するもの</a></h2>
+<p>組み立てには次の道具が必要です。工具は一般のご家庭にあるもので問題ありません。そこまで高品質なものでなくとも十分なので100均やホームセンターで売っているものでも大丈夫です。</p>
+<ul>
+<li>プラスドライバー
+<ul>
+<li>キットに含まれるM2ネジをなめずに回せる様な小さいもの。ドライバーのサイズ規格の目安は#0 or #1</li>
+</ul>
+</li>
+<li>ニッパー</li>
+<li>ラジオペンチ×2</li>
+<li>ハンマー、かなづち、木づちなど</li>
+<li>雑巾やタオルのような厚手の布</li>
+<li>ハンマーを使う際の捨て板とする適度に硬い板
+<ul>
+<li>木の板などで十分。ただしハンマーでへこんでしまっても良いもの。</li>
+</ul>
+</li>
+<li>セロハンテープ</li>
+<li>輪ゴム×4
+<ul>
+<li>16号(一般的なサイズ)</li>
+</ul>
+</li>
+</ul>
+<h2 id="組み立て手順"><a class="header" href="#組み立て手順">組み立て手順</a></h2>
+<h3 id="パーツのバリ取り"><a class="header" href="#パーツのバリ取り">パーツのバリ取り</a></h3>
+<p>3Dプリンターの仕組み上、パーツにサポート材と呼ばれる印刷の際の支えが残ってしまう。パーツの滑らかでない面は付属のやすりで丁寧に削る。この精度が後の組み立ての正確性に影響する。</p>
+<h3 id="dcモーターの回転方向の確認"><a class="header" href="#dcモーターの回転方向の確認">DCモーターの回転方向の確認</a></h3>
+<p>回路説明書に基づいてはんだ付けされたDCモーターは、回路につないだ時互いに反対に回転するようになっているため、回転方向を特定する必要がある。</p>
+<p>それぞれのモーターに旗のようにテープを巻き付け、回路につないでモーターを回転させて回転方向を見る。図の方向(軸からモーターを見る方向)から見て時計回りに軸が回転していればCW(clockwise)、反時計回りに回転していればCCW(counter clockwise)と<span style="color: red; "><strong>テープなどで目印をつけておく</strong></span>。この後の組み立ては回転方向によって手順が異なる部分があるため、区別しておく必要がある。</p>
+<p align="center"><img src="https://drive.google.com/uc?export=view&id=1NnLZCr2QoSQeOK8d_1CTcOu5fGkIJJQ4" width=200 /></p>
+<h3 id="サーボホーンの取り付け2つ作る"><a class="header" href="#サーボホーンの取り付け2つ作る">サーボホーンの取り付け(2つ作る)</a></h3>
+<p>可動域-90°~+90°を持つSG90に<span style="color: red; "><strong>PWM Period 20ms, Palse Width 1.45ms</strong></span>のPWMを出力しするとサーボモーターが0°を向く。この状態で、下図のようにサーボホーンが本体と垂直になるようにサーボホーンを取り付け、サーボホーン同梱のネジ(一番小さなものが好ましい)でねじ止めする。次に右図のようにサーボホーン両端の<span style="color: red; "><strong>外側から2番目の穴</strong></span>にスズメッキ線を通し、servoConnectorの両端の穴にも通してぐるぐる巻きにすることでこれらを固定する。上からのぞいた時に中心の穴を通してサーボホーン取り付けネジが見えていることを確認する。</p>
+<p>この部分を間違えるとプロペラの推進方向の可動域が変わるので要注意。取り付け後にもう一度PWM Period 20ms, Palse Width 1.45msのPWM信号を流して、サーボホーンが下図のようにサーボモーターと直角の向きになればうまくできている。</p>
+<p align="center">
+<img src="https://drive.google.com/uc?export=view&id=12ME7Xeg_XfVyJiwRXnjB20jwG0ZKBmt8" width=180 />    <img src="https://drive.google.com/uc?export=view&id=1PRk7nVO3amvb6OxNI0-vz9hpQDxor_4o" width=180 />
+</p>
+<h3 id="サーボモーターとdcモーターの取り付け2つ作る"><a class="header" href="#サーボモーターとdcモーターの取り付け2つ作る">サーボモーターとDCモーターの取り付け(2つ作る)</a></h3>
+<p>サーボモーターの軸がDCモーター側に来るようにboard2に取り付ける。図のようにサーボホーンをM2×10ネジとナットで固定し、DCモーターをはめ込む。DCモーターは特にネジなどで固定しない。モーターに張っておいたCW,CCWを区別するテープは見やすい位置に張り替えておくとよい。</p>
+<p align="center"><img src="https://drive.google.com/uc?export=view&id=1gsGabJ_zs99jCpi-WIGXs_zz9pFPm9S5" width=200 /></p>
+<h3 id="motorcoverをかぶせる2つ作る"><a class="header" href="#motorcoverをかぶせる2つ作る">motorCoverをかぶせる(2つ作る)</a></h3>
+<p>motorCoverの横穴にモーター、サーボモーターの配線を内から通し、motorCoverをかぶせる。<span style="color: red; "><strong>motorCoverの大きな配線用横穴がDCモーター側に来るように組み立てる。</strong></span></p>
+<p align="center"><img src="https://drive.google.com/uc?export=view&id=16pc9SEHGkV5IHctwzKgKhw27AfOJ3xWB" width=200 /></p>
+<h3 id="pillar1pillar2を取り付ける2つ作る"><a class="header" href="#pillar1pillar2を取り付ける2つ作る">pillar1、pillar2を取り付ける(2つ作る)</a></h3>
+<p>board2とmotorCoverのDCモーター側のはじに空いている2mm穴にワッシャーを先に通したM2×15ネジを入れる。左図のようにpillar2(又はM2ナット)を先に通し、あとからpillar1を取り付ける。pillar2は方向が正しければboard2やpillar1の溝にぴったりはまるようになっている。pillar1の穴にはネジ切り加工がされているため、ネジを締めることで固定できる。なお、このpillar2は船体取り付け用の取っ手であるが、M2ナットに置き換えて組み立てることが可能になっている。そのため作る船体の形状にから見てpillar2が邪魔になる場合はこれをM2ナットに置き換えてもよい。</p>
+<p align="center"><img src="https://drive.google.com/uc?export=view&id=1ff9NKm6znETd7WJIL7DMcZ3lYKo9_XHs" width=200 /></p>
+<h3 id="board1を取り付ける2つ作る"><a class="header" href="#board1を取り付ける2つ作る">board1を取り付ける(2つ作る)</a></h3>
+<p>同じ要領でboard2、motorCoverのサーボモーター側の2mm穴にワッシャーを通したM2×15ネジを通し、board1の柱の部分の穴にねじ止めする。この穴もpillar1同様にネジ切り加工がされている。</p>
+<p align="center">
+<img src="https://drive.google.com/uc?export=view&id=1AS6mrPOncnSq8a68yxQnwwvNgj-GkZCx" width=180 />
+<img src="https://drive.google.com/uc?export=view&id=1UgqDDgb4ttHz66kYFX5iZ0lHqvzK-8_Q" width=180 />
+</p>
+<h3 id="board1とpillar12をねじ止めする2つ作る"><a class="header" href="#board1とpillar12をねじ止めする2つ作る">board1とpillar1,2をねじ止めする(2つ作る)</a></h3>
+<p>pillar1,2をつけた時と同じ要領でboard1とpillar1の間にもう一つのpillar2(又はM2ナット)を挟んで、先にワッシャーを通したM2×15ネジでねじ止めする。なお、このpillar2は船体取り付け用の取っ手であるが、M2ナットに置き換えて組み立てることが可能になっている。そのため作る船体の形状にから見てpillar2が邪魔になる場合はこれをM2ナットに置き換えてもよい。</p>
+<p align="center"><img src="https://drive.google.com/uc?export=view&id=1EbXZl0ilSZsssofCAOuk0Aeox8csUG3R" width=200 /></p>
+<h3 id="board1にフランジブッシュを取り付ける2つ作る"><a class="header" href="#board1にフランジブッシュを取り付ける2つ作る">board1にフランジブッシュを取り付ける(2つ作る)</a></h3>
+<p>フランジブッシュは3種類同梱されている。そのうち内径が小さいもの(内径2mm)をboard1の小さい穴にはめる。内径が大きいもの(内径3mm,袋に入っている)は2種類あるが、長さが短いもの(長さ3mm)の物をboard1の大きいほうの穴にはめる。はめた後は図のようになる。
+<span style="color: red; "><strong>はめる向きを間違えるとプロペラが上手く回らない恐れがある</strong></span>ので注意する。</p>
+<p align="center"><img src="https://drive.google.com/uc?export=view&id=1yY1cP0qCtzZgHZ32mx-YapXnAIUQyrBj" width=200 /></p>
+<h3 id="シリコンチューブカップリングを作る2つ作る"><a class="header" href="#シリコンチューブカップリングを作る2つ作る">シリコンチューブカップリングを作る(2つ作る)</a></h3>
+<p>同梱されている2種類のシリコンチューブ(細く長いもの×2と太く短いもの×4)を用意する。太いチューブを細いチューブの両端にはめ込み、図のようなカップリングを作る。</p>
+<p align="center"><img src="https://drive.google.com/uc?export=view&id=1xQ9frnsAfyMa-Yuo8UUKy-Dsj6gyi7Qi" width=200 /></p>
+<h3 id="Φ2真鍮シャフトをpulley1に圧入する2つつくる"><a class="header" href="#Φ2真鍮シャフトをpulley1に圧入する2つつくる">Φ2真鍮シャフトをpulley1に圧入する(2つつくる)</a></h3>
+<p>図のように下のテーブルなどが傷つかないように捨て板を用意して、そのうえで作業することを勧める。ハンマーを短く持って<span style="color: red; "><strong>Φ2の真鍮製シャフトがゆがまないように気を付けながら</strong></span>pulley1の穴に奥まで打ち込んで圧入する。木づちやゴム製のハンマーの場合は雑巾などを挟むとハンマーが傷つきにくい。</p>
+<p align="center">
+<img src="https://drive.google.com/uc?export=view&id=1Atr6WnDFc-E5m13HT9SrVj9lmlojRefx" width=180 />
+<img src="https://drive.google.com/uc?export=view&id=1uxaMr3Wk7R9FYDjT7tKY_b6meesPuVix" width=180 />
+</p>
+<h3 id="motorshaftstopperにネジをつける2つ作る"><a class="header" href="#motorshaftstopperにネジをつける2つ作る">motorshaftStopperにネジをつける(2つ作る)</a></h3>
+<p>M2×10ネジを図のようにmotorshaftStopperに2つ通し、ナットで締める。ここでは切り込みが入ったほうのナットは緩めておく。切り込みがないほうのネジとナットは、このパーツの重心が中心からずれることによって生じる振動の対策なので、回転対称になるようにねじをつけるとよい。</p>
+<p align="center"><img src="https://drive.google.com/uc?export=view&id=1bkWYkLBfxFbxwv7rj-aDdUspC8WE2wiO" width=200 /></p>
+<h3 id="pulley1のシャフトをdcモーターにつなげる2つつくる"><a class="header" href="#pulley1のシャフトをdcモーターにつなげる2つつくる">pulley1のシャフトをDCモーターにつなげる(2つつくる)</a></h3>
+<p>左図のようにboard1のDCモーターと同軸上のフランジブッシュに真鍮シャフトのついたpulley1を通し、そこにM2ワッシャー2つとmotorshaftStopperを通す。つぎに右図のように先に作ったカップリングでDCモーターのシャフトと真鍮シャフトをつなぎ、motorshaftStopperをboard1の近くに動かして切り込みのほうのネジを締めることで軸に固定する。固定できたらpulley1を回してみて特に引っ掛かりがなく回ることを確認する。
+<span style="color: red; "><strong>ここまでの段階で同じものが二つできているはずである。</strong></span></p>
+<p align="center">
+<img src="https://drive.google.com/uc?export=view&id=1kudI_gUDvmazpXuXopX83mZ0ZC6LIms5" width=180 />
+<img src="https://drive.google.com/uc?export=view&id=1eUluc42uEhR5JCbpzReUKo8A7LqOKYme" width=180 />
+</p>
+<h3 id="pulley2の下準備2つ作る"><a class="header" href="#pulley2の下準備2つ作る">pulley2の下準備(2つ作る)</a></h3>
+<p>pulley2の各2mm穴に<span style="color: red; "><strong>皿ねじ用の面取りがされている方からM2×40の皿ねじを通し</strong></span>、反対からM2ワッシャー、M2スプリングワッシャー、M2ナットの順で通し、ナットを締める。これを5つの穴すべてに行う。続いてネジが出ている方と同じ方向に面が出るように内径3mm、長さ6mmのフランジブッシュを中心の穴に取り付ける。</p>
+<p align="center"><img src="https://drive.google.com/uc?export=view&id=1dbhbVPmocNYxuC6dgz-IaoDzoRTzy8Mb"
+width=300 /></p>
+<h3 id="linkの圧入とネジ固定２つ作る"><a class="header" href="#linkの圧入とネジ固定２つ作る">linkの圧入とネジ固定(２つ作る)</a></h3>
+<p>linkの面取りがされていない、内径3mmの非貫通穴にpulley1と同じ要領でΦ3メカニカルシャフト(銀色のシャフト)を奥まで圧入する。次に、Φ3シャフトとは反対方向にネジが出るようにM2×35(又はM2×30)の皿ねじをもう一方のネジ切りされた穴にねじを回して通す。ネジが入り切ったらM2ワッシャー、M2スプリングワッシャー、M2ナットとネジに通していき、ナットをラジオペンチで回してしっかり固定する。それができたらΦ3シャフトを右図のようにpulley2に通す。</p>
+<p><span style="color: red; "><strong>左図のようにリンクのΦ3シャフトとネジが平行になっていることを確認する。</strong></span>少し曲がっている場合は予備のlinkに入れ替えて試してみる。平行でないと後の引っかかりの原因となる。</p>
+<p align="center">
+<img src="https://drive.google.com/uc?export=view&id=1pI5aElj6qVAAyscx3fNOTEJwPrkgFAL8" width=180 />
+<img src="https://drive.google.com/uc?export=view&id=1BxwFDRLr0_ka-6UUgtQLugg2pJYhn22l" width=180 />
+</p>
+<h3 id="重要プロペラを通すcwccwで違うので注意"><a class="header" href="#重要プロペラを通すcwccwで違うので注意">[<span style="color: red; ">重要</span>]プロペラを通す(<span style="color: red; ">CW,CCWで違うので注意</span>)</a></h3>
+<h4 id="プロペラを仕上げる10個すべてのプロペラに行う"><a class="header" href="#プロペラを仕上げる10個すべてのプロペラに行う">プロペラを仕上げる(10個すべてのプロペラに行う)</a></h4>
+<p>プロペラは2つの袋に梱包されており、それぞれにpropeller1~5が入っている。混同しないように袋ごとに作業することを勧める。</p>
+<p>プロペラはこのキットの中で最も繊細な部分であり、ここに引っかかりがあるとモーターが上手く回らない。郵送されたそのままの状態ではバリがあるので、まずニッパーで大まかなバリを落とした後、付属の紙やすりの目の粗いものから細かいものへとバリの部分にやすりがけをしていく。続いて、リンク溝や羽に空いた2mm穴の部分にM2×35皿ねじの余りを通してみて、スムーズに通るか確かめる。もし引っ掛かりがあるようなら、そのままねじをギコギコとこすって削る。この作業をすべてのpropellerに行う。</p>
+<p align="center"><img src="https://drive.google.com/uc?export=view&id=1PKJyDHTCEGj0VBRpHGuF4akCF58d5A6_" width=300 /></p>
+<p align="center">
+<img src="https://drive.google.com/uc?export=view&id=1P7kxfSdgCIBjrbeLjjSyIUsjXXFRny7P" width=180 />
+<img src="https://drive.google.com/uc?export=view&id=1qJCAIY1slscEVyO0js-K_1m9V6U2BWZe" width=180 />
+</p>
+<h4 id="cw版"><a class="header" href="#cw版">CW版</a></h4>
+<p>まずは最上図のように羽の丸いほうを左に向けた状態で左上から左下に階段状にリンク溝部分が出るように並べる。この状態で左から順にpropeller1,2,3,4,5である。</p>
+<p align="center"><img src="https://drive.google.com/uc?export=view&id=1mN4S9YIdgCv7xrDjZUfZNCYWZvPk6k0o"
+width=300 /></p>
+<p>CW版では、<span style="color: red; "><strong>propeller1から順に先のように並べた状態の上側から</strong></span>pulley2のねじとlinkのねじに通していく。
+propeller1を通す前にpulley2のねじにM2ワッシャーを通し、linkのねじ(以降リンク軸と呼ぶ)にもM2ワッシャーを通す。その上からpropeller1を羽の短い方向から通す。propeller1を通した後は下図のようになる。</p>
+<p align="center">
+<img src="https://drive.google.com/uc?export=view&id=1-AJ33Vbq51AJvHLd4eoVGYf7PdD31X68" width=180 />
+<img src="https://drive.google.com/uc?export=view&id=19W3Wri2sfiRAemRsqOcFXE72-CJ7A63e" width=180 />
+</p>
+<p>propellerを一つ通すごとに、pulley2を抑えてΦ3シャフトを引きながらまわして引っ掛かりがないか確かめる。propellerがしっぽを振るような動きをするはずである。これが手で十分回るなら問題ない。もし引っ掛かりがあるようなら新たにはめたpropellerが原因の可能性が高いので、疑わしいpropellerに対して再びpropellerのやすり掛けの工程を行う。</p>
+<p>続いて、propeller2を通す。以後、propellerはpropeller1を通したところから星を描くように順番に入れていく。これは羽の不均一をなるべくなくすためである。</p>
+<p align="center"><img src="https://drive.google.com/uc?export=view&id=1dbhbVPmocNYxuC6dgz-IaoDzoRTzy8Mb"
+width=200 /></p>
+<p>propeller2を通す前にそれを通すpulley2のねじとリンク軸にM2ワッシャーを通す。以降propeller3~5も同様である。五つ通した状態が次の図である。</p>
+<p align="center">
+<img src="https://drive.google.com/uc?export=view&id=1yDSKdBht5OyjoiGsjdb_HhvdWVW1XIDq" width=180 />
+<img src="https://drive.google.com/uc?export=view&id=1EIkQQsmZtGoCFg-kKbolYCIV2PJXqP7b" width=180 />
+</p>
+<p>最後にリンク軸にM2ナット、M2スプリングワッシャー、M2ナットの順に通す。このようにナットを2つ使って閉めることをダブルナットという。</p>
+<p>このダブルナットはpropellerに近すぎると摩擦が生じて引っ掛かり、逆に遠すぎるとがたつきが生じて引っかかりやすくなることがある。そのため、<span style="color: red; "><strong>下図のように少し遊びを持たせて締める</strong></span>。この際、linkとpulley2のフランジブッシュのつばが密着した状態で締める。締め方は、1つのラジオペンチで奥側のナットを持ち、手前のナットをもう一つのラジオペンチで回すことでしっかり締めることができる。間に挟んだスプリングワッシャーがしっかりと圧縮されていることを確認しよう。(下図は説明と異なりダブルナットに普通のワッシャーを挟んでいるが、スプリングワッシャーを挟むのが正しい。)</p>
+<p align="center">
+<img src="https://drive.google.com/uc?export=view&id=1UIyENcV4ctywLtrUtf-deBSEpoEzRmtb" width=300 />
+<img src="https://drive.google.com/uc?export=view&id=10KC0tPSRsgoDAMTn1vP-WrOQrdHmPeui" width=150 />
+</p>
+<p>下記ののURLの動画くらいに滑らかに回転していれば十分である。</p>
+<p><a href="https://drive.google.com/file/d/1gpxRMjuuxmHPymj4KCzXW7L7yiWkX1sZ/view?usp=sharing">なめらかさ目安動画</a></p>
+<h4 id="ccw版"><a class="header" href="#ccw版">CCW版</a></h4>
+<p>基本的にはCW版と同じであるが、羽を入れる順番が異なる。CW版ではpropeller1から順に上側から通したが、<span style="color: red; "><strong>CCW版ではpropeller5から降順に、下側から</strong></span>pulley2のねじとリンク軸に通していく。</p>
+<p align="center"><img src="https://drive.google.com/uc?export=view&id=1mN4S9YIdgCv7xrDjZUfZNCYWZvPk6k0o"
+width=300 /></p>
+<p>その他の手順は同様で、propellerを通す前にワッシャーを通しておくことを忘れないように気を付ける。すべてとおしたらCWと同様にダブルナットを締め、滑らかに回転することを確かめる。下記のURLの動画くらいに滑らかに回転していれば十分である。(動画はCW版のものと同じで、回っているのはCW版)</p>
+<p><a href="https://drive.google.com/file/d/1gpxRMjuuxmHPymj4KCzXW7L7yiWkX1sZ/view?usp=sharing">なめらかさ目安動画</a></p>
+<p>正しくできていればCW版とプロペラの向きが異なるものになる。</p>
+<p align="center">
+<img src="https://drive.google.com/uc?export=view&id=1Ewu6PLKWO77-PzZzIhG-gou-xvyKr4tT" width=180 />
+<img src="https://drive.google.com/uc?export=view&id=1UUVAjoYsW348jvy5YNhACUE08qsuieAV" width=180 />
+</p>
+<h3 id="プロペラの軸をサーボモーターにつなげる"><a class="header" href="#プロペラの軸をサーボモーターにつなげる">プロペラの軸をサーボモーターにつなげる</a></h3>
+<p>続いてサーボモーターの回転軸と同軸上のフランジブッシュにプロペラのΦ3シャフトを通し、先端にセロハンテープを2-3周巻く。この軸をservoConnectorに下図のように通す。</p>
+<p align="center"><img src="https://drive.google.com/uc?export=view&id=1cc9prUEmrgvw7dSkI0OfN6JcpeSAfPUW"
+width=300 /></p>
+<p>ワッシャーを先に通したM2×15ねじをservoConnectorの横穴に上図のように通し、反対からM2ワッシャー、スプリングワッシャー、ナットの順に通して緩く締める。この段階ではきつく締めない。</p>
+<p>次に、サーボモーターが0°(-90°~+90°の可動域としたとき)になるようにPWM信号を入力する。サーボホーン取り付け時の過程で間違いがなければ<span style="color: red; "><strong>サーボホーンは真横を向くはず</strong></span>である。</p>
+<p>サーボが0°の状態で下図の方向から見て真右側にリンク軸が出ている状態にしておく。下記の図は左がCW版、右がCCW版である。どちらも図の見方でリンク軸が右に偏心している状態が正しい。こうすることで、CW版は図の下側に水をふき、CCW版は図の上側に水をふくようになる。そのため<span style="color: red; "><strong>CW版が船体の前方、CCW版が後方</strong></span>となる(サンプルプログラムを使用した場合)。</p>
+<p align="center">
+<img src="https://drive.google.com/uc?export=view&id=14qg8Wtg9Zc8OJ7AtAYM3DAyJsznzGN_R" width=200 />
+<img src="https://drive.google.com/uc?export=view&id=1fxEruFGVulIwRY2xQwjbk00RItD0bNCU" width=180 />
+</p>
+<p>Φ3シャフトをラジオペンチなどで持ってサーボホーン側になるべく入れ込んでおく。この際あまり奥に入れ込みすぎると摩擦が大きくなるので、<span style="color: red; "><strong>下図のようにboard1のフランジブッシュのつばとpulley2の間に0.5mm~1mm程度の遊びがあると滑らかにまわってくれる</strong></span>。この状態でサーボを0°にするようにPWMを流し、上図のようにリンク軸の方向が真右になっていることを再び確認してからナットを占めてΦ3シャフトを固定する。</p>
+<p align="center"><img src="https://drive.google.com/uc?export=view&id=1qWPsuiLVGXnUcw1lQfgnoAcF_wK36tRu" width=300 /></p>
+<p>Φ３シャフトを固定したらpulley2を回してみて滑らかに回ることを確かめる。下記の動画くらいの滑らかさが目標となる。</p>
+<p><a href="https://drive.google.com/file/d/16h_Z8pa_WN6MJG2Ct8YLRuoBxXhaIb-m/view?usp=sharing">なめらかさ目安動画</a></p>
+<h3 id="輪ゴムをかけて完成"><a class="header" href="#輪ゴムをかけて完成">輪ゴムをかけて完成!!</a></h3>
+<p>pulley1とpulley2の間に輪ゴムを2つかけて完成!(下図はCW版)
+回路につないで動作チェックしよう!
+この機械のプロペラ部分は壊れやすいので、保管する際はプロペラ部に力がかかりすぎないように注意する。</p>
+<p align="center"><img src="https://drive.google.com/uc?export=view&id=1k8pxcMDcT4UT6MVvpN3XkhouvbQEjoIT" width=300 /></p>
+<h2 id="船体作成のヒント"><a class="header" href="#船体作成のヒント">船体作成のヒント</a></h2>
+<p>オムニボートの動力となる部分は完成しましたが、このままでは沈んでしまうため浮力を備えた船体部分を作る必要があります。次のヒントを元に、自分で作ってみましょう。</p>
+<p><span style="color: red; "><strong>注意</strong></span>:このキットの電子部品、回路は防水ではありません。水の飛沫が少し飛ぶ程度なら問題ありませんが、水にモーターを付けると死にます。回路が壊れる可能性もありますので、DCモーターやサーボモーター、回路、ケーブルの金属がむき出しになっているところは<span style="color: red; "><strong>絶対に水に付けないでください</strong></span>。</p>
+<h3 id="プロペラどうしをつなぐ骨を作るのがおすすめ"><a class="header" href="#プロペラどうしをつなぐ骨を作るのがおすすめ">プロペラどうしをつなぐ「骨」を作るのがおすすめ</a></h3>
+<p>プロペラモジュールだけでは当然沈んでしまうため、発泡スチロールなどの浮力材をつけなくてはいけません。しかし発泡スチロールは脆いので、直接発泡スチロールにプロペラモジュールをつけると壊れやすいです。そのため、先にプロペラモジュールどうしをつなぐ”骨”を作っていおいて、その骨に浮力材で肉付けしていくのがおすすめです。</p>
+<p align="center"><img src="https://drive.google.com/uc?export=view&id=1gGwioUOrYLnrHhgIDZgzyZCxp2RGbOl2" width=400 /></p>
+<p align="center"><img src="https://drive.google.com/uc?export=view&id=1GXc7Z-VmRg5DAIz07nGuOUdrzeqFysZA" width=400 /></p>
+<h3 id="回路を保護する"><a class="header" href="#回路を保護する">回路を保護する</a></h3>
+<p>回路と電池ボックスが入るような市販のタッパーのような容器(100均で十分)でこれらを水しぶきから保護しましょう。</p>
+<h3 id="作例"><a class="header" href="#作例">(作例)</a></h3>
+<p>100均のタッパーを用いて回路を保護しています。完全な防水性能はないですが、水しぶきを防ぐには十分です。万が一の回路の短絡を防ぐために、基板の背面には絶縁体(養生テープ)を貼っています。</p>
+<p align="center">
+<img src="https://drive.google.com/uc?export=view&id=1SeET5WbTV-mojgHpr7eyNtIcnQEOLmJL"
+width=180 />
+<img src="https://drive.google.com/uc?export=view&id=1g0aUpJN_FavBg12DZqMJQqDU3u4dz8NT"
+width=180 />
+</p>
+<h3 id="船体のバランスを考える"><a class="header" href="#船体のバランスを考える">船体のバランスを考える</a></h3>
+<p>基本的に水上(水中)ロボットは重心が下で浮心が上になるように設計します。ですが、今回のモーターモジュールの設計では水に付けてはいけないモーターが上の方に来ており、回路も水につけてはいけないため上の方に置くことが想定されます。つまり、<span style="color: red; "><strong>今回のキットで船を作ると重心のほうが浮心より上に来てしまう可能性が高いです</strong></span>。特に工夫なくモーターモジュールに発泡スチロールなどの浮力を付けただけでは転覆し、回路が水没してしまう恐れがあります。もし、一度作った船を手で支えたまま水につけてみて、<span style="color: red; "><strong>横転するようなトルクを感じる場合は船体の両サイドにペットボトルや発泡スチロールで作った浮きをつけてみてください</strong></span>。こうすることで、機体を転覆させるようなトルクがかかったとしても両端の浮力が外側でそれを打ち消すように働き、船体の姿勢を安定化してくれます。</p>
+<h4 id="作例-1"><a class="header" href="#作例-1">(作例)</a></h4>
+<p>アクリル板で骨組みを作りシュナイダープロペラユニットを固定しています。100均の発泡スチロールを浮力材とし、その上に電池や回路が入った100均のタッパーを配置しています。</p>
+<p align="center"><img src="https://drive.google.com/uc?export=view&id=1qL_pSGlj9fTZf1VZoKK8d8WW6qs6rTY9"
+width=400 /></p>
+<h4 id="作例の設計の問題点"><a class="header" href="#作例の設計の問題点">(作例の設計の問題点)</a></h4>
+<p>浮力材である発泡スチロールはただ四角く切り出しただけであり、水の抵抗が大きい形状です。この形を工夫することで、目的の方向への直進性を高めることができると考えられます。形を工夫してみましょう！</p>
 
                     </main>
 
