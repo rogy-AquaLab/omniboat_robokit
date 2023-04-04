@@ -64,17 +64,16 @@
 #### 内容物
 | 種類 | サイズ[^shaft_size] | 個数 | 写真 |
 | :-- | :-- | :-- | :-- |
-| シャフト | `φ2` | 2本 ||
-| シャフト | `φ3` | 2本 ||
-| フランジブッシュ | 内径 `2mm` <br> 高さ `2mm` | 2個 |
-| フランジブッシュ | 内径 `3mm` <br> 高さ `2mm` | 2個 |
-| フランジブッシュ | 内径 `3mm` <br> 高さ `6mm` | 2個 |
-| シリコンチューブ | 内径 `2mm` | 2本 |
-| シリコンチューブ | 内径 `3mm` | 4本 |
-| スズメッキ線 | 長さ `約600mm` | 1本 |
-| 紙やすり(100番台) || 1枚 |
-| 紙やすり(150番台) || 1枚 |
-| 紙やすり(240番台) || 1枚 |
+| シャフト | `φ2` | 2本 | <img src="./assets/part_shaft_phi2.jpg" style="max-width: 300px;"> |
+| シャフト | `φ3` | 2本 | <img src="./assets/part_shaft_phi3.jpg" style="max-width: 300px;"> |
+| フランジブッシュ | 内径 `2mm` <br> 高さ `2mm` | 2個 | <img src="./assets/part_fbush_d2b2.jpg" style="max-width: 300px;"> |
+| フランジブッシュ | 内径 `3mm` <br> 高さ `2mm` | 2個 | <img src="./assets/part_fbush_d3b2.jpg" style="max-width: 300px;"> |
+| フランジブッシュ | 内径 `3mm` <br> 高さ `6mm` | 2個 | <img src="./assets/part_fbush_d3b6.jpg" style="max-width: 300px;"> |
+| シリコンチューブ || 2本 | <img src="./assets/part_silicontube.jpg" style="max-width: 300px;"> |
+| スズメッキ線 | 長さ `約600mm` | 1本 | <img src="./assets/part_tinnedwire.jpg" style="max-width: 300px;"> |
+| 紙やすり(100番台) || 1枚 ||
+| 紙やすり(150番台) || 1枚 ||
+| 紙やすり(240番台) || 1枚 ||
 
 [^shaft_size]: シャフトなどの丸い棒は、その直径をφという記号を使って`φ{直径}`と表記します。
 
@@ -82,10 +81,10 @@
 ### 抵抗器
 | 抵抗値 | カラーコード | 本数 | 写真 |
 | :-- | :-- | :-- | :-- |
-| `10kΩ` | 茶黒橙金 | 5本 ||
-| `1kΩ` | 茶黒赤金 | 6本 ||
-| `470Ω` | ⻩紫茶金 | 2本 ||
-| `220Ω` | 赤赤茶金 | 2本 ||
+| `10kΩ` | 茶黒橙金 | 5本 | <img src="./assets/part_r10k.jpg" style="max-width: 300px;"> |
+| `1kΩ` | 茶黒赤金 | 6本 | <img src="./assets/part_r1k.jpg" style="max-width: 300px;"> |
+| `470Ω` | ⻩紫茶金 | 2本 | <img src="./assets/part_r470.jpg" style="max-width: 300px;"> |
+| `220Ω` | 赤赤茶金 | 2本 | <img src="./assets/part_r220.jpg" style="max-width: 300px;"> |
 
 ### コネクタ/ピン
 | 部品名 | ピン本数 | 個数 | 写真 |
@@ -95,22 +94,22 @@
 | XHコネクタ ポスト | 7ピン | 2個 ||
 | VHコネクタ ベース | 2ピン | 4個 ||
 | VHコネクタ ハウジング | 2ピン | 4個 ||
-| ピンソケット | 最低38ピン |||
-| ピンヘッダ ||||
+| ピンソケット | 最低38ピン || <img src="./assets/part_pinsocket.jpg" style="max-width: 300px;"> |
+| ピンヘッダ ||| <img src="./assets/part_pinheader.jpg" style="max-width: 300px;"> |
 
 ### その他
 | 部品名 | 個数 | 写真 |
 | :-- | :-- | :-- |
-| 積層セラミック コンデンサ `0.1μF` | 2個 ||
-| 電解 コンデンサ `100μF` | 1個 ||
-| DCモータ | 2個 ||
-| サーボモータ(SG-90) | 2個 ||
-| LED | 6個 ||
-| 可変抵抗器 | 1個 ||
-| ジョイスティック | 1個 ||
-| 単3電池ボックス | 2個 ||
-| バッテリースナップ | 1個 ||
-| FET(2SK4017(Q)) <br> (三本のピンが生えた黒い部品) | 2個 ||
-| mpu6050 <br> (小さい青い基盤) | 1個 ||
-| F303K8 <br> (白いマイコン基盤) | 1個 ||
+| 積層セラミック コンデンサ `0.1μF` | 2個 | <img src="./assets/part_scapacitor.jpg" style="max-width: 300px;"> |
+| 電解 コンデンサ `100μF` | 1個 | <img src="./assets/part_ecapacitor.jpg" style="max-width: 300px;"> |
+| DCモータ | 2個 | <img src="./assets/part_dcmotor.jpg" style="max-width: 300px;"> |
+| サーボモータ(SG-90) | 2個 | <img src="./assets/part_servomotor.jpg" style="max-width: 300px;"> |
+| LED | 6個 | <img src="./assets/part_led.jpg" style="max-width: 300px;"> |
+| 可変抵抗器 | 1個 | <img src="./assets/part_r_variable.jpg" style="max-width: 300px;"> |
+| ジョイスティック | 1個 | <img src="./assets/part_joystick.jpg" style="max-width: 300px;"> |
+| 単3電池ボックス | 2個 | <img src="./assets/part_batterybox.jpg" style="max-width: 300px;"> |
+| バッテリースナップ | 1個 | <img src="./assets/part_batterysnap.jpg" style="max-width: 300px;"> |
+| FET(2SK4017(Q)) <br> (三本のピンが生えた黒い部品) | 2個 | <img src="./assets/part_fet.jpg" style="max-width: 300px;"> |
+| mpu6050 <br> (小さい青い基盤) | 1個 | <img src="./assets/part_gyacmeter.jpg" style="max-width: 300px;"> |
+| F303K8 <br> (白いマイコン基盤) | 1個 | <img src="./assets/part_f303k8.jpg" style="max-width: 300px;"> |
 | 導線 | 1セット |
