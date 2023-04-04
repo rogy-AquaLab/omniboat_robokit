@@ -13,17 +13,17 @@
 #### 内容物
 | パーツ名 | 個数 | 写真 |
 | :--| :-- |:-- |
-| **board1** | **2個** | <img src="./assets/part_board1.jpeg" style="max-width: 300px;"> |
-| **board2** | **2個** | <img src="./assets/part_board2.jpeg" style="max-width: 300px;"> |
-| **pillar1** | **2個** | <img src="./assets/part_pillar1.jpeg" style="max-width: 300px;"> |
-| **pillar2** | **4個** | <img src="./assets/part_pillar2.jpeg" style="max-width: 300px;"> |
-| **motorCover** | **2個** | <img src="./assets/part_motorCover.jpeg" style="max-width: 300px;"> |
-| **pulley1** | **2個** | <img src="./assets/part_pulley1.jpeg" style="max-width: 300px;"> |
-| **pulley2** | **2個** | <img src="./assets/part_pulley2.jpeg" style="max-width: 300px;"> |
-| **link** | **2個** | <img src="./assets/part_link.jpeg" style="max-width: 300px;"> |
-| **propeller1~5** | **2×5個** | <img src="./assets/part_propeller1-5.jpeg" style="max-width: 300px;"> |
-| **motorshaftStopper** | **2個** | <img src="./assets/part_motorshaftStopper.jpeg" style="max-width: 300px;"> |
-| **servoConnector** | **2個** | <img src="./assets/part_servoConnector.jpeg" style="max-width: 300px;"> |
+| **board1** | **2個** | <img src="./assets/part_3d_board1.jpeg" style="max-width: 300px;"> |
+| **board2** | **2個** | <img src="./assets/part_3d_board2.jpeg" style="max-width: 300px;"> |
+| **pillar1** | **2個** | <img src="./assets/part_3d_pillar1.jpeg" style="max-width: 300px;"> |
+| **pillar2** | **4個** | <img src="./assets/part_3d_pillar2.jpeg" style="max-width: 300px;"> |
+| **motorCover** | **2個** | <img src="./assets/part_3d_motorCover.jpeg" style="max-width: 300px;"> |
+| **pulley1** | **2個** | <img src="./assets/part_3d_pulley1.jpeg" style="max-width: 300px;"> |
+| **pulley2** | **2個** | <img src="./assets/part_3d_pulley2.jpeg" style="max-width: 300px;"> |
+| **link** | **2個** | <img src="./assets/part_3d_link.jpeg" style="max-width: 300px;"> |
+| **propeller1~5** | **2×5個** | <img src="./assets/part_3d_propeller1-5.jpeg" style="max-width: 300px;"> |
+| **motorshaftStopper** | **2個** | <img src="./assets/part_3d_motorshaftStopper.jpeg" style="max-width: 300px;"> |
+| **servoConnector** | **2個** | <img src="./assets/part_3d_servoConnector.jpeg" style="max-width: 300px;"> |
 
 ### ネジ類
 基本、長さの単位はすべてmm(ミリメートル)です。
