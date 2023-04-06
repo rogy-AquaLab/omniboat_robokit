@@ -1,5 +1,12 @@
 [book]
-authors = ["H1rono"]
+authors = [
+    "H1rono",
+    "suyu-hash",
+    "Tokoroten2003",
+    "yukke3939",
+    "saitenntaisei",
+    "tymtox4",
+]
 language = "ja"
 multilingual = false
 src = "docs"
