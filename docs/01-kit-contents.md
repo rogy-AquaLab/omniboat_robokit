@@ -89,11 +89,10 @@
 ### コネクタ/ピン
 | 部品名 | ピン本数 | 個数 | 写真 |
 | :-- | :-- | :-- | :-- |
-| XHコネクタ ポスト | 2ピン | 1個 ||
-| XHコネクタ ポスト | 3ピン | 6個 ||
-| XHコネクタ ポスト | 7ピン | 2個 ||
-| VHコネクタ ベース | 2ピン | 4個 ||
-| VHコネクタ ハウジング | 2ピン | 4個 ||
+| XHコネクタ ポスト | 2ピン | 1個 | <img src="./assets/part_xhpost_2.jpg" style="max-width: 300px;"> |
+| XHコネクタ ポスト | 3ピン | 6個 | <img src="./assets/part_xhpost_3.jpg" style="max-width: 300px;"> |
+| XHコネクタ ポスト | 7ピン | 2個 | <img src="./assets/part_xhpost_7.jpg" style="max-width: 300px;"> |
+| VHコネクタ ポスト | 2ピン | 4個 | <img src="./assets/part_vhpost_2.jpg" style="max-width: 300px;"> |
 | ピンソケット | 最低38ピン || <img src="./assets/part_pinsocket.jpg" style="max-width: 300px;"> |
 | ピンヘッダ ||| <img src="./assets/part_pinheader.jpg" style="max-width: 300px;"> |
 
