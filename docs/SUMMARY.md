@@ -13,9 +13,10 @@
 - [プログラミング環境構築](./04-environment-setup.md)
 - [コンパイル](./05-compile.md)
 - [アップロード](./06-upload.md)
-- [プログラムの解説](./07-program-expl.md)
+- [サーボの原点合わせについて](./07-reset-servo.md)
+- [プログラムの解説](./08-program-expl.md)
 
 # その他
 
-- [質問・バグ報告について](./08-contributing.md)
-- [入部方法について](./09-joining.md)
+- [質問・バグ報告について](./9-contributing.md)
+- [入部方法について](./10-joining.md)
