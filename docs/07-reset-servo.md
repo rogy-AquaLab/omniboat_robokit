@@ -17,3 +17,7 @@ PWMでは、特定の周期でオンとオフを切り替えることによっ�
 - [PWMとは | 東芝デバイス＆ストレージ株式会社 | 日本](https://toshiba.semicon-storage.com/jp/semiconductor/knowledge/e-learning/brushless-motor/chapter3/what-pwm.html)
 
 ## サーボリセット用のプログラム
+
+ここからは[プログラミング環境構築](./04-environment-setup.md)を既に済ませていることが前提となります。[3: プログラムを開く](./04-environment-setup.md#3-プログラムを開く)で展開したzipファイルの中に、`examples`という名前のフォルダがあります。そのフォルダの中にある`reset-servo`という名前のフォルダをVSCodeで開いてください。
+
+[コンパイル](./05-compile.md)および[アップロード](./06-upload.md)の手順に従ってプログラムのコンパイル、アップロードをすると適切なプログラムがマイコンに書き込まれます。このプログラムでは`PB_4`のピンにサーボモーターの向きを0°にするPWM信号を送ります。
