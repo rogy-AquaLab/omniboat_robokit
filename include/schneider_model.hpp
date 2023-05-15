@@ -144,9 +144,6 @@ private:
     DigitalOut led2;
     DigitalOut led3;
 
-    Ticker flip;
-
-    DigitalIn button;
     BufferedSerial pc;
 };
 }  // namespace omniboat
