@@ -28,13 +28,11 @@ Schneider::Schneider() :
     led1(PA_1),
     led2(PA_3),
     led3(PA_4),
-    button(D7),
     pc(USBTX, USBRX) {
     led(1);
     led(2);
     led(3);
     printf("start up\n");
-    flip.attach_us(callback(this, &Schneider::ticker_flip), 10000);
 
     servo_1.period_ms(20);
     servo_2.period_ms(20);
@@ -100,14 +98,6 @@ void Schneider::joy_read(float joy_x, float joy_y, int rotate) {
     x_d[1] = (joy_y - 0.5f) * 2;
     // x_d[2] = rotate;
     x_d[2] = 0;
-}
-
-void Schneider::flip_shneider() {
-    printf("flip_shneider\n");
-    fet_1 = 0;
-    fet_2 = 0;
-    rtos::ThisThread::sleep_for(5s);
-    NVIC_SystemReset();
 }
 
 inline void Schneider::cal_tjacob() {
@@ -218,12 +208,6 @@ void Schneider::led(int num) {
     case 2: led2 = !led2; break;
     case 3: led3 = !led3; break;
     default: break;
-    }
-}
-
-void Schneider::ticker_flip() {
-    if (button == 0) {
-        flip_shneider();
     }
 }
 
