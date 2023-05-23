@@ -49,6 +49,8 @@
 
 この部分を間違えるとプロペラの推進方向の可動域が変わるので要注意。取り付け後にもう一度PWM Period 20ms, Palse Width 1.45msのPWM信号を流して、サーボホーンが下図のようにサーボモーターと直角の向きになればうまくできている。
 
+※ PWM信号を流す具体的な方法は[サーボの原点合わせについて](./07-reset-servo.md)を参照してください。
+
 <p align="center">
 <img src="https://drive.google.com/uc?export=view&id=12ME7Xeg_XfVyJiwRXnjB20jwG0ZKBmt8" width=180 />    <img src="https://drive.google.com/uc?export=view&id=1PRk7nVO3amvb6OxNI0-vz9hpQDxor_4o" width=180 />
 </p>
