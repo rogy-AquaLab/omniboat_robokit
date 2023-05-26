@@ -51,6 +51,12 @@ void Schneider::init() {
     fill(q.begin(), q.end(), 0.01);
     fill(x.begin(), x.end(), 0);
     cal_tjacob();
+    const bool whoami = mpu.testConnection();
+    if (whoami) {
+        printf("WHOAMI succeeded\n");
+    } else {
+        printf("WHOAMI failed\n");
+    }
 }
 
 void Schneider::one_step() {
