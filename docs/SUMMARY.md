@@ -20,3 +20,4 @@
 
 - [質問・バグ報告について](./9-contributing.md)
 - [入部方法について](./10-joining.md)
+- [トラブルシューティング](./11-troubleshooting.md)
