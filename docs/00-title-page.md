@@ -64,3 +64,7 @@
 4. ページの本文です。
 
 ドキュメントの見方に関するより詳細な解説は[Reading Books - mdBook Documentation](https://rust-lang.github.io/mdBook/guide/reading.html)を参照してください。
+
+## 困ったら
+
+まずは[トラブルシューティング](./11-troubleshooting.md)を参照してください。質問のやり方は[質問・バグ報告について](./09-contributing.md)を参照してください。
