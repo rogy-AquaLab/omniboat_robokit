@@ -1,6 +1,6 @@
 # Summary
 
-[2023 Robokit](./00-title-page.md)
+[Robokit](./00-title-page.md)
 
 # ハードウェア
 
