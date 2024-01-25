@@ -5,3 +5,10 @@
 !.vscode/extensions.json
 
 book
+
+.direnv
+
+# https://github.com/github/gitignore/blob/main/community/Nix.gitignore
+# Ignore build outputs from performing a nix-build or `nix build` command
+result
+result-*
