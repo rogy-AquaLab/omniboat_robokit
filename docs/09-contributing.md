@@ -19,4 +19,4 @@
 > **注意**
 > この節ではGitHubアカウントをすでに持っていることを前提としています。
 
-このドキュメントおよびプログラムは[rogy-AquaLab/2023_robokit](https://github.com/rogy-AquaLab/2023_robokit)で開発しています。[issueを作成](https://github.com/rogy-AquaLab/2023_robokit/issues/new/choose)してバグ報告等お願いします。
+このドキュメントおよびプログラムは[rogy-AquaLab/omniboat_robokit](https://github.com/rogy-AquaLab/omniboat_robokit)で開発しています。[issueを作成](https://github.com/rogy-AquaLab/omniboat_robokit/issues/new/choose)してバグ報告等お願いします。

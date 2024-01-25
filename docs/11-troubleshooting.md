@@ -8,11 +8,11 @@
 
 (Windowsを前提としています)
 
-パス(ファイルの場所を示す文字列)に日本語が含まれている可能性があります。例えばOneDriveの`ドキュメント`フォルダーの中にPlatformIOのプロジェクトを置いた場合、パスは`C:\\Users\[username]\OneDrive\ドキュメント\2023_robokit\...`のようになります。
+パス(ファイルの場所を示す文字列)に日本語が含まれている可能性があります。例えばOneDriveの`ドキュメント`フォルダーの中にPlatformIOのプロジェクトを置いた場合、パスは`C:\\Users\[username]\OneDrive\ドキュメント\omniboat_robokit\...`のようになります。
 
 **解決方法**
 
-`C:\\Users\[username]\Documents\2023_robokit`など、パスに日本語が含まれない場所に置いてください。
+`C:\\Users\[username]\Documents\omniboat_robokit`など、パスに日本語が含まれない場所に置いてください。
 
 ## ロボットが上手く動かない
 
