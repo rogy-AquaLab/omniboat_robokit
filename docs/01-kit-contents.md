@@ -102,7 +102,7 @@
 | 積層セラミック コンデンサ `0.1μF` | 2個 | <img src="./assets/part_scapacitor.jpg" style="max-width: 300px;"> |
 | 電解 コンデンサ `100μF` | 1個 | <img src="./assets/part_ecapacitor.jpg" style="max-width: 300px;"> |
 | DCモータ | 2個 | <img src="./assets/part_dcmotor.jpg" style="max-width: 300px;"> |
-| [サーボモータ(SG-90)](https://akizukidenshi.com/catalog/g/gM-08761/) | 2個 | <img src="./assets/part_servomotor.jpg" style="max-width: 300px;"> |
+| サーボモータ(SG-90) | 2個 | <img src="./assets/part_servomotor.jpg" style="max-width: 300px;"> |
 | LED | 6個 | <img src="./assets/part_led.jpg" style="max-width: 300px;"> |
 | 可変抵抗器 | 1個 | <img src="./assets/part_r_variable.jpg" style="max-width: 300px;"> |
 | ジョイスティック | 1個 | <img src="./assets/part_joystick.jpg" style="max-width: 300px;"> |
