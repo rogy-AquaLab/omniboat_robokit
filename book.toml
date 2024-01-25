@@ -1,20 +1,13 @@
 [book]
-authors = [
-    "H1rono",
-    "suyu-hash",
-    "Tokoroten2003",
-    "yukke3939",
-    "saitenntaisei",
-    "tymtox4",
-]
+authors = ["H1rono", "suyu-hash", "Tokoroten2003", "yukke3939", "saitenntaisei", "tymtox4"]
 language = "ja"
 multilingual = false
 src = "docs"
-title = "2023 Robokit"
+title = "Robokit"
 description = "Robokitの開発に関するドキュメントです。"
 
 [output.html]
-git-repository-url = "https://github.com/rogy-AquaLab/2023_robokit"
+git-repository-url = "https://github.com/rogy-AquaLab/omniboat_robokit"
 git-repository-icon = "fa-github"
 mathjax-support = true
 

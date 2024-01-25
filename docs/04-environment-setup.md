@@ -52,7 +52,7 @@ VSCodeをインストールに適切なファイルをダウンロードする�
 
 まずはロボキットを動かすプログラムをダウンロードします。
 
-[![](https://img.shields.io/badge/ダウンロードはこちら📥%20-%234f88d1.svg?style=for-the-badge&logoColor=black)](https://github.com/rogy-AquaLab/2023_robokit/archive/refs/heads/main.zip)
+[![](https://img.shields.io/badge/ダウンロードはこちら📥%20-%234f88d1.svg?style=for-the-badge&logoColor=black)](https://github.com/rogy-AquaLab/omniboat_robokit/archive/refs/heads/main.zip)
 
 ↑のバッジを押すとzipファイルのダウンロードが始まります。展開して得られるフォルダの中にプログラムが入っています。(zipファイルは削除しても構いません。)
 
