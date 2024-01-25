@@ -85,7 +85,7 @@ jobs:
 
   mdbook:
     env:
-      MDBOOK_VERSION: v0.4.28
+      MDBOOK_VERSION: v0.4.36
     runs-on: ubuntu-latest
     needs: changes
     if: ${{ needs.changes.outputs.docs == 'true' }}
