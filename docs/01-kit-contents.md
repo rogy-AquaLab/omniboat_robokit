@@ -34,10 +34,10 @@
 | 種類[^bolt_type] | サイズ[^bolt_size] | 本数 |
 | :-- | :-- | :-- |
 | [なべネジ](https://www.monotaro.com/g/00010425/?t.q=%E3%81%AA%E3%81%B9%E3%81%AD%E3%81%98%E3%80%80M2) | `M2*10` | 15本 |
-| [なべネジ](https://www.monotaro.com/g/00010425/?t.q=%E3%81%AA%E3%81%B9%E3%81%AD%E3%81%98%E3%80%80M2) | `M2*15` | 22本 |
-| [なべネジ](https://www.monotaro.com/g/00010425/?t.q=%E3%81%AA%E3%81%B9%E3%81%AD%E3%81%98%E3%80%80M2) | `M2*20` | 10本 |
+| なべネジ| `M2*15` | 22本 |
+| なべネジ | `M2*20` | 10本 |
 | [皿ネジ](https://www.monotaro.com/g/00424218/?t.q=%E7%9A%BF%E3%83%8D%E3%82%B8%E3%80%80m2%2030) | `M2*30` | 4本 |
-| [皿ネジ](https://www.monotaro.com/g/00424218/?t.q=%E7%9A%BF%E3%83%8D%E3%82%B8%E3%80%80m%EF%BC%92%E3%80%80%EF%BC%94%EF%BC%90) | `M2*40` | 12本 |
+| 皿ネジ | `M2*40` | 12本 |
 
 **ナット/ワッシャー**
 
@@ -45,7 +45,7 @@
 | :-- | :-- | :-- |
 | [ナット](https://www.monotaro.com/g/02448146/?t.q=%E3%83%8A%E3%83%83%E3%83%88%E3%80%80%EF%BD%8D%EF%BC%92) | `M2` | 38個 |
 | [ワッシャー](https://www.monotaro.com/g/02449666/?t.q=%E3%83%AF%E3%83%83%E3%82%B7%E3%83%A3%E3%83%BC%E3%80%80%EF%BD%8D%EF%BC%92) | `M2` | 82個 |
-| [ワッシャー](https://www.monotaro.com/g/02449697/?t.q=%E3%83%AF%E3%83%83%E3%82%B7%E3%83%A3%E3%83%BC%E3%80%80%EF%BD%8D%EF%BC%93) | `M3` | 6個 |
+| ワッシャー | `M3` | 6個 |
 | [スプリングワッシャー](https://www.monotaro.com/g/02449767/?t.q=%E3%82%B9%E3%83%97%E3%83%AA%E3%83%B3%E3%82%B0%E3%83%AF%E3%83%83%E3%82%B7%E3%83%A3%E3%83%BC%E3%80%80%EF%BD%8D%EF%BC%92) | `M2` | 35個 |
 
 [^bolt_type]: アタマが丸い方がなべネジ、アタマが平らな方が皿ネジです。
@@ -65,15 +65,15 @@
 | 種類 | サイズ[^shaft_size] | 個数 | 写真 |
 | :-- | :-- | :-- | :-- |
 | [シャフト](https://www.monotaro.com/g/01214095/?t.q=%E3%82%B7%E3%83%A3%E3%83%95%E3%83%88%E3%80%80%CF%86%EF%BC%92) | `φ2` | 2本 | <img src="./assets/part_shaft_phi2.jpg" style="max-width: 300px;"> |
-| [シャフト](https://www.monotaro.com/g/01214097/?t.q=%E3%82%B7%E3%83%A3%E3%83%95%E3%83%88%E3%80%80%CF%86%EF%BC%93) | `φ3` | 2本 | <img src="./assets/part_shaft_phi3.jpg" style="max-width: 300px;"> |
+| シャフト | `φ3` | 2本 | <img src="./assets/part_shaft_phi3.jpg" style="max-width: 300px;"> |
 | [フランジブッシュ](https://www.monotaro.com/g/00116854/?t.q=%E3%83%95%E3%83%A9%E3%83%B3%E3%82%B8%E3%83%96%E3%83%83%E3%82%B7%E3%83%A5%E3%80%80%EF%BC%92) | 内径 `2mm` <br> 高さ `2mm` | 2個 | <img src="./assets/part_fbush_d2b2.jpg" style="max-width: 300px;"> |
-| [フランジブッシュ](https://www.monotaro.com/g/00116854/?t.q=%E3%83%95%E3%83%A9%E3%83%B3%E3%82%B8%E3%83%96%E3%83%83%E3%82%B7%E3%83%A5%E3%80%80%EF%BC%92) | 内径 `3mm` <br> 高さ `2mm` | 2個 | <img src="./assets/part_fbush_d3b2.jpg" style="max-width: 300px;"> |
-| [フランジブッシュ](https://www.monotaro.com/g/00116854/?t.q=%E3%83%95%E3%83%A9%E3%83%B3%E3%82%B8%E3%83%96%E3%83%83%E3%82%B7%E3%83%A5%E3%80%80%EF%BC%92) | 内径 `3mm` <br> 高さ `6mm` | 2個 | <img src="./assets/part_fbush_d3b6.jpg" style="max-width: 300px;"> |
+| フランジブッシュ | 内径 `3mm` <br> 高さ `2mm` | 2個 | <img src="./assets/part_fbush_d3b2.jpg" style="max-width: 300px;"> |
+| フランジブッシュ | 内径 `3mm` <br> 高さ `6mm` | 2個 | <img src="./assets/part_fbush_d3b6.jpg" style="max-width: 300px;"> |
 | シリコンチューブ || 2本 | <img src="./assets/part_silicontube.jpg" style="max-width: 300px;"> |
 | [スズメッキ線](https://akizukidenshi.com/catalog/g/g102220/) | 長さ `約600mm` | 1本 | <img src="./assets/part_tinnedwire.jpg" style="max-width: 300px;"> |
 | [紙やすり(100番台)](https://www.monotaro.com/g/06203234/?t.q=%E7%B4%99%E3%82%84%E3%81%99%E3%82%8A%E3%80%80100) || 1枚 ||
-| [紙やすり(150番台)](https://www.monotaro.com/g/06203235/) || 1枚 ||
-| [紙やすり(240番台)](https://www.monotaro.com/g/06203235/) || 1枚 ||
+| 紙やすり(150番台) || 1枚 ||
+| 紙やすり(240番台) || 1枚 ||
 
 [^shaft_size]: シャフトなどの丸い棒は、その直径をφという記号を使って`φ{直径}`と表記します。
 
