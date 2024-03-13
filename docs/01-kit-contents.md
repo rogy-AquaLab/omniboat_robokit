@@ -81,34 +81,34 @@
 ### 抵抗器
 | 抵抗値 | カラーコード | 本数 | 写真 |
 | :-- | :-- | :-- | :-- |
-| `10kΩ` | 茶黒橙金 | 5本 | <img src="./assets/part_r10k.jpg" style="max-width: 300px;"> |
-| `1kΩ` | 茶黒赤金 | 6本 | <img src="./assets/part_r1k.jpg" style="max-width: 300px;"> |
-| `470Ω` | ⻩紫茶金 | 2本 | <img src="./assets/part_r470.jpg" style="max-width: 300px;"> |
-| `220Ω` | 赤赤茶金 | 2本 | <img src="./assets/part_r220.jpg" style="max-width: 300px;"> |
+| [`10kΩ`](https://akizukidenshi.com/catalog/g/gR-07838/) | 茶黒橙金 | 5本 | <img src="./assets/part_r10k.jpg" style="max-width: 300px;"> |
+| [`1kΩ`](https://akizukidenshi.com/catalog/g/gR-07820/) | 茶黒赤金 | 6本 | <img src="./assets/part_r1k.jpg" style="max-width: 300px;"> |
+| [`470Ω`](https://akizukidenshi.com/catalog/g/gR-07814/) | ⻩紫茶金 | 2本 | <img src="./assets/part_r470.jpg" style="max-width: 300px;"> |
+| [`220Ω`](https://akizukidenshi.com/catalog/g/gR-07808/) | 赤赤茶金 | 2本 | <img src="./assets/part_r220.jpg" style="max-width: 300px;"> |
 
 ### コネクタ/ピン
 | 部品名 | ピン本数 | 個数 | 写真 |
 | :-- | :-- | :-- | :-- |
-| XHコネクタ ポスト | 2ピン | 1個 | <img src="./assets/part_xhpost_2.jpg" style="max-width: 300px;"> |
-| XHコネクタ ポスト | 3ピン | 6個 | <img src="./assets/part_xhpost_3.jpg" style="max-width: 300px;"> |
-| XHコネクタ ポスト | 7ピン | 2個 | <img src="./assets/part_xhpost_7.jpg" style="max-width: 300px;"> |
-| VHコネクタ ポスト | 2ピン | 4個 | <img src="./assets/part_vhpost_2.jpg" style="max-width: 300px;"> |
-| ピンソケット | 最低38ピン || <img src="./assets/part_pinsocket.jpg" style="max-width: 300px;"> |
-| ピンヘッダ ||| <img src="./assets/part_pinheader.jpg" style="max-width: 300px;"> |
+| [XHコネクタ ポスト](https://akizukidenshi.com/catalog/g/g112247/) | 2ピン | 1個 | <img src="./assets/part_xhpost_2.jpg" style="max-width: 300px;"> |
+| [XHコネクタ ポスト](https://akizukidenshi.com/catalog/g/g112248/) | 3ピン | 6個 | <img src="./assets/part_xhpost_3.jpg" style="max-width: 300px;"> |
+| [XHコネクタ ポスト](https://akizukidenshi.com/catalog/g/gC-12252/) | 7ピン | 2個 | <img src="./assets/part_xhpost_7.jpg" style="max-width: 300px;"> |
+| [VHコネクタ ポスト](https://eleshop.jp/shop/g/g61J14M/) | 2ピン | 4個 | <img src="./assets/part_vhpost_2.jpg" style="max-width: 300px;"> |
+| [ピンソケット](https://akizukidenshi.com/catalog/g/gC-05779/) | 最低38ピン || <img src="./assets/part_pinsocket.jpg" style="max-width: 300px;"> |
+| [ピンヘッダ](https://akizukidenshi.com/catalog/g/gC-00167/) ||| <img src="./assets/part_pinheader.jpg" style="max-width: 300px;"> |
 
 ### その他
 | 部品名 | 個数 | 写真 |
 | :-- | :-- | :-- |
-| 積層セラミック コンデンサ `0.1μF` | 2個 | <img src="./assets/part_scapacitor.jpg" style="max-width: 300px;"> |
-| 電解 コンデンサ `100μF` | 1個 | <img src="./assets/part_ecapacitor.jpg" style="max-width: 300px;"> |
-| DCモータ | 2個 | <img src="./assets/part_dcmotor.jpg" style="max-width: 300px;"> |
-| サーボモータ(SG-90) | 2個 | <img src="./assets/part_servomotor.jpg" style="max-width: 300px;"> |
-| LED | 6個 | <img src="./assets/part_led.jpg" style="max-width: 300px;"> |
-| 可変抵抗器 | 1個 | <img src="./assets/part_r_variable.jpg" style="max-width: 300px;"> |
-| ジョイスティック | 1個 | <img src="./assets/part_joystick.jpg" style="max-width: 300px;"> |
-| 単3電池ボックス | 2個 | <img src="./assets/part_batterybox.jpg" style="max-width: 300px;"> |
-| バッテリースナップ | 1個 | <img src="./assets/part_batterysnap.jpg" style="max-width: 300px;"> |
-| FET(2SK4017(Q)) <br> (三本のピンが生えた黒い部品) | 2個 | <img src="./assets/part_fet.jpg" style="max-width: 300px;"> |
-| mpu6050 <br> (小さい青い基盤) | 1個 | <img src="./assets/part_gyacmeter.jpg" style="max-width: 300px;"> |
-| F303K8 <br> (白いマイコン基盤) | 1個 | <img src="./assets/part_f303k8.jpg" style="max-width: 300px;"> |
-| 導線 | 1セット |
+| [積層セラミック コンデンサ `0.1μF`](https://akizukidenshi.com/catalog/g/g117877) | 2個 | <img src="./assets/part_scapacitor.jpg" style="max-width: 300px;"> |
+| [電解 コンデンサ `100μF`](https://akizukidenshi.com/catalog/g/gP-13582/) | 1個 | <img src="./assets/part_ecapacitor.jpg" style="max-width: 300px;"> |
+| [DCモータ](https://akizukidenshi.com/catalog/g/gP-06437/) | 2個 | <img src="./assets/part_dcmotor.jpg" style="max-width: 300px;"> |
+| [サーボモータ(SG-90)](https://akizukidenshi.com/catalog/g/gM-08761/) | 2個 | <img src="./assets/part_servomotor.jpg" style="max-width: 300px;"> |
+| [LED](https://akizukidenshi.com/catalog/g/gI-11333/) | 6個 | <img src="./assets/part_led.jpg" style="max-width: 300px;"> |
+| [可変抵抗器](https://www.amazon.co.jp/gp/product/B07JKSHGCF/ref=ppx_yo_dt_b_asin_title_o04_s00?ie=UTF8&psc=1) | 1個 | <img src="./assets/part_r_variable.jpg" style="max-width: 300px;"> |
+| [ジョイスティック](https://www.amazon.co.jp/gp/product/B00M0F21KU/ref=ppx_yo_dt_b_asin_title_o01_s00?ie=UTF8&psc=1) | 1個 | <img src="./assets/part_joystick.jpg" style="max-width: 300px;"> |
+| [単3電池ボックス](https://akizukidenshi.com/catalog/g/gP-02666/) | 2個 | <img src="./assets/part_batterybox.jpg" style="max-width: 300px;"> |
+| [バッテリースナップ](https://akizukidenshi.com/catalog/g/gP-00207/) | 1個 | <img src="./assets/part_batterysnap.jpg" style="max-width: 300px;"> |
+| [FET(2SK4017(Q)) <br> (三本のピンが生えた黒い部品)](https://akizukidenshi.com/catalog/g/gI-07597/) | 2個 | <img src="./assets/part_fet.jpg" style="max-width: 300px;"> |
+| [mpu6050 <br> (小さい青い基盤)](https://www.amazon.co.jp/VKLSVAN-MPU-6050-3%E8%BB%B8%E3%82%B8%E3%83%A3%E3%82%A4%E3%83%AD%E3%82%B9%E3%82%B3%E3%83%BC%E3%83%97-%E5%8A%A0%E9%80%9F%E5%BA%A6%E3%82%BB%E3%83%B3%E3%82%B5%E3%83%BC%E3%83%A2%E3%82%B8%E3%83%A5%E3%83%BC%E3%83%AB-Arduino%E3%81%A8%E4%BA%92%E6%8F%9B/dp/B086GJTV58/) | 1個 | <img src="./assets/part_gyacmeter.jpg" style="max-width: 300px;"> |
+| [F303K8 <br> (白いマイコン基盤)](https://akizukidenshi.com/catalog/g/g110172/) | 1個 | <img src="./assets/part_f303k8.jpg" style="max-width: 300px;"> |
+| [導線](https://akizukidenshi.com/catalog/g/gC-12838/) | 1セット |
