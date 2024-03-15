@@ -15,8 +15,8 @@
         pythonWithPlatformio = pkgs.python3.withPackages (ps: with ps; [ platformio ]);
       in
       {
-        devShells.default = pkgs.mkShell {
-          packages = [ pkgs.platformio-core pythonWithPlatformio ];
+        devShells.default = with pkgs; mkShell {
+          packages = [ platformio-core pythonWithPlatformio clang-tools_16 mdbook ];
         };
       });
 }
