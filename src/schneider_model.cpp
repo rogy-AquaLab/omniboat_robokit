@@ -48,7 +48,7 @@ void Schneider::init() {
     for (auto& row : t_jacobianmatrix) {
         fill(row.begin(), row.end(), 0);
     }
-    fill(q.begin(), q.end(), 0.01);
+    fill(q.begin(), q.end(), 0.01F);
     fill(x.begin(), x.end(), 0);
     cal_tjacob();
     const bool whoami = mpu.testConnection();
@@ -74,10 +74,10 @@ void Schneider::one_step() {
     q[0] = 0;
     q[1] = 0;
 
-    if (abs(x_d[0]) > 0.4f || abs(x_d[1]) > 0.4f) {
+    if (abs(x_d[0]) > 0.4F || abs(x_d[1]) > 0.4F) {
         cal_q();
         set_q();
-    } else if (volume_ < 0.4f || 0.7f < volume_) {
+    } else if (volume_ < 0.4F || 0.7F < volume_) {
         rotate();
         phi = 0;
     } else {
@@ -100,8 +100,8 @@ void Schneider::debug() {
 }
 
 void Schneider::joy_read(float joy_x, float joy_y, int rotate) {
-    x_d[0] = (joy_x - 0.5f) * 2;
-    x_d[1] = (joy_y - 0.5f) * 2;
+    x_d[0] = (joy_x - 0.5F) * 2;
+    x_d[1] = (joy_y - 0.5F) * 2;
     // x_d[2] = rotate;
     x_d[2] = 0;
 }
@@ -164,10 +164,10 @@ inline void Schneider::state_equation() {
 
 void Schneider::set_q() {
     using std::abs;
-    if (abs(q[0] <= 0.4f)) {
+    if (abs(q[0] <= 0.4F)) {
         q[0] = 0;
     }
-    if (abs(q[1] <= 0.4f)) {
+    if (abs(q[1] <= 0.4F)) {
         q[1] = 0;
     }
     fet_1 = q[0];
@@ -197,9 +197,9 @@ void Schneider::set_q() {
 }
 
 void Schneider::rotate() {
-    fet_1 = 0.5;
-    fet_2 = 0.5;
-    if (volume_ < 0.5f) {
+    fet_1 = 0.5F;
+    fet_2 = 0.5F;
+    if (volume_ < 0.5F) {
         servo_1.pulsewidth_us(550);
         servo_2.pulsewidth_us(2350);
     } else {
