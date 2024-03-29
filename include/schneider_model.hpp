@@ -15,12 +15,12 @@ namespace omniboat {
  * @brief z軸周りの慣性モーメント
  * @note もっと正確な値の方がいいかも
  */
-constexpr float I = 1; // NOLINT: FIXME
+constexpr float I = 1;  // NOLINT: FIXME
 /**
  * @brief ステップ幅
  */
-constexpr float e = 0.01; // NOLINT: FIXME
-constexpr float a = 0.1; // NOLINT: FIXME
+constexpr float e = 0.01;  // NOLINT: FIXME
+constexpr float a = 0.1;   // NOLINT: FIXME
 
 /**
  * @brief 試行回数
