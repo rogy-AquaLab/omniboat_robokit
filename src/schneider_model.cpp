@@ -209,7 +209,7 @@ void Schneider::rotate() {
 }
 
 void Schneider::led(int num) {
-    // Silence all checks for all lines between the BEGIN and END
+    // 3つの連続した明示的なブランチがあるといわれたがそんなことない
     //  NOLINTBEGIN
     switch (num) {
     case 1: led1 = !led1; break;
