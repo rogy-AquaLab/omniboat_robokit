@@ -40,6 +40,7 @@ jobs:
               - 'book.toml'
               - 'docs/**'
               - '.github/workflows/main.yml'
+              - 'theme/**'
             examples:
               - 'examples/**'
               - '.github/workflows/main.yml'
