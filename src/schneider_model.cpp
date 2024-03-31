@@ -209,7 +209,8 @@ void Schneider::rotate() {
 }
 
 void Schneider::led(int num) {
-    // NOLINTBEGIN
+    //Silence all checks for all lines between the BEGIN and END
+    // NOLINTBEGIN()
     switch (num) {
     case 1: led1 = !led1; break;
     case 2: led2 = !led2; break;
