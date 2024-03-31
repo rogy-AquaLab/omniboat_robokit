@@ -29,10 +29,8 @@
 ### 1-1. はんだ付けについて
 はんだ付けのコツ等については↓のサイトや動画を参照してください。
 
-[電子工作のコツ/はんだ付け｜村田製作所](https://article.murata.com/ja-jp/article/soldering)
-
-[【永久保存版】はんだ付けのやり方を解説します【はんだづけの原理, DIP部品, 表面実装】【イチケン電子基礎シリーズ】RX-802AS - YouTube](https://www.youtube.com/watch?v=dQ7AUjb1tkA)
-
+- [電子工作のコツ/はんだ付け｜村田製作所](https://article.murata.com/ja-jp/article/soldering)
+- [【永久保存版】はんだ付けのやり方を解説します【はんだづけの原理, DIP部品, 表面実装】【イチケン電子基礎シリーズ】RX-802AS - YouTube](https://www.youtube.com/watch?v=dQ7AUjb1tkA)
 
 ### 1-2. 抵抗のはんだ付け
 ![](https://i.imgur.com/NMhX44i.jpg)
