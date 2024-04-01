@@ -77,7 +77,7 @@ jobs:
         with:
           lfs: true
       - name: Check clang-format
-        uses: DoozyX/clang-format-lint-action@v0.14
+        uses: DoozyX/clang-format-lint-action@v0.17
         with:
           source: "./src ./include ./examples"
           extensions: "h,hpp,c,cpp"
