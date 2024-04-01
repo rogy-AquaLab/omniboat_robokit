@@ -1,7 +1,7 @@
 #include <algorithm>
 #include <chrono>
 #include <cmath>
-#include <stdio.h>
+#include <cstdio>
 #include <thread>
 
 #include "rtos.h"
