@@ -212,9 +212,9 @@ void Schneider::led(int num) {
     // 3つの連続した明示的なブランチがあるといわれたがそんなことない
     // NOLINTBEGIN
     switch (num) {
-    case 1: led1 = !led1; break;
-    case 2: led2 = !led2; break;
-    case 3: led3 = !led3; break;
+    case 1: this->led1 = !this->led1; break;
+    case 2: this->led2 = !this->led2; break;
+    case 3: this->led3 = !this->led3; break;
     default: break;
     }
     // NOLINTEND
