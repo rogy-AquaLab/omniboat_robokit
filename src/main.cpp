@@ -4,8 +4,8 @@ int main() {
     omniboat::Schneider schneider;
     schneider.init();
     schneider.debug();
-    while (1) {
-        schneider.led(1);
+    while (true) {
+        schneider.led(true);
         schneider.one_step();
         // wait(1);
     }
