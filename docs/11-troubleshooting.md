@@ -28,7 +28,7 @@
 
 Windowsでマイコンへのアップロードを行っている時に発生するエラーです。ST-Linkのドライバがインストールされていない可能性があります。以下の手順を試してみてください。
 
-1. https://www.st.com/en/development-tools/stsw-link009.html を開く
+1. [こちらのリンク](https://www.st.com/en/development-tools/stsw-link009.html) を開く
 2. `Get Software`を押して、ドライバのインストーラをダウンロードする
     - アカウント登録を求められます、新規登録をお願いします🙏
 3. zipファイルがダウンロードされるので展開する
