@@ -45,9 +45,9 @@ jobs:
               - 'examples/**'
               - '.github/workflows/main.yml'
     outputs:
-      src: ${{ steps.filter.outputs.src }}
-      docs: ${{ steps.filter.outputs.docs }}
-      examples: ${{ steps.filter.outputs.examples }}
+      src: ${{ github.ref == 'refs/heads/main' || steps.filter.outputs.src }}
+      docs: ${{ github.ref == 'refs/heads/main' || steps.filter.outputs.docs }}
+      examples: ${{ github.ref == 'refs/heads/main' || steps.filter.outputs.examples }}
 
   pio-build:
     runs-on: ubuntu-latest
