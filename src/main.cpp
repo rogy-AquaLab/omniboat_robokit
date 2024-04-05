@@ -5,7 +5,7 @@ int main() {
     schneider.init();
     schneider.debug();
     while (true) {
-        schneider.led(true);
+        schneider.led(1);
         schneider.one_step();
         // wait(1);
     }
