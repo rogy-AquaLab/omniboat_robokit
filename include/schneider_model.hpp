@@ -30,7 +30,7 @@ constexpr int trial_num = 1000;
 /**
  * @brief volumeの閾値
  */
-constexpr float volThreshold = 0.5F;
+constexpr float volumeThreshold = 0.5F;
 
 /**
  * @brief モータへの出力を計算するクラス
