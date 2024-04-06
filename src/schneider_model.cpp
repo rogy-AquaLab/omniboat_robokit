@@ -199,7 +199,7 @@ void Schneider::set_q() {
 void Schneider::rotate() {
     fet_1 = 0.5F;
     fet_2 = 0.5F;
-    if (volume_ < 0.5F) {
+    if (volume_ < volumeThreshold) {
         servo_1.pulsewidth_us(550);
         servo_2.pulsewidth_us(2350);
     } else {
