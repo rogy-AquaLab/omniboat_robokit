@@ -1,6 +1,6 @@
 #include "schneider_model.hpp"
 
-int main() {
+auto main() -> int {
     omniboat::Schneider schneider;
     schneider.init();
     schneider.debug();
@@ -9,5 +9,4 @@ int main() {
         schneider.one_step();
         // wait(1);
     }
-    return 0;
 }
