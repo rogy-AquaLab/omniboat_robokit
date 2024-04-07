@@ -202,11 +202,11 @@ void Schneider::rotate() {
     // ifとelseで内容が同じだといわれたがそんなことない
     // NOLINTBEGIN(bugprone-branch-clone)
     if (volume_ < volumeThreshold) {
-        this->servo_1.pulsewidth_us(550);
-        this->servo_2.pulsewidth_us(2350);
+        this->servo_1.pulsewidth_us(pulsewidthMinorUs);
+        this->servo_2.pulsewidth_us(pulsewidthMajorUs);
     } else {
-        this->servo_2.pulsewidth_us(550);
-        this->servo_1.pulsewidth_us(2350);
+        this->servo_2.pulsewidth_us(pulsewidthMinorUs);
+        this->servo_1.pulsewidth_us(pulsewidthMajorUs);
     }
     // NOLINTEND(bugprone-branch-clone)
 }
