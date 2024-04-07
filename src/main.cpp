@@ -9,4 +9,5 @@ int main() {
         schneider.one_step();
         // wait(1);
     }
+    return 0;
 }
