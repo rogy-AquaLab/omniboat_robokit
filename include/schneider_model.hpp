@@ -33,12 +33,12 @@ constexpr int trial_num = 1000;
 constexpr float volumeThreshold = 0.5F;
 
 /**
- * @brief volumeの閾値
+ * @brief pulsewidthの小さいほうの値
  */
 constexpr int pulsewidthMinorUs = 550;
 
 /**
- * @brief volumeの閾値
+ * @brief pulsewidthの大きいほうの値
  */
 constexpr int pulsewidthMajorUs = 2350;
 
