@@ -33,6 +33,16 @@ constexpr int trial_num = 1000;
 constexpr float volumeThreshold = 0.5F;
 
 /**
+ * @brief pulsewidthの小さいほうの値
+ */
+constexpr int minorRotatePulsewidthUs = 550;
+
+/**
+ * @brief pulsewidthの大きいほうの値
+ */
+constexpr int majorRotatePulsewidthUs = 2350;
+
+/**
  * @brief モータへの出力を計算するクラス
  */
 class Schneider {
