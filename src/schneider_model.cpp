@@ -199,6 +199,8 @@ void Schneider::set_q() {
 void Schneider::rotate() {
     fet_1 = 0.5F;
     fet_2 = 0.5F;
+    // ifとelseで内容が同じだといわれたがそんなことない
+    // NOLINTBEGIN(bugprone-branch-clone)
     if (volume_ < volumeThreshold) {
         servo_1.pulsewidth_us(550);
         servo_2.pulsewidth_us(2350);
@@ -206,6 +208,7 @@ void Schneider::rotate() {
         servo_2.pulsewidth_us(550);
         servo_1.pulsewidth_us(2350);
     }
+    // NOLINTEND(bugprone-branch-clone)
 }
 
 void Schneider::led(int num) {
