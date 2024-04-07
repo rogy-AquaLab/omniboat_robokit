@@ -60,14 +60,17 @@ VSCodeをインストールに適切なファイルをダウンロードする�
 >### zipファイル展開の流れ（わかる人はとばして大丈夫です。）
 >#### Windows
 >1. zipファイルをダウンロードすると右上に表示されるのでダウンロードが終わってから`omniboat_robokit_main.zip`のzipファイルににポインタを当ててファイルマークをクリックしてください。
-（またはエクスプローラーのダウンロードフォルダからzipファイルを探してください。）<br>
->   <img src="assets/zip_download.png" style="max-width: 300px;">
+>（またはエクスプローラーのダウンロードフォルダからzipファイルを探してください。）
+>
+>    <img src="assets/zip_download.png" style="max-width: 300px;">
 >
 >2. ファイルを選択して右クリックし、「すべて展開」を選択してください。
->   <img src="assets/zip_explorer.png" sttyle="max-width:300px;" > &emsp; <img src="assets\zip_allopen.png" style="max-width:300px;" >
+>
+>    <img src="assets/zip_explorer.png" style="max-width:300px;" > &emsp; <img src="assets/zip_allopen.png" style="max-width:200px;" >
 >
 >3. 「参照」を選択して展開先をドキュメントに変更し、右下の「展開」をクリックしてください。（別の場所にしたい人は別のフォルダを選んでください。）
->   <img src="assets/zip_document.png" style="max-width:300px;" >
+>
+>    <img src="assets/zip_documents.png" style="max-width:300px;" >
 >
 >#### Mac
 >1. Finderを開き、zipファイルをダウンロードフォルダからドキュメントフォルダに移動させてください。
