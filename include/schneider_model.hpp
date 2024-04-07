@@ -135,7 +135,6 @@ private:
      */
     void rotate();
 
-private:
     AnalogIn adcIn1;  // ジョイスティック
     AnalogIn adcIn2;  // ジョイスティック
     AnalogIn volume;
