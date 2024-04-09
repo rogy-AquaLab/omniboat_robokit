@@ -27,10 +27,11 @@ VSCodeをインストールに適切なファイルをダウンロードする�
 ### Windows
 
 ダウンロードされたものはVSCodeのインストーラです。ファイルを開いて実行すると、VSCodeをインストールするためのウィンドウが開きます。
-
-以降はウィンドウの指示に従って進めてください。オプションが何個かありますが、迷った場合/わからなかった場合はとりあえずチェックを入れておくのが吉です。
+以降はウィンドウの指示に従って進めてください。
 
 ダウンロード後のスクリーンショット付きの説明は[VSCode | Visual Studio Codeのダウンロードとインストール #Visual Studio Codeをインストールする](https://www.javadrive.jp/vscode/install/index1.html#section2)を参照してください。
+
+オプションが何個かありますが、迷った場合/わからなかった場合はとりあえずチェックを入れておくのが吉です。
 
 ### Mac
 
@@ -55,6 +56,25 @@ VSCodeをインストールに適切なファイルをダウンロードする�
 [![](https://img.shields.io/badge/ダウンロードはこちら📥%20-%234f88d1.svg?style=for-the-badge&logoColor=black)](https://github.com/rogy-AquaLab/omniboat_robokit/archive/refs/heads/main.zip)
 
 ↑のバッジを押すとzipファイルのダウンロードが始まります。展開して得られるフォルダの中にプログラムが入っています。(zipファイルは削除しても構いません。)
+
+>### zipファイル展開の流れ（わかる人はとばして大丈夫です。）
+>#### Windows
+>1. zipファイルをダウンロードすると右上に表示されるのでダウンロードが終わってから`omniboat_robokit_main.zip`のzipファイルににポインタを当ててファイルマークをクリックしてください。
+>（またはエクスプローラーのダウンロードフォルダからzipファイルを探してください。）
+>
+>    <img src="assets/zip_download.png" style="max-width: 300px;">
+>
+>2. ファイルを選択して右クリックし、「すべて展開」を選択してください。
+>
+>    <img src="assets/zip_explorer.png" style="max-width:300px;" > &emsp; <img src="assets/zip_allopen.png" style="max-width:200px;" >
+>
+>3. 「参照」を選択して展開先をドキュメントに変更し、右下の「展開」をクリックしてください。（別の場所にしたい人は別のフォルダを選んでください。）
+>
+>    <img src="assets/zip_documents.png" style="max-width:300px;" >
+>
+>#### Mac
+>1. Finderを開き、zipファイルをダウンロードフォルダからドキュメントフォルダに移動させてください。
+>2. zipファイルをダブルクリックしてください。展開が完了します。
 
 続いて、展開したフォルダをVSCodeで開きます。Windowsの方はウィンドウ左上のメニュー、Macの方は画面左上のメニューから *ファイル>フォルダーを開く* を選択してください。フォルダを選ぶためのウィンドウが出てくるので、先程zipファイルを展開して得たフォルダを選択して開いてください。
 
