@@ -139,7 +139,9 @@ void Schneider::cal_q() {
         state_equation();
 
         double diff = pow(x[0] - x_d[0], 2) + pow(x[1] - x_d[1], 2) + pow(x[2] - x_d[2], 2);
-        if (diff < 1e-3) break;
+        if (diff < 1e-3) {
+            break;
+        }
 
         cal_tjacob();
         for (int j = 0; j < 4; j++) {
