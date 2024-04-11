@@ -126,10 +126,11 @@ inline void Schneider::cal_tjacob() {
 void Schneider::cal_q() {
     using std::pow;
     // 初期値
-    const float coef = (x_d[0] >= 0 && x_d[1] >= 0)  ? 1
-                       : (x_d[0] >= 0 && x_d[1] < 0) ? -1
-                       : (x_d[0] < 0 && x_d[1] >= 0) ? 3
-                                                     : 5;
+    float coef;
+    coef = (x_d[0] >= 0 && x_d[1] >= 0)  ? 1
+           : (x_d[0] >= 0 && x_d[1] < 0) ? -1
+           : (x_d[0] < 0 && x_d[1] >= 0) ? 3
+                                         : 5;
     for (int i = 2; i < 4; ++i) {
         q[i] = coef * schneider_PI / 4 - phi;
     }
@@ -138,7 +139,8 @@ void Schneider::cal_q() {
     for (int i = 0; i < trial_num; i++) {
         state_equation();
 
-        double diff = pow(x[0] - x_d[0], 2) + pow(x[1] - x_d[1], 2) + pow(x[2] - x_d[2], 2);
+        double diff;
+        diff = pow(x[0] - x_d[0], 2) + pow(x[1] - x_d[1], 2) + pow(x[2] - x_d[2], 2);
         if (diff < 1e-3) {
             break;
         }
