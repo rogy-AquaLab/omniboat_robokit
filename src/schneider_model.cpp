@@ -167,25 +167,25 @@ inline void Schneider::state_equation() {
 void Schneider::set_q() {
     using std::abs;
     if (abs(q[0] <= 0.4F)) {
-        q[0] = 0;
+        this->q[0] = 0;
     }
     if (abs(q[1] <= 0.4F)) {
-        q[1] = 0;
+        this->q[1] = 0;
     }
-    fet_1 = q[0];
-    fet_2 = q[1];
+    this->fet_1 = this->q[0];
+    this->fet_2 = this->q[1];
 
     while (q[2] >= schneider_PI) {
-        q[2] -= 2 * schneider_PI;
+        this->q[2] -= 2 * schneider_PI;
     }
     while (q[3] >= schneider_PI) {
-        q[3] -= 2 * schneider_PI;
+        this->q[3] -= 2 * schneider_PI;
     }
     while (q[2] < -schneider_PI) {
-        q[2] += 2 * schneider_PI;
+        this->q[2] += 2 * schneider_PI;
     }
     while (q[3] < -schneider_PI) {
-        q[3] += 2 * schneider_PI;
+        this->q[3] += 2 * schneider_PI;
     }
 
     if (0 < q[2] && q[2] < schneider_PI) {
