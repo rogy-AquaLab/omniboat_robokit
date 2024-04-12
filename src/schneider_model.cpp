@@ -166,35 +166,37 @@ inline void Schneider::state_equation() {
 
 void Schneider::set_q() {
     using std::abs;
-    if (abs(q[0] <= 0.4F)) {
-        q[0] = 0;
+    if (abs(this->q[0] <= 0.4F)) {
+        this->q[0] = 0;
     }
-    if (abs(q[1] <= 0.4F)) {
-        q[1] = 0;
+    if (abs(this->q[1] <= 0.4F)) {
+        this->q[1] = 0;
     }
-    fet_1 = q[0];
-    fet_2 = q[1];
+    this->fet_1 = this->q[0];
+    this->fet_2 = this->q[1];
 
-    while (q[2] >= schneider_PI) {
-        q[2] -= 2 * schneider_PI;
+    while (this->q[2] >= schneider_PI) {
+        this->q[2] -= 2 * schneider_PI;
     }
-    while (q[3] >= schneider_PI) {
-        q[3] -= 2 * schneider_PI;
+    while (this->q[3] >= schneider_PI) {
+        this->q[3] -= 2 * schneider_PI;
     }
-    while (q[2] < -schneider_PI) {
-        q[2] += 2 * schneider_PI;
+    while (this->q[2] < -schneider_PI) {
+        this->q[2] += 2 * schneider_PI;
     }
-    while (q[3] < -schneider_PI) {
-        q[3] += 2 * schneider_PI;
+    while (this->q[3] < -schneider_PI) {
+        this->q[3] += 2 * schneider_PI;
     }
 
-    if (0 < q[2] && q[2] < schneider_PI) {
-        const int width = static_cast<int>(500 + 1900 / schneider_PI * q[2] - 2200 * gyro[2]);
-        servo_1.pulsewidth_us(width);
+    if (0 < this->q[2] && this->q[2] < schneider_PI) {
+        const int width
+            = static_cast<int>(500 + 1900 / schneider_PI * this->q[2] - 2200 * this->gyro[2]);
+        this->servo_1.pulsewidth_us(width);
     }
-    if (0 < q[3] && q[3] < schneider_PI) {
-        const int width = static_cast<int>(500 + 1900 / schneider_PI * q[3] + 2200 * gyro[2]);
-        servo_2.pulsewidth_us(width);
+    if (0 < this->q[3] && this->q[3] < schneider_PI) {
+        const int width
+            = static_cast<int>(500 + 1900 / schneider_PI * this->q[3] + 2200 * this->gyro[2]);
+        this->servo_2.pulsewidth_us(width);
     }
 }
 
