@@ -189,11 +189,13 @@ void Schneider::set_q() {
     }
 
     if (0 < this->q[2] && this->q[2] < schneider_PI) {
-        const int width = static_cast<int>(500 + 1900 / schneider_PI * this->q[2] - 2200 * this->gyro[2]);
+        const int width
+            = static_cast<int>(500 + 1900 / schneider_PI * this->q[2] - 2200 * this->gyro[2]);
         this->servo_1.pulsewidth_us(width);
     }
     if (0 < this->q[3] && this->q[3] < schneider_PI) {
-        const int width = static_cast<int>(500 + 1900 / schneider_PI * this->q[3] + 2200 * this->gyro[2]);
+        const int width
+            = static_cast<int>(500 + 1900 / schneider_PI * this->q[3] + 2200 * this->gyro[2]);
         this->servo_2.pulsewidth_us(width);
     }
 }
