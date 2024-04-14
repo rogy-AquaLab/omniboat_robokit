@@ -10,7 +10,7 @@
 
 namespace omniboat {
 
-Schneider::Schneider() :
+Schneider::Schneider() :  // NOLINT
     phi(0),
     gyro(),
     t_jacobianmatrix(),
@@ -139,9 +139,7 @@ void Schneider::cal_q() {
         state_equation();
 
         double diff = pow(x[0] - x_d[0], 2) + pow(x[1] - x_d[1], 2) + pow(x[2] - x_d[2], 2);
-        if (diff < 1e-3) {
-            break;
-        }
+        if (diff < 1e-3) break;
 
         cal_tjacob();
         for (int j = 0; j < 4; j++) {
@@ -166,37 +164,35 @@ inline void Schneider::state_equation() {
 
 void Schneider::set_q() {
     using std::abs;
-    if (abs(this->q[0] <= 0.4F)) {
-        this->q[0] = 0;
+    if (abs(q[0] <= 0.4F)) {
+        q[0] = 0;
     }
-    if (abs(this->q[1] <= 0.4F)) {
-        this->q[1] = 0;
+    if (abs(q[1] <= 0.4F)) {
+        q[1] = 0;
     }
-    this->fet_1 = this->q[0];
-    this->fet_2 = this->q[1];
+    fet_1 = q[0];
+    fet_2 = q[1];
 
-    while (this->q[2] >= schneider_PI) {
-        this->q[2] -= 2 * schneider_PI;
+    while (q[2] >= schneider_PI) {
+        q[2] -= 2 * schneider_PI;
     }
-    while (this->q[3] >= schneider_PI) {
-        this->q[3] -= 2 * schneider_PI;
+    while (q[3] >= schneider_PI) {
+        q[3] -= 2 * schneider_PI;
     }
-    while (this->q[2] < -schneider_PI) {
-        this->q[2] += 2 * schneider_PI;
+    while (q[2] < -schneider_PI) {
+        q[2] += 2 * schneider_PI;
     }
-    while (this->q[3] < -schneider_PI) {
-        this->q[3] += 2 * schneider_PI;
+    while (q[3] < -schneider_PI) {
+        q[3] += 2 * schneider_PI;
     }
 
-    if (0 < this->q[2] && this->q[2] < schneider_PI) {
-        const int width
-            = static_cast<int>(500 + 1900 / schneider_PI * this->q[2] - 2200 * this->gyro[2]);
-        this->servo_1.pulsewidth_us(width);
+    if (0 < q[2] && q[2] < schneider_PI) {
+        int width = static_cast<int>(500 + 1900 / schneider_PI * q[2] - 2200 * gyro[2]);
+        servo_1.pulsewidth_us(width);
     }
-    if (0 < this->q[3] && this->q[3] < schneider_PI) {
-        const int width
-            = static_cast<int>(500 + 1900 / schneider_PI * this->q[3] + 2200 * this->gyro[2]);
-        this->servo_2.pulsewidth_us(width);
+    if (0 < q[3] && q[3] < schneider_PI) {
+        int width = static_cast<int>(500 + 1900 / schneider_PI * q[3] + 2200 * gyro[2]);
+        servo_2.pulsewidth_us(width);
     }
 }
 
@@ -206,11 +202,11 @@ void Schneider::rotate() {
     // ifとelseで内容が同じだといわれたがそんなことない
     // NOLINTBEGIN(bugprone-branch-clone)
     if (volume_ < volumeThreshold) {
-        this->servo_1.pulsewidth_us(minorRotatePulsewidthUs);
-        this->servo_2.pulsewidth_us(majorRotatePulsewidthUs);
+        servo_1.pulsewidth_us(550);
+        servo_2.pulsewidth_us(2350);
     } else {
-        this->servo_2.pulsewidth_us(minorRotatePulsewidthUs);
-        this->servo_1.pulsewidth_us(majorRotatePulsewidthUs);
+        servo_2.pulsewidth_us(550);
+        servo_1.pulsewidth_us(2350);
     }
     // NOLINTEND(bugprone-branch-clone)
 }
