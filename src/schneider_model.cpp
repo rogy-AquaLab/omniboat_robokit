@@ -9,8 +9,8 @@
 #include "schneider_model.hpp"
 
 namespace omniboat {
-
-Schneider::Schneider() :  // NOLINT
+// NOLINTBEGIN(cppcoreguidelines-pro-type-member-init)
+Schneider::Schneider() :
     phi(0),
     gyro(),
     t_jacobianmatrix(),
@@ -36,6 +36,7 @@ Schneider::Schneider() :  // NOLINT
 
     servo_1.period_ms(20);
     servo_2.period_ms(20);
+    // NOLINTEND(cppcoreguidelines-pro-type-member-init)
 }
 
 Schneider::~Schneider() {
