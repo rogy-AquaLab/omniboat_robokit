@@ -50,8 +50,8 @@ void Schneider::init() {
     }
     fill(this->q.begin(), this->q.end(), 0.01F);
     fill(this->x.begin(), this->x.end(), 0);
-    cal_tjacob();
-    const bool whoami = mpu.testConnection();
+    this->cal_tjacob();
+    const bool whoami = this->mpu.testConnection();
     if (whoami) {
         printf("WHOAMI succeeded\n");
     } else {
@@ -67,7 +67,7 @@ void Schneider::one_step() {
     this->mpu.getGyro(gyro.data());
 
     // ジョイコンの値を読み取る
-    this->joy_read(adcIn1.read(), adcIn2.read(), 0.0);
+    this->joy_read(this->adcIn1.read(), this->adcIn2.read(), 0.0);
 
     this->volume_ = this->volume.read();
 
@@ -79,18 +79,18 @@ void Schneider::one_step() {
                                  || volumeIneffectiveRange.second < this->volume_;
 
     if (joyEffective) {
-        cal_q();
-        set_q();
+        this->cal_q();
+        this->set_q();
     } else if (volumeEffective) {
-        rotate();
-        phi = 0;
+        this->rotate();
+        this->phi = 0;
     } else {
-        fet_1 = 0;
-        fet_2 = 0;
-        phi = 0;
+        this->fet_1 = 0;
+        this->fet_2 = 0;
+        this->phi = 0;
     }
-    debug();
-    led(3);
+    this->debug();
+    this->led(3);
 }
 
 void Schneider::debug() {
@@ -130,10 +130,10 @@ inline void Schneider::cal_tjacob() {
 void Schneider::cal_q() {
     using std::pow;
     // 初期値
-    const float coef = (x_d[0] >= 0 && x_d[1] >= 0)  ? 1
-                       : (x_d[0] >= 0 && x_d[1] < 0) ? -1
-                       : (x_d[0] < 0 && x_d[1] >= 0) ? 3
-                                                     : 5;
+    const float coef = (this->x_d[0] >= 0 && this->x_d[1] >= 0)  ? 1
+                       : (this->x_d[0] >= 0 && this->x_d[1] < 0) ? -1
+                       : (this->x_d[0] < 0 && this->x_d[1] >= 0) ? 3
+                                                                 : 5;
     for (int i = 2; i < 4; ++i) {
         this->q[i] = coef * schneider_PI / 4 - this->phi;
     }
@@ -142,7 +142,8 @@ void Schneider::cal_q() {
     for (int i = 0; i < trial_num; i++) {
         this->state_equation();
 
-        double diff = pow(x[0] - x_d[0], 2) + pow(x[1] - x_d[1], 2) + pow(x[2] - x_d[2], 2);
+        double diff = pow(this->x[0] - this->x_d[0], 2) + pow(this->x[1] - this->x_d[1], 2)
+                      + pow(this->x[2] - this->x_d[2], 2);
         if (diff < diffThreshold) {
             break;
         }
@@ -211,7 +212,7 @@ void Schneider::rotate() {
     this->fet_2 = 0.5F;
     // ifとelseで内容が同じだといわれたがそんなことない
     // NOLINTBEGIN(bugprone-branch-clone)
-    if (volume_ < volumeThreshold) {
+    if (this->volume_ < volumeThreshold) {
         this->servo_1.pulsewidth_us(minorRotatePulsewidthUs);
         this->servo_2.pulsewidth_us(majorRotatePulsewidthUs);
     } else {
