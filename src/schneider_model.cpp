@@ -74,10 +74,15 @@ void Schneider::one_step() {
     q[0] = 0;
     q[1] = 0;
 
-    if (abs(x_d[0]) > 0.4F || abs(x_d[1]) > 0.4F) {
+    const bool joyEffective
+        = abs(x_d[0]) > joyEffectiveRangeMin || abs(x_d[1]) > joyEffectiveRangeMin;
+    const bool volumeEffective
+        = volumeEffectiveRange[0] < volume_ && volume_ < volumeEffectiveRange[1];
+
+    if (joyEffective) {
         cal_q();
         set_q();
-    } else if (volume_ < 0.4F || 0.7F < volume_) {
+    } else if (volumeEffective) {
         rotate();
         phi = 0;
     } else {
@@ -139,7 +144,7 @@ void Schneider::cal_q() {
         state_equation();
 
         double diff = pow(x[0] - x_d[0], 2) + pow(x[1] - x_d[1], 2) + pow(x[2] - x_d[2], 2);
-        if (diff < 1e-3) {
+        if (diff < diffEffectiveRangeMin) {
             break;
         }
 
@@ -166,10 +171,10 @@ inline void Schneider::state_equation() {
 
 void Schneider::set_q() {
     using std::abs;
-    if (abs(this->q[0] <= 0.4F)) {
+    if (abs(this->q[0] <= joyEffectiveRangeMin)) {
         this->q[0] = 0;
     }
-    if (abs(this->q[1] <= 0.4F)) {
+    if (abs(this->q[1] <= joyEffectiveRangeMin)) {
         this->q[1] = 0;
     }
     this->fet_1 = this->q[0];
