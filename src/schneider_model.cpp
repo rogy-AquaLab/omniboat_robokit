@@ -64,7 +64,7 @@ void Schneider::one_step() {
     this->led(3);
 
     // ジャイロセンサの値を読み取る
-    this->mpu.getGyro(gyro.data());
+    this->mpu.getGyro(this->gyro.data());
 
     // ジョイコンの値を読み取る
     this->joy_read(this->adcIn1.read(), this->adcIn2.read(), 0.0);
