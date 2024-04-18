@@ -118,7 +118,7 @@ M2×10ネジを図のようにmotorshaftStopperに2つ通し、ナットで締�
 ### pulley2の下準備(2つ作る)
 pulley2の各2mm穴に<span style="color: red; ">**皿ねじ用の面取りがされている方からM2×40の皿ねじを通し**</span>、反対からM2ワッシャー、M2スプリングワッシャー、M2ナットの順で通し、ナットを締める。これを5つの穴すべてに行う。続いてネジが出ている方と同じ方向に面が出るように内径3mm、長さ6mmのフランジブッシュを中心の穴に取り付ける。
 
-<p align="center"><img src="./gdrive/omazinai.jpg"
+<p align="center"><img src="./gdrive/konomuki.jpg"
 width=300 /></p>
 
 ### linkの圧入とネジ固定(２つ作る)
@@ -189,8 +189,7 @@ propeller2を通す前にそれを通すpulley2のねじとリンク軸にM2ワ�
 #### CCW版
 基本的にはCW版と同じであるが、羽を入れる順番が異なる。CW版ではpropeller1から順に上側から通したが、<span style="color: red; ">**CCW版ではpropeller5から降順に、下側から**</span>pulley2のねじとリンク軸に通していく。
 
-<p align="center"><img src="./gdrive/unnamed.jpg"
-width=300 /></p>
+<p align="center"><img src="./gdrive/unnamed.jpg" width=300 /></p>
 
 その他の手順は同様で、propellerを通す前にワッシャーを通しておくことを忘れないように気を付ける。すべてとおしたらCWと同様にダブルナットを締め、滑らかに回転することを確かめる。下記のURLの動画くらいに滑らかに回転していれば十分である。(動画はCW版のものと同じで、回っているのはCW版)
 
@@ -206,8 +205,7 @@ width=300 /></p>
 ### プロペラの軸をサーボモーターにつなげる
 続いてサーボモーターの回転軸と同軸上のフランジブッシュにプロペラのΦ3シャフトを通し、先端にセロハンテープを2-3周巻く。この軸をservoConnectorに下図のように通す。
 
-<p align="center"><img src="./gdrive/serohan.JPG"
-width=300 /></p>
+<p align="center"><img src="./gdrive/serohan.JPG" width=300 /></p>
 
 ワッシャーを先に通したM2×15ねじをservoConnectorの横穴に上図のように通し、反対からM2ワッシャー、スプリングワッシャー、ナットの順に通して緩く締める。この段階ではきつく締めない。
 
@@ -255,10 +253,8 @@ pulley1とpulley2の間に輪ゴムを2つかけて完成!(下図はCW版)
 100均のタッパーを用いて回路を保護しています。完全な防水性能はないですが、水しぶきを防ぐには十分です。万が一の回路の短絡を防ぐために、基板の背面には絶縁体(養生テープ)を貼っています。
 
 <p align="center">
-<img src="./gdrive/IMG_0783.JPG"
-width=180 />
-<img src="./gdrive/IMG_0792.jpg"
-width=180 />
+<img src="./gdrive/IMG_0783.JPG" width=180 />
+<img src="./gdrive/IMG_0792.jpg" width=180 />
 </p>
 
 
@@ -272,4 +268,3 @@ width=400 /></p>
 
 #### (作例の設計の問題点)
 浮力材である発泡スチロールはただ四角く切り出しただけであり、水の抵抗が大きい形状です。この形を工夫することで、目的の方向への直進性を高めることができると考えられます。形を工夫してみましょう！
-
