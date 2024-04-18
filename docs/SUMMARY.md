@@ -24,6 +24,6 @@
 
 # 開発者向け
 
-- [回路]()
+- [回路](./for-developers/dev-circuit.md)
 - [機械]()
 - [制御]()
