@@ -34,8 +34,8 @@ Schneider::Schneider() :
     this->led(3);
     printf("start up\n");
 
-    this->servo_1.period_ms(20);
-    this->servo_2.period_ms(20);
+    this->servo_1.period_ms(pwmPeriodMs);
+    this->servo_2.period_ms(pwmPeriodMs);
 }
 
 Schneider::~Schneider() {
@@ -44,12 +44,16 @@ Schneider::~Schneider() {
 
 void Schneider::init() {
     using std::fill;
-    this->phi = 0;
+    constexpr float initialQ = 0.01F;
+    constexpr float initialX = 0.0F;
+    constexpr float initialPhi = 0.0F;
+
+    this->phi = initialPhi;
     for (auto& row : this->t_jacobianmatrix) {
         fill(row.begin(), row.end(), 0);
     }
-    fill(this->q.begin(), this->q.end(), 0.01F);
-    fill(this->x.begin(), this->x.end(), 0);
+    fill(this->q.begin(), this->q.end(), initialQ);
+    fill(this->x.begin(), this->x.end(), initialX);
     this->cal_tjacob();
     const bool whoami = this->mpu.testConnection();
     if (whoami) {
@@ -104,8 +108,8 @@ void Schneider::debug() {
 }
 
 void Schneider::joy_read(float joy_x, float joy_y, int rotate) {
-    this->x_d[0] = (joy_x - 0.5F) * 2;
-    this->x_d[1] = (joy_y - 0.5F) * 2;
+    this->x_d[0] = (joy_x - joyCenter) * 2;
+    this->x_d[1] = (joy_y - joyCenter) * 2;
     // x_d[2] = rotate;
     this->x_d[2] = 0;
 }
@@ -154,7 +158,9 @@ void Schneider::cal_q() {
                 this->q[j] -= e * this->t_jacobianmatrix[j][k] * (this->x[k] - this->x_d[k]);
             }
             if (j == 0 || j == 1) {
-                this->q[j] -= pow(2 * this->q[j] - 1, 7);
+                // 0.5に近づくように7次関数でバイアスをかけてる。多分。
+                constexpr int biasOrder = 7;
+                this->q[j] -= pow(2 * this->q[j] - 1, biasOrder);
             }
         }
     }
@@ -208,8 +214,8 @@ void Schneider::set_q() {
 }
 
 void Schneider::rotate() {
-    this->fet_1 = 0.5F;
-    this->fet_2 = 0.5F;
+    this->fet_1 = fetDuty;
+    this->fet_2 = fetDuty;
     // ifとelseで内容が同じだといわれたがそんなことない
     // NOLINTBEGIN(bugprone-branch-clone)
     if (this->volume_ < volumeThreshold) {
