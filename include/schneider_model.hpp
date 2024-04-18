@@ -35,12 +35,12 @@ constexpr float volumeThreshold = 0.5F;
 /**
  * @brief ジョイスティックの下限値
  */
-constexpr float joyEffectiveRangeMin = 0.4F;
+constexpr float joyThreshold = 0.4F;
 
 /**
  * @brief volumeの下限値・上限値
  */
-constexpr std::array<float, 2> volumeEffectiveRange = {0.4F, 0.7F};
+constexpr std::pair<float, float> volumeIneffectiveRange = {0.4F, 0.7F};
 
 /**
  * @brief pulsewidthの小さいほうの値
@@ -55,7 +55,7 @@ constexpr int majorRotatePulsewidthUs = 2350;
 /**
  * @brief 座標・姿勢の目標値と現在値の偏差の有効範囲の最小値 (それ未満は偏差0とみなす)
  */
-constexpr float diffEffectiveRangeMin = 0.001F;
+constexpr float diffThreshold = 0.001F;
 
 /**
  * @brief モータへの出力を計算するクラス
