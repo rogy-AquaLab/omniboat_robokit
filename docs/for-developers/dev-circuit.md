@@ -82,7 +82,7 @@
 | 電池ボックス     | 赤 > 黒
 | 電池電池スナップ | 赤 > 黒
 
-<div class = Warning>
+<div class = "warning">
 
 ハウジングのツメ ≠ コンタクトのツメ
 
