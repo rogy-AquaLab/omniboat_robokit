@@ -130,7 +130,7 @@ LEDは発光「ダイオード」と言うように、ダイオードとして�
 
 サーボモータやコントローラのケーブルを接続するコネクタをはんだ付けします。写真の白い7つの長方形がそれぞれ基板とケーブルの信号を伝達するコネクタです。今回は「XH」という規格のコネクタを使います。このXHコネクタも向きに決まりがあるので注意が必要です。
 
-<p align="center"><img src="https://drive.google.com/uc?export=view&id=1FfYr57ejeeX3g1YPiI0KEUVORUE37y17" width=600 /></p>
+<p align="center"><img src="https://drive.google.com/uc?export=view&id=1XjU9bHCO3EBnlH2KG0587n7T5HJX1Wns" width=600 /></p>
 
 上の図の様にXHコネクタには切れ込みがあります。これが基板の左か下を向くように配置してはんだ付けします。
 向きが反対だと接続するケーブルが逆向きになり、本来とは別の線同士がつながってしまうので注意してください。
