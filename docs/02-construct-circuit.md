@@ -7,7 +7,7 @@
 また下図バツ印のパーツは本キットでは使用しないため、はんだ付けは不要です。送付したパーツのみではんだ付けする場合、下記の**不要箇所にはんだ付けすると他の必要箇所のパーツが足りなくなる恐れ**があります。
 必ず不要箇所意外を優先してはんだ付けをしてください。
 
-<p align="center"><img src="https://drive.google.com/uc?export=view&id=1pWWufLMa0HndS-UWNBSQTp-QR_QeU8GC" width=200 /></p>
+<p align="center"><img src="https://drive.google.com/uc?export=view&id=1pWWufLMa0HndS-UWNBSQTp-QR_QeU8GC" width=600 /></p>
 
 
 ### 作業の流れ
