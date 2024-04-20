@@ -18,7 +18,7 @@
 
 ## ドキュメント開発
 
-このドキュメントは[mdbook](https://github.com/rust-lang/mdBook)を利用してGitHub Pagesの内容が生成されています。mdBookの詳細な使用方法に関しては、[mdBook Documentation](https://rust-lang.github.io/mdBook/)を参照してください。
+このドキュメントは[mdBook](https://github.com/rust-lang/mdBook)を利用してGitHub Pagesの内容が生成されています。mdBookの詳細な使用方法に関しては、[mdBook Documentation](https://rust-lang.github.io/mdBook/)を参照してください。
 
 ### 画像の使用に関して
 
@@ -56,7 +56,7 @@ https://drive.google.com/uc?export=view&id=xxx xxx.jpeg
 
 **3: Markdownで画像を参照する**
 
-先ほどbashファイルに追記したことで、mdbookのビルド時に目的の画像が`docs/gdrive/xxx.jpeg`に配置されるようになります。Markdownファイルでは相対パスで、以下のように記述することで画像を参照可能です。
+先ほどbashファイルに追記したことで、mdBookのビルド時に目的の画像が`docs/gdrive/xxx.jpeg`に配置されるようになります。Markdownファイルでは相対パスで、以下のように記述することで画像を参照可能です。
 
 ```markdown
 ![](./gdrive/xxx.jpeg)
