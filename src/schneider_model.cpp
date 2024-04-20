@@ -36,8 +36,8 @@ Schneider::Schneider() :
 
     servo_1.period_ms(20);
     servo_2.period_ms(20);
-    // NOLINTEND(cppcoreguidelines-pro-type-member-init)
 }
+// NOLINTEND(cppcoreguidelines-pro-type-member-init)
 
 Schneider::~Schneider() {
     led(1);
