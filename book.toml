@@ -6,6 +6,9 @@ src = "docs"
 title = "Robokit"
 description = "Robokitの開発に関するドキュメントです。"
 
+[preprocessor.google-drive]
+command = "./docs/scripts/fetch-gdrive-assets.bash"
+
 [output.html]
 git-repository-url = "https://github.com/rogy-AquaLab/omniboat_robokit"
 git-repository-icon = "fa-github"

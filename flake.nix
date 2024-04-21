@@ -13,26 +13,10 @@
         pkgs = import nixpkgs { inherit system; };
         inherit (pkgs) lib;
         pythonWithPlatformio = pkgs.python3.withPackages (ps: with ps; [ platformio ]);
-        buildDocs = pkgs.stdenv.mkDerivation {
-          pname = "omniboat_robokit";
-          version = "0.1.0";
-          src = ./.;
-          buildInputs = with pkgs; [ mdbook ];
-          buildPhase = ''
-            mdbook build
-          '';
-          installPhase = ''
-            mkdir -p $out
-            mv book $out/book
-          '';
-        };
       in
       {
         devShells.default = with pkgs; mkShell {
-          packages = [ platformio-core pythonWithPlatformio clang-tools_16 mdbook ];
-        };
-        packages = {
-          docs = buildDocs;
+          packages = [ platformio-core pythonWithPlatformio clang-tools_16 mdbook jq ];
         };
       });
 }
