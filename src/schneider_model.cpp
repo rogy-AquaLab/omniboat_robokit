@@ -9,7 +9,7 @@
 #include "schneider_model.hpp"
 
 namespace omniboat {
-
+// NOLINTBEGIN(cppcoreguidelines-pro-type-member-init)
 Schneider::Schneider() :
     phi(0),
     gyro(),
@@ -37,6 +37,7 @@ Schneider::Schneider() :
     this->servo_1.period_ms(pwmPeriodMs);
     this->servo_2.period_ms(pwmPeriodMs);
 }
+// NOLINTEND(cppcoreguidelines-pro-type-member-init)
 
 Schneider::~Schneider() {
     this->led(1);
