@@ -126,7 +126,7 @@ LEDは発光「ダイオード」と言うように、ダイオードとして�
 
 ### 1-4. コネクタとFETのはんだ付け
 
-<p align="center"><img src="https://drive.google.com/uc?export=view&id=1FfYr57ejeeX3g1YPiI0KEUVORUE37y17" width=600 /></p>
+<p align="center"><img src="https://drive.google.com/uc?export=view&id=10R2sZHjN3y5k5n30vRVk9lFr4MvlwaEG7" width=600 /></p>
 
 サーボモータやコントローラのケーブルを接続するコネクタをはんだ付けします。写真の白い7つの長方形がそれぞれ基板とケーブルの信号を伝達するコネクタです。今回は「XH」という規格のコネクタを使います。このXHコネクタも向きに決まりがあるので注意が必要です。
 
