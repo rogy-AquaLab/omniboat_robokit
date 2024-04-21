@@ -33,6 +33,21 @@ constexpr int trial_num = 1000;
 constexpr float volumeThreshold = 0.5F;
 
 /**
+ * @brief ジョイスティックの下限値
+ */
+constexpr float joyThreshold = 0.4F;
+
+/**
+ * @brief ジョイスティックの中央値
+ */
+constexpr float joyCenter = 0.5F;
+
+/**
+ * @brief volumeの下限値・上限値
+ */
+constexpr std::pair<float, float> volumeIneffectiveRange = {0.4F, 0.7F};
+
+/**
  * @brief pulsewidthの小さいほうの値
  */
 constexpr int minorRotatePulsewidthUs = 550;
@@ -41,6 +56,21 @@ constexpr int minorRotatePulsewidthUs = 550;
  * @brief pulsewidthの大きいほうの値
  */
 constexpr int majorRotatePulsewidthUs = 2350;
+
+/**
+ * @brief 座標・姿勢の目標値と現在値の偏差の有効範囲の最小値 (それ未満は偏差0とみなす)
+ */
+constexpr float diffThreshold = 0.001F;
+
+/**
+ * @brief サーボのPWM周期
+ */
+constexpr int pwmPeriodMs = 20;
+
+/**
+ * @brief DCモータ用FETへのPWM出力(duty比)
+ */
+constexpr float fetDuty = 0.5F;
 
 /**
  * @brief モータへの出力を計算するクラス

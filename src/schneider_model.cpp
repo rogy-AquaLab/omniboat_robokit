@@ -29,30 +29,34 @@ Schneider::Schneider() :
     led2(PA_3),
     led3(PA_4),
     pc(USBTX, USBRX) {
-    led(1);
-    led(2);
-    led(3);
+    this->led(1);
+    this->led(2);
+    this->led(3);
     printf("start up\n");
 
-    servo_1.period_ms(20);
-    servo_2.period_ms(20);
+    this->servo_1.period_ms(pwmPeriodMs);
+    this->servo_2.period_ms(pwmPeriodMs);
 }
 // NOLINTEND(cppcoreguidelines-pro-type-member-init)
 
 Schneider::~Schneider() {
-    led(1);
+    this->led(1);
 }
 
 void Schneider::init() {
     using std::fill;
-    phi = 0;
-    for (auto& row : t_jacobianmatrix) {
+    constexpr float initialQ = 0.01F;
+    constexpr float initialX = 0.0F;
+    constexpr float initialPhi = 0.0F;
+
+    this->phi = initialPhi;
+    for (auto& row : this->t_jacobianmatrix) {
         fill(row.begin(), row.end(), 0);
     }
-    fill(q.begin(), q.end(), 0.01F);
-    fill(x.begin(), x.end(), 0);
-    cal_tjacob();
-    const bool whoami = mpu.testConnection();
+    fill(this->q.begin(), this->q.end(), initialQ);
+    fill(this->x.begin(), this->x.end(), initialX);
+    this->cal_tjacob();
+    const bool whoami = this->mpu.testConnection();
     if (whoami) {
         printf("WHOAMI succeeded\n");
     } else {
@@ -62,32 +66,36 @@ void Schneider::init() {
 
 void Schneider::one_step() {
     using std::abs;
-    led(3);
+    this->led(3);
 
     // ジャイロセンサの値を読み取る
-    mpu.getGyro(gyro.data());
+    this->mpu.getGyro(this->gyro.data());
 
     // ジョイコンの値を読み取る
-    joy_read(adcIn1.read(), adcIn2.read(), 0.0);
+    this->joy_read(this->adcIn1.read(), this->adcIn2.read(), 0.0);
 
-    volume_ = volume.read();
+    this->volume_ = this->volume.read();
 
-    q[0] = 0;
-    q[1] = 0;
+    this->q[0] = 0;
+    this->q[1] = 0;
 
-    if (abs(x_d[0]) > 0.4F || abs(x_d[1]) > 0.4F) {
-        cal_q();
-        set_q();
-    } else if (volume_ < 0.4F || 0.7F < volume_) {
-        rotate();
-        phi = 0;
+    const bool joyEffective = abs(this->x_d[0]) > joyThreshold || abs(this->x_d[1]) > joyThreshold;
+    const bool volumeEffective = this->volume_ < volumeIneffectiveRange.first
+                                 || volumeIneffectiveRange.second < this->volume_;
+
+    if (joyEffective) {
+        this->cal_q();
+        this->set_q();
+    } else if (volumeEffective) {
+        this->rotate();
+        this->phi = 0;
     } else {
-        fet_1 = 0;
-        fet_2 = 0;
-        phi = 0;
+        this->fet_1 = 0;
+        this->fet_2 = 0;
+        this->phi = 0;
     }
-    debug();
-    led(3);
+    this->debug();
+    this->led(3);
 }
 
 void Schneider::debug() {
@@ -101,76 +109,81 @@ void Schneider::debug() {
 }
 
 void Schneider::joy_read(float joy_x, float joy_y, int rotate) {
-    x_d[0] = (joy_x - 0.5F) * 2;
-    x_d[1] = (joy_y - 0.5F) * 2;
+    this->x_d[0] = (joy_x - joyCenter) * 2;
+    this->x_d[1] = (joy_y - joyCenter) * 2;
     // x_d[2] = rotate;
-    x_d[2] = 0;
+    this->x_d[2] = 0;
 }
 
 inline void Schneider::cal_tjacob() {
     using std::cos;
     using std::sin;
-    t_jacobianmatrix[0][0] = cos(q[2] + phi);
-    t_jacobianmatrix[0][1] = sin(q[2] + phi);
-    t_jacobianmatrix[0][2] = (a + sin(q[2])) / I;
-    t_jacobianmatrix[1][0] = cos(q[3] + phi);
-    t_jacobianmatrix[1][1] = sin(q[3] + phi);
-    t_jacobianmatrix[1][2] = (-a - sin(q[3])) / I;
-    t_jacobianmatrix[2][0] = -q[0] * sin(q[2] + phi);
-    t_jacobianmatrix[2][1] = q[0] * cos(q[2] + phi);
-    t_jacobianmatrix[2][2] = q[0] * cos(q[2]) / I;
-    t_jacobianmatrix[3][0] = -q[1] * sin(q[3] + phi);
-    t_jacobianmatrix[3][1] = q[1] * cos(q[3] + phi);
-    t_jacobianmatrix[3][2] = -q[1] * cos(q[3]) / I;
+    this->t_jacobianmatrix[0][0] = cos(this->q[2] + this->phi);
+    this->t_jacobianmatrix[0][1] = sin(this->q[2] + this->phi);
+    this->t_jacobianmatrix[0][2] = (a + sin(this->q[2])) / I;
+    this->t_jacobianmatrix[1][0] = cos(this->q[3] + this->phi);
+    this->t_jacobianmatrix[1][1] = sin(this->q[3] + this->phi);
+    this->t_jacobianmatrix[1][2] = (-a - sin(this->q[3])) / I;
+    this->t_jacobianmatrix[2][0] = -this->q[0] * sin(this->q[2] + this->phi);
+    this->t_jacobianmatrix[2][1] = this->q[0] * cos(this->q[2] + this->phi);
+    this->t_jacobianmatrix[2][2] = this->q[0] * cos(this->q[2]) / I;
+    this->t_jacobianmatrix[3][0] = -this->q[1] * sin(this->q[3] + this->phi);
+    this->t_jacobianmatrix[3][1] = this->q[1] * cos(this->q[3] + this->phi);
+    this->t_jacobianmatrix[3][2] = -this->q[1] * cos(this->q[3]) / I;
 }
 
 void Schneider::cal_q() {
     using std::pow;
     // 初期値
-    const float coef = (x_d[0] >= 0 && x_d[1] >= 0)  ? 1
-                       : (x_d[0] >= 0 && x_d[1] < 0) ? -1
-                       : (x_d[0] < 0 && x_d[1] >= 0) ? 3
-                                                     : 5;
+    const float coef = (this->x_d[0] >= 0 && this->x_d[1] >= 0)  ? 1
+                       : (this->x_d[0] >= 0 && this->x_d[1] < 0) ? -1
+                       : (this->x_d[0] < 0 && this->x_d[1] >= 0) ? 3
+                                                                 : 5;
     for (int i = 2; i < 4; ++i) {
-        q[i] = coef * schneider_PI / 4 - phi;
+        this->q[i] = coef * schneider_PI / 4 - this->phi;
     }
 
     led(2);
     for (int i = 0; i < trial_num; i++) {
-        state_equation();
+        this->state_equation();
 
-        double diff = pow(x[0] - x_d[0], 2) + pow(x[1] - x_d[1], 2) + pow(x[2] - x_d[2], 2);
-        if (diff < 1e-3) {
+        double diff = pow(this->x[0] - this->x_d[0], 2) + pow(this->x[1] - this->x_d[1], 2)
+                      + pow(this->x[2] - this->x_d[2], 2);
+        if (diff < diffThreshold) {
             break;
         }
 
-        cal_tjacob();
+        this->cal_tjacob();
         for (int j = 0; j < 4; j++) {
             for (int k = 0; k < 3; k++) {
-                q[j] -= e * t_jacobianmatrix[j][k] * (x[k] - x_d[k]);
+                this->q[j] -= e * this->t_jacobianmatrix[j][k] * (this->x[k] - this->x_d[k]);
             }
             if (j == 0 || j == 1) {
-                q[j] -= pow(2 * q[j] - 1, 7);
+                // 0.5に近づくように7次関数でバイアスをかけてる。多分。
+                constexpr int biasOrder = 7;
+                this->q[j] -= pow(2 * this->q[j] - 1, biasOrder);
             }
         }
     }
-    led(2);
+    this->led(2);
 }
 
 inline void Schneider::state_equation() {
     using std::cos;
     using std::sin;
-    x[0] = q[0] * cos(q[2] + phi) + q[1] * cos(q[3] + phi);
-    x[1] = q[0] * sin(q[2] + phi) + q[1] * sin(q[3] + phi);
-    x[2] = (a * (q[0] - q[1]) + q[0] * sin(q[2]) - q[1] * sin(q[3])) / I;
+    this->x[0] = this->q[0] * cos(this->q[2] + phi) + this->q[1] * cos(this->q[3] + this->phi);
+    this->x[1] = this->q[0] * sin(this->q[2] + phi) + this->q[1] * sin(this->q[3] + this->phi);
+    this->x[2] = (a * (this->q[0] - this->q[1]) + this->q[0] * sin(this->q[2])
+                  - this->q[1] * sin(this->q[3]))
+                 / I;
 }
 
 void Schneider::set_q() {
     using std::abs;
-    if (abs(this->q[0] <= 0.4F)) {
+    if (abs(this->q[0] <= joyThreshold)) {
         this->q[0] = 0;
     }
-    if (abs(this->q[1] <= 0.4F)) {
+    if (abs(this->q[1] <= joyThreshold)) {
         this->q[1] = 0;
     }
     this->fet_1 = this->q[0];
@@ -202,11 +215,11 @@ void Schneider::set_q() {
 }
 
 void Schneider::rotate() {
-    fet_1 = 0.5F;
-    fet_2 = 0.5F;
+    this->fet_1 = fetDuty;
+    this->fet_2 = fetDuty;
     // ifとelseで内容が同じだといわれたがそんなことない
     // NOLINTBEGIN(bugprone-branch-clone)
-    if (volume_ < volumeThreshold) {
+    if (this->volume_ < volumeThreshold) {
         this->servo_1.pulsewidth_us(minorRotatePulsewidthUs);
         this->servo_2.pulsewidth_us(majorRotatePulsewidthUs);
     } else {
