@@ -50,6 +50,9 @@ https://drive.google.com/uc?export=view&id=1Bdrs3AB8P31UgQMXyd60Q2NeFKhaejlk mac
 https://drive.google.com/uc?export=view&id=1g2VHmkvVenEBEJWfBbjGwtJCMLOtGxgp machine_waterproof_1.JPG
 https://drive.google.com/uc?export=view&id=1YyF8-rbnftQOYW3ZxE3DI0GHl1BSYQyT machine_waterproof_2.jpg
 https://drive.google.com/uc?export=view&id=1Pkl7_I0LfjXmAdgMyfRhl0gCG0nUYlfz machine_complete.jpg
+https://drive.google.com/uc?export=view&id=1pWWufLMa0HndS-UWNBSQTp-QR_QeU8GC circuit_unneecessary_parts.jpg
+https://drive.google.com/uc?export=view&id=10R2sZHjN3y5k5n30vRVk9lFr4MvlwaEG circuit_servo_connector.jpg
+https://drive.google.com/uc?export=view&id=1XjU9bHCO3EBnlH2KG0587n7T5HJX1Wns circuit_xhconnector.jpg
 '
 
 mkdir -p docs/gdrive
