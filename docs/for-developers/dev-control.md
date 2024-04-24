@@ -70,17 +70,55 @@ https://drive.google.com/uc?export=view&id=xxx xxx.jpeg
 
 ## GitHub Actions
 
+GitHub Actionsを用いて自動的にプログラムのチェックなどが入るようになっています。GitHub Actionsについては[GitHub Docs](https://docs.github.com/en/actions)を参照してください。
+
+<div class="warning">
+
+プライベートリポジトリではGitHub Actionsを使いすぎると課金が発生します。詳しくは[GitHub Actions の支払いを管理する - GitHub Docs](https://docs.github.com/ja/billing/managing-billing-for-github-actions)
+
+</div>
+
+GitHub Actionsの設定は[`.github/workflows`](https://github.com/rogy-AquaLab/omniboat_robokit/tree/main/.github/workflows)以下に保存されています。
+
 ### main.yml
+
+このワークフローファイル内のジョブは以下のタイミングで実行されます。
+
+- `main`ブランチへのPull Request作成・更新時
+- `main`ブランチの更新時
+
+どちらの場合も、以下の内容が確認されます。
+
+- PlatformIOのビルドが成功すること
+- clang-formatによるプログラムのフォーマット確認 (format)
+- clang-tidyによるプログラムの簡易なバグチェック (lint)
+- mdBookのビルドが成功すること
+
+特にPull Requestの場合は、変更内容に応じてそれぞれチェックが省略されます。詳しくはmain.ymlの`changes`ジョブ、および[dorny/paths-filter](https://github.com/dorny/paths-filter)を確認してください。逆に、変更に対して入ってほしいチェックが行われない場合はここを見てください。
 
 ### release.yml
 
+TODO ([#76](https://github.com/rogy-AquaLab/omniboat_robokit/issues/76))
+
 ## リリース
+
+TODO ([#76](https://github.com/rogy-AquaLab/omniboat_robokit/issues/76))
 
 ## 依存関係管理
 
+プログラムを開発する上で様々なツール、ライブラリが必要になります。一般的にそれらは「依存関係」と呼ばれます。ここではこのリポジトリを管理する上で使用されている依存関係について説明し、それらの更新方法について説明します。
+
+- [ソフトウェアはなぜバージョンアップしなければならないのか #バージョンアップ - Qiita](https://qiita.com/autotaker1984/items/a3091772dbb0fb91473d)
+
 ### GitHub Actions
 
+GitHub Actionsの依存関係はDependabotで管理されています。依存関係何か更新があればDependabotが自動でPRを作成してくれます。Dependabotの設定は[.github/dependabot.yml](https://github.com/rogy-AquaLab/omniboat_robokit/blob/main/.github/dependabot.yml)に書いてあります。
+
+Dependabotについてより詳しくは、[Dependabot を使う - GitHub Docs](https://docs.github.com/ja/code-security/dependabot/working-with-dependabot)を参照してください。
+
 ### mdBook
+
+GitHub Actions内で使用されるmdBookのバージョンは自動で更新されません。main.ymlおよびrelease.ymlに`MDBOOK_VERSION: vX.Y.Z`のような記述があります。mdBookのバージョン一覧は[Releases · rust-lang/mdBook](https://github.com/rust-lang/mdBook/releases)にリストされているので、そこを見つつバージョンを更新してください。バージョンの更新は1年に1度ほどで問題ないです。
 
 ### PlatformIO
 
