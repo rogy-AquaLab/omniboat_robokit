@@ -106,11 +106,6 @@ private:
     float phi;
 
     /**
-     * @brief ジャイロセンサの値
-     */
-    std::array<float, 3> gyro;
-
-    /**
      * @brief ボタンが押されたときに機体を停止させる関数(割り込み処理)
      */
     void ticker_flip();
@@ -159,7 +154,7 @@ private:
     /**
      * @brief モータへの信号値に変換する関数
      */
-    void set_q();
+    void set_q(std::array<float, 3> gyro);
 
     /**
      * @brief ジョイコンの値を読み取って、x_dに格納する

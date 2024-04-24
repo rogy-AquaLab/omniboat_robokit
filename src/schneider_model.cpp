@@ -12,7 +12,6 @@ namespace omniboat {
 // NOLINTBEGIN(cppcoreguidelines-pro-type-member-init)
 Schneider::Schneider() :
     phi(0),
-    gyro(),
     t_jacobianmatrix(),
     x_d(),
     q(),
@@ -69,7 +68,8 @@ void Schneider::one_step() {
     this->led(3);
 
     // ジャイロセンサの値を読み取る
-    this->mpu.getGyro(this->gyro.data());
+    auto gyro = std::array<float, 3>();
+    this->mpu.getGyro(gyro.data());
 
     // ジョイコンの値を読み取る
     this->joy_read(this->adcIn1.read(), this->adcIn2.read(), 0.0);
@@ -85,7 +85,7 @@ void Schneider::one_step() {
 
     if (joyEffective) {
         this->cal_q();
-        this->set_q();
+        this->set_q(gyro);
     } else if (volumeEffective) {
         this->rotate();
         this->phi = 0;
@@ -178,7 +178,7 @@ inline void Schneider::state_equation() {
                  / I;
 }
 
-void Schneider::set_q() {
+void Schneider::set_q(std::array<float, 3> gyro) {
     using std::abs;
     if (abs(this->q[0] <= joyThreshold)) {
         this->q[0] = 0;
@@ -203,13 +203,11 @@ void Schneider::set_q() {
     }
 
     if (0 < this->q[2] && this->q[2] < schneider_PI) {
-        const int width
-            = static_cast<int>(500 + 1900 / schneider_PI * this->q[2] - 2200 * this->gyro[2]);
+        const int width = static_cast<int>(500 + 1900 / schneider_PI * this->q[2] - 2200 * gyro[2]);
         this->servo_1.pulsewidth_us(width);
     }
     if (0 < this->q[3] && this->q[3] < schneider_PI) {
-        const int width
-            = static_cast<int>(500 + 1900 / schneider_PI * this->q[3] + 2200 * this->gyro[2]);
+        const int width = static_cast<int>(500 + 1900 / schneider_PI * this->q[3] + 2200 * gyro[2]);
         this->servo_2.pulsewidth_us(width);
     }
 }
