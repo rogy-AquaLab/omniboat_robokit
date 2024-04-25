@@ -8,6 +8,7 @@ Checks: -*,
   performance-*,
   readability-*,
   -cppcoreguidelines-init-variables,
+  -cppcoreguidelines-pro-type-vararg,
 WarningsAsErrors: "*,-modernize-*"
 HeaderFilterRegex: ""
 # AnalyzeTemporaryDtors: false
