@@ -154,7 +154,7 @@ private:
     /**
      * @brief モータへの信号値に変換する関数
      */
-    void set_q(std::array<float, 3> gyro);
+    void set_q(const std::array<float, 3>& gyro);
 
     /**
      * @brief ジョイコンの値を読み取って、x_dに格納する
@@ -169,6 +169,11 @@ private:
      * @brief つまみの値をから機体を回転させる関数
      */
     void rotate();
+
+    /**
+     * @brief ジャイロセンサの値を読み取る
+     */
+    std::array<float, 3> read_gyro();
 
     AnalogIn adcIn1;  // ジョイスティック
     AnalogIn adcIn2;  // ジョイスティック

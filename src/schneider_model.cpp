@@ -68,8 +68,7 @@ void Schneider::one_step() {
     this->led(3);
 
     // ジャイロセンサの値を読み取る
-    auto gyro = std::array<float, 3>();
-    this->mpu.getGyro(gyro.data());
+    const auto gyro = this->read_gyro();
 
     // ジョイコンの値を読み取る
     this->joy_read(this->adcIn1.read(), this->adcIn2.read(), 0.0);
@@ -178,7 +177,7 @@ inline void Schneider::state_equation() {
                  / I;
 }
 
-void Schneider::set_q(std::array<float, 3> gyro) {
+void Schneider::set_q(const std::array<float, 3>& gyro) {
     using std::abs;
     if (abs(this->q[0] <= joyThreshold)) {
         this->q[0] = 0;
@@ -225,6 +224,12 @@ void Schneider::rotate() {
         this->servo_1.pulsewidth_us(majorRotatePulsewidthUs);
     }
     // NOLINTEND(bugprone-branch-clone)
+}
+
+std::array<float, 3> Schneider::read_gyro() {
+    std::array<float, 3> gyro;
+    this->mpu.getGyro(gyro.data());
+    return gyro;
 }
 
 void Schneider::led(int num) {
