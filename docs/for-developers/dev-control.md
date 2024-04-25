@@ -122,4 +122,22 @@ GitHub Actions内で使用されるmdBookのバージョンは自動で更新さ
 
 ### PlatformIO
 
+PlatformIOに関連する依存関係は2種類あります: PlatformIOそれ自身と、PlatformIO内で使用するツール群です。
+
+**PlatformIO自身**
+
+特に明記せず、最新版のPlatformIOを前提とします。GitHub Actions内でも最新版のPlatformIOを使用するように設定されています。PlatformIO関連で何か不具合があればバージョンの問題を考慮してみてください。
+
+**PlatformIO内の依存関係**
+
+これらはPlatformIOの設定ファイル`platformio.ini`に記述されています。具体的な記述については以下を参照してください。
+
+- ["platformio.ini" (Project Configuration File) — PlatformIO latest documentation](https://docs.platformio.org/en/latest/projectconf/index.html)
+- [platform_packages — PlatformIO latest documentation](https://docs.platformio.org/en/latest/projectconf/sections/env/options/platform/platform_packages.html)
+- [lib_deps — PlatformIO latest documentation](https://docs.platformio.org/en/latest/projectconf/sections/env/options/library/lib_deps.html)
+
+特にGCCコンパイラのバージョンは[platformio/toolchain-gccarmnoneeabi](https://registry.platformio.org/tools/platformio/toolchain-gccarmnoneeabi)で明記されているため、定期的(こちらも1年おきが目安)に更新する必要があります。
+
 ## Nix, direnv
+
+略
