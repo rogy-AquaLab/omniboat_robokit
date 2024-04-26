@@ -162,7 +162,7 @@ private:
      * @param joy_y ジョイコンのy軸の値
      * @param rotate 回転の値
      */
-    void joy_read(float joy_x, float joy_y, int rotate);
+    void read_joy(float joy_x, float joy_y, int rotate);
 
     /**
      * @brief つまみの値をから機体を回転させる関数
