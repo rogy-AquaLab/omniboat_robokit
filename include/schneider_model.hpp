@@ -78,6 +78,10 @@ constexpr float fetDuty = 0.5F;
 class Schneider {
 public:
     Schneider();
+    Schneider(const Schneider&) = delete;
+    Schneider(Schneider&&) = default;
+    auto operator=(const Schneider&) -> Schneider& = delete;
+    auto operator=(Schneider&&) -> Schneider& = default;
     ~Schneider();
     void debug();
 
