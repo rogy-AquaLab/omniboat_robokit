@@ -71,7 +71,7 @@ void Schneider::one_step() {
     const auto gyro = this->read_gyro();
 
     // ジョイコンの値を読み取る
-    this->joy_read(this->adcIn1.read(), this->adcIn2.read(), 0.0);
+    x_d = this->joy_read();
 
     this->volume_ = this->volume.read();
 
@@ -107,11 +107,11 @@ void Schneider::debug() {
     // printf("\n");
 }
 
-void Schneider::joy_read(float joy_x, float joy_y, int rotate) {
-    this->x_d[0] = (joy_x - joyCenter) * 2;
-    this->x_d[1] = (joy_y - joyCenter) * 2;
-    // x_d[2] = rotate;
-    this->x_d[2] = 0;
+auto Schneider::joy_read() -> std::array<float, 3> {
+    const auto joy_x = this->adcIn1.read();
+    const auto joy_y = this->adcIn2.read();
+    const auto rotate = 0.0F;
+    return {joy_x, joy_y, rotate};
 }
 
 inline void Schneider::cal_tjacob() {

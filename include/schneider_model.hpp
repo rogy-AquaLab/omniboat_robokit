@@ -161,13 +161,11 @@ private:
     void set_q(const std::array<float, 3>& gyro);
 
     /**
-     * @brief ジョイコンの値を読み取って、x_dに格納する
+     * @brief ジョイコンの値を読み取って配列として返す
      *
-     * @param joy_x ジョイコンのx軸の値
-     * @param joy_y ジョイコンのy軸の値
-     * @param rotate 回転の値
+     * @return std::array<float, 3> index0: x, index1: y, index2: omega
      */
-    void joy_read(float joy_x, float joy_y, int rotate);
+    auto joy_read() -> std::array<float, 3>;
 
     /**
      * @brief つまみの値をから機体を回転させる関数
