@@ -163,7 +163,7 @@ private:
     /**
      * @brief つまみの値をから機体を回転させる関数
      */
-    void rotate(float volume_value);
+    void rotate(const float& volume_value);
 
     /**
      * @brief ジャイロセンサの値を読み取る

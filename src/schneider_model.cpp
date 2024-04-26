@@ -212,7 +212,7 @@ void Schneider::set_q(const std::array<float, 3>& gyro) {
     }
 }
 
-void Schneider::rotate(float volume_value) {
+void Schneider::rotate(const float& volume_value) {
     this->fet_1 = fetDuty;
     this->fet_2 = fetDuty;
     // ifとelseで内容が同じだといわれたがそんなことない
