@@ -73,20 +73,21 @@ void Schneider::one_step() {
     // ジョイコンの値を読み取る
     this->joy_read(this->adcIn1.read(), this->adcIn2.read(), 0.0);
 
-    this->volume_ = this->volume.read();
+    // ボリュームの値を読み取る
+    const float volume_value = volume.read();
 
     this->q[0] = 0;
     this->q[1] = 0;
 
     const bool joyEffective = abs(this->x_d[0]) > joyThreshold || abs(this->x_d[1]) > joyThreshold;
-    const bool volumeEffective = this->volume_ < volumeIneffectiveRange.first
-                                 || volumeIneffectiveRange.second < this->volume_;
+    const bool volumeEffective = volume_value < volumeIneffectiveRange.first
+                                 || volumeIneffectiveRange.second < volume_value;
 
     if (joyEffective) {
         this->cal_q();
         this->set_q(gyro);
     } else if (volumeEffective) {
-        this->rotate();
+        this->rotate(volume_value);
         this->phi = 0;
     } else {
         this->fet_1 = 0;
@@ -211,12 +212,12 @@ void Schneider::set_q(const std::array<float, 3>& gyro) {
     }
 }
 
-void Schneider::rotate() {
+void Schneider::rotate(const float& volume_value) {
     this->fet_1 = fetDuty;
     this->fet_2 = fetDuty;
     // ifとelseで内容が同じだといわれたがそんなことない
     // NOLINTBEGIN(bugprone-branch-clone)
-    if (this->volume_ < volumeThreshold) {
+    if (volume_value < volumeThreshold) {
         this->servo_1.pulsewidth_us(minorRotatePulsewidthUs);
         this->servo_2.pulsewidth_us(majorRotatePulsewidthUs);
     } else {
