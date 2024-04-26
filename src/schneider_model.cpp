@@ -226,7 +226,7 @@ void Schneider::rotate() {
     // NOLINTEND(bugprone-branch-clone)
 }
 
-std::array<float, 3> Schneider::read_gyro() {
+auto Schneider::read_gyro() -> std::array<float, 3> {
     std::array<float, 3> gyro;
     this->mpu.getGyro(gyro.data());
     return gyro;

@@ -177,7 +177,7 @@ private:
     /**
      * @brief ジャイロセンサの値を読み取る
      */
-    std::array<float, 3> read_gyro();
+    auto read_gyro() -> std::array<float, 3>;
 
     AnalogIn adcIn1;  // ジョイスティック
     AnalogIn adcIn2;  // ジョイスティック
