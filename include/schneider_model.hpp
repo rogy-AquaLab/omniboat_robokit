@@ -131,11 +131,6 @@ private:
     std::array<float, 3> x;
 
     /**
-     * @brief つまみの入力値
-     */
-    float volume_;
-
-    /**
      * @brief ヤコビ行列の計算を行う関数\nヤコビ行列は、入力からモータの出力を計算するための行列
      */
     void cal_tjacob();
@@ -168,7 +163,7 @@ private:
     /**
      * @brief つまみの値をから機体を回転させる関数
      */
-    void rotate();
+    void rotate(float volume_value);
 
     /**
      * @brief ジャイロセンサの値を読み取る
