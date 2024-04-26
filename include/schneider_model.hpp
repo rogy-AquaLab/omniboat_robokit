@@ -161,7 +161,7 @@ private:
     void set_q(const std::array<float, 3>& gyro);
 
     /**
-     * @brief ジョイコンの値を読み取って配列として返す
+     * @brief ジョイコンの値を読み取り、目標値を算出して配列として返す
      *
      * @return std::array<float, 3> index0: x, index1: y, index2: omega
      */
