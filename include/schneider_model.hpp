@@ -163,7 +163,7 @@ private:
     /**
      * @brief ジョイコンの値を読み取り、目標値を算出して配列として返す
      *
-     * @return std::array<float, 3> index0: x, index1: y, index2: omega
+     * @return std::array<float, 3> index0: x, index1: y, index2: rotation
      */
     auto joy_read() -> std::array<float, 3>;
 

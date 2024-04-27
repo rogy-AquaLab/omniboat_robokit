@@ -113,8 +113,8 @@ auto Schneider::joy_read() -> std::array<float, 3> {
 
     const auto dest_x = (joy_x - joyCenter) * 2;
     const auto dest_y = (joy_y - joyCenter) * 2;
-    const auto dest_omega = 0.0F;
-    return {dest_x, dest_y, dest_omega};
+    const auto dest_rot = 0.0F;
+    return {dest_x, dest_y, dest_rot};
 }
 
 inline void Schneider::cal_tjacob() {
