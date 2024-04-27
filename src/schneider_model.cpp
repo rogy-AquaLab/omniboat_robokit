@@ -71,7 +71,7 @@ void Schneider::one_step() {
     const auto gyro = this->read_gyro();
 
     // ジョイコンの値を読み取る
-    x_d = this->joy_read();
+    this->x_d = this->joy_read();
 
     this->volume_ = this->volume.read();
 
