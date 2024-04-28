@@ -135,11 +135,6 @@ private:
     std::array<float, 3> x;
 
     /**
-     * @brief つまみの入力値
-     */
-    float volume_;
-
-    /**
      * @brief ヤコビ行列の計算を行う関数\nヤコビ行列は、入力からモータの出力を計算するための行列
      */
     void cal_tjacob();
@@ -165,17 +160,17 @@ private:
      *
      * @return std::array<float, 3> index0: x, index1: y, index2: rotation
      */
-    auto joy_read() -> std::array<float, 3>;
+    auto read_joy() -> std::array<float, 3>;
 
     /**
      * @brief つまみの値をから機体を回転させる関数
      */
-    void rotate();
+    void rotate(const float& volume_value);
 
     /**
      * @brief ジャイロセンサの値を読み取る
      */
-    std::array<float, 3> read_gyro();
+    auto read_gyro() -> std::array<float, 3>;
 
     AnalogIn adcIn1;  // ジョイスティック
     AnalogIn adcIn2;  // ジョイスティック
