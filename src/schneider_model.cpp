@@ -9,7 +9,7 @@
 #include "schneider_model.hpp"
 
 namespace omniboat {
-// NOLINTBEGIN(cppcoreguidelines-pro-type-member-init)
+
 Schneider::Schneider() :
     phi(0),
     t_jacobianmatrix(),
@@ -36,7 +36,6 @@ Schneider::Schneider() :
     this->servo_1.period_ms(pwmPeriodMs);
     this->servo_2.period_ms(pwmPeriodMs);
 }
-// NOLINTEND(cppcoreguidelines-pro-type-member-init)
 
 Schneider::~Schneider() {
     this->led(1);
@@ -219,7 +218,6 @@ void Schneider::rotate(const float& volume_value) {
     this->fet_1 = fetDuty;
     this->fet_2 = fetDuty;
     // ifとelseで内容が同じだといわれたがそんなことない
-    // NOLINTBEGIN(bugprone-branch-clone)
     if (volume_value < volumeThreshold) {
         this->servo_1.pulsewidth_us(minorRotatePulsewidthUs);
         this->servo_2.pulsewidth_us(majorRotatePulsewidthUs);
@@ -227,7 +225,6 @@ void Schneider::rotate(const float& volume_value) {
         this->servo_2.pulsewidth_us(minorRotatePulsewidthUs);
         this->servo_1.pulsewidth_us(majorRotatePulsewidthUs);
     }
-    // NOLINTEND(bugprone-branch-clone)
 }
 
 auto Schneider::read_gyro() -> std::array<float, 3> {
@@ -238,14 +235,12 @@ auto Schneider::read_gyro() -> std::array<float, 3> {
 
 void Schneider::led(int num) {
     // 3つの連続した明示的なブランチがあるといわれたがそんなことない
-    // NOLINTBEGIN(bugprone-branch-clone)
     switch (num) {
     case 1: this->led1 = !this->led1; break;
     case 2: this->led2 = !this->led2; break;
     case 3: this->led3 = !this->led3; break;
     default: break;
     }
-    // NOLINTEND(bugprone-branch-clone)
 }
 
 }  // namespace omniboat
