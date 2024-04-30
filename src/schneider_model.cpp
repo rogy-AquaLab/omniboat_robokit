@@ -69,7 +69,7 @@ void Schneider::one_step() {
     const auto gyro = this->read_gyro();
 
     // ジョイコンの値を読み取り、目標値を代入
-    const auto dest_joy = this->read_joy();
+    const auto joy = this->read_joy();
 
     // ボリュームの値を読み取る
     const float volume_value = volume.read();
@@ -77,12 +77,12 @@ void Schneider::one_step() {
     this->q[0] = 0;
     this->q[1] = 0;
 
-    const bool joyEffective = abs(dest_joy[0]) > joyThreshold || abs(dest_joy[1]) > joyThreshold;
+    const bool joyEffective = abs(joy[0]) > joyThreshold || abs(joy[1]) > joyThreshold;
     const bool volumeEffective = volume_value < volumeIneffectiveRange.first
                                  || volumeIneffectiveRange.second < volume_value;
 
     if (joyEffective) {
-        this->cal_q(dest_joy);
+        this->cal_q(joy);
         this->set_q(gyro);
     } else if (volumeEffective) {
         this->rotate(volume_value);
@@ -133,12 +133,12 @@ inline void Schneider::cal_tjacob() {
     this->t_jacobianmatrix[3][2] = -this->q[1] * cos(this->q[3]) / I;
 }
 
-auto Schneider::cal_q(const std::array<float, 3>& dest_joy) -> void {
+auto Schneider::cal_q(const std::array<float, 3>& joy) -> void {
     using std::pow;
     // 初期値
-    const float coef = (dest_joy[0] >= 0 && dest_joy[1] >= 0)  ? 1
-                       : (dest_joy[0] >= 0 && dest_joy[1] < 0) ? -1
-                       : (dest_joy[0] < 0 && dest_joy[1] >= 0) ? 3
+    const float coef = (joy[0] >= 0 && joy[1] >= 0)  ? 1
+                       : (joy[0] >= 0 && joy[1] < 0) ? -1
+                       : (joy[0] < 0 && joy[1] >= 0) ? 3
                                                                : 5;
     for (int i = 2; i < 4; ++i) {
         this->q[i] = coef * schneider_PI / 4 - this->phi;
@@ -148,8 +148,8 @@ auto Schneider::cal_q(const std::array<float, 3>& dest_joy) -> void {
     for (int i = 0; i < trial_num; i++) {
         this->state_equation();
 
-        double diff = pow(this->x[0] - dest_joy[0], 2) + pow(this->x[1] - dest_joy[1], 2)
-                      + pow(this->x[2] - dest_joy[2], 2);
+        double diff = pow(this->x[0] - joy[0], 2) + pow(this->x[1] - joy[1], 2)
+                      + pow(this->x[2] - joy[2], 2);
         if (diff < diffThreshold) {
             break;
         }
@@ -157,7 +157,7 @@ auto Schneider::cal_q(const std::array<float, 3>& dest_joy) -> void {
         this->cal_tjacob();
         for (int j = 0; j < 4; j++) {
             for (int k = 0; k < 3; k++) {
-                this->q[j] -= e * this->t_jacobianmatrix[j][k] * (this->x[k] - dest_joy[k]);
+                this->q[j] -= e * this->t_jacobianmatrix[j][k] * (this->x[k] - joy[k]);
             }
             if (j == 0 || j == 1) {
                 // 0.5に近づくように7次関数でバイアスをかけてる。多分。

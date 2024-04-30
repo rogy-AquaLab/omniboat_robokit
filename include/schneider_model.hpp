@@ -143,7 +143,7 @@ private:
      * @brief
      * モータへの出力を計算する関数\nモータへの出力は、勾配を使って目的関数を最小化するように計算する
      */
-    auto cal_q(const std::array<float, 3>& dest_joy) -> void;
+    auto cal_q(const std::array<float, 3>& joy) -> void;
 
     /**
      * @brief モータへの信号値に変換する関数
