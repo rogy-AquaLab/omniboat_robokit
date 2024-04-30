@@ -139,7 +139,7 @@ auto Schneider::cal_q(const std::array<float, 3>& joy) -> void {
     const float coef = (joy[0] >= 0 && joy[1] >= 0)  ? 1
                        : (joy[0] >= 0 && joy[1] < 0) ? -1
                        : (joy[0] < 0 && joy[1] >= 0) ? 3
-                                                               : 5;
+                                                     : 5;
     for (int i = 2; i < 4; ++i) {
         this->q[i] = coef * schneider_PI / 4 - this->phi;
     }
