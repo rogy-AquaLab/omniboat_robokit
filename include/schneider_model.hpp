@@ -120,11 +120,6 @@ private:
     std::array<std::array<float, 3>, 4> t_jacobianmatrix;
 
     /**
-     * @brief ジョイスティックからの入力(目標値)
-     */
-    std::array<float, 3> x_d;
-
-    /**
      * @brief 入力値
      */
     std::array<float, 4> q;
@@ -148,7 +143,7 @@ private:
      * @brief
      * モータへの出力を計算する関数\nモータへの出力は、勾配を使って目的関数を最小化するように計算する
      */
-    void cal_q();
+    auto cal_q(const std::array<float, 3>& joy) -> void;
 
     /**
      * @brief モータへの信号値に変換する関数
