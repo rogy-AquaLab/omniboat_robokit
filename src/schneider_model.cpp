@@ -11,7 +11,6 @@
 namespace omniboat {
 
 Schneider::Schneider() :
-    phi(0),
     t_jacobianmatrix(),
     q(),
     x(),
@@ -44,9 +43,7 @@ void Schneider::init() {
     using std::fill;
     constexpr float initialQ = 0.01F;
     constexpr float initialX = 0.0F;
-    constexpr float initialPhi = 0.0F;
 
-    this->phi = initialPhi;
     for (auto& row : this->t_jacobianmatrix) {
         fill(row.begin(), row.end(), 0);
     }
@@ -86,18 +83,15 @@ void Schneider::one_step() {
         this->set_q(gyro);
     } else if (volumeEffective) {
         this->rotate(volume_value);
-        this->phi = 0;
     } else {
         this->fet_1 = 0;
         this->fet_2 = 0;
-        this->phi = 0;
     }
     this->debug();
     this->led(3);
 }
 
 void Schneider::debug() {
-    // printf("phi=%f\n",phi);
     // printf("ave=%f\n",ave_[0]/ave_[1]);
     // printf("motor=%f,%f\n",q[0],q[1]);
     // printf("servo=%f,%f\n",q[2],q[3]);
@@ -119,17 +113,17 @@ auto Schneider::read_joy() -> std::array<float, 3> {
 inline void Schneider::cal_tjacob() {
     using std::cos;
     using std::sin;
-    this->t_jacobianmatrix[0][0] = cos(this->q[2] + this->phi);
-    this->t_jacobianmatrix[0][1] = sin(this->q[2] + this->phi);
+    this->t_jacobianmatrix[0][0] = cos(this->q[2]);
+    this->t_jacobianmatrix[0][1] = sin(this->q[2]);
     this->t_jacobianmatrix[0][2] = (a + sin(this->q[2])) / I;
-    this->t_jacobianmatrix[1][0] = cos(this->q[3] + this->phi);
-    this->t_jacobianmatrix[1][1] = sin(this->q[3] + this->phi);
+    this->t_jacobianmatrix[1][0] = cos(this->q[3]);
+    this->t_jacobianmatrix[1][1] = sin(this->q[3]);
     this->t_jacobianmatrix[1][2] = (-a - sin(this->q[3])) / I;
-    this->t_jacobianmatrix[2][0] = -this->q[0] * sin(this->q[2] + this->phi);
-    this->t_jacobianmatrix[2][1] = this->q[0] * cos(this->q[2] + this->phi);
+    this->t_jacobianmatrix[2][0] = -this->q[0] * sin(this->q[2]);
+    this->t_jacobianmatrix[2][1] = this->q[0] * cos(this->q[2]);
     this->t_jacobianmatrix[2][2] = this->q[0] * cos(this->q[2]) / I;
-    this->t_jacobianmatrix[3][0] = -this->q[1] * sin(this->q[3] + this->phi);
-    this->t_jacobianmatrix[3][1] = this->q[1] * cos(this->q[3] + this->phi);
+    this->t_jacobianmatrix[3][0] = -this->q[1] * sin(this->q[3]);
+    this->t_jacobianmatrix[3][1] = this->q[1] * cos(this->q[3]);
     this->t_jacobianmatrix[3][2] = -this->q[1] * cos(this->q[3]) / I;
 }
 
@@ -141,7 +135,7 @@ auto Schneider::cal_q(const std::array<float, 3>& joy) -> void {
                        : (joy[0] < 0 && joy[1] >= 0) ? 3
                                                      : 5;
     for (int i = 2; i < 4; ++i) {
-        this->q[i] = coef * schneider_PI / 4 - this->phi;
+        this->q[i] = coef * schneider_PI / 4;
     }
 
     led(2);
@@ -172,8 +166,8 @@ auto Schneider::cal_q(const std::array<float, 3>& joy) -> void {
 inline void Schneider::state_equation() {
     using std::cos;
     using std::sin;
-    this->x[0] = this->q[0] * cos(this->q[2] + phi) + this->q[1] * cos(this->q[3] + this->phi);
-    this->x[1] = this->q[0] * sin(this->q[2] + phi) + this->q[1] * sin(this->q[3] + this->phi);
+    this->x[0] = this->q[0] * cos(this->q[2]) + this->q[1] * cos(this->q[3]);
+    this->x[1] = this->q[0] * sin(this->q[2]) + this->q[1] * sin(this->q[3]);
     this->x[2] = (a * (this->q[0] - this->q[1]) + this->q[0] * sin(this->q[2])
                   - this->q[1] * sin(this->q[3]))
                  / I;
