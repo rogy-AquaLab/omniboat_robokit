@@ -12,8 +12,8 @@ namespace omniboat {
 
 Schneider::Schneider() :
     t_jacobianmatrix(),
-    q(),
-    x(),
+    inputs(),
+    outputs(),
     adcIn1(A4),
     adcIn2(A5),
     volume(A6),
@@ -47,8 +47,8 @@ void Schneider::init() {
     for (auto& row : this->t_jacobianmatrix) {
         fill(row.begin(), row.end(), 0);
     }
-    fill(this->q.begin(), this->q.end(), initialQ);
-    fill(this->x.begin(), this->x.end(), initialX);
+    fill(this->inputs.begin(), this->inputs.end(), initialQ);
+    fill(this->outputs.begin(), this->outputs.end(), initialX);
     this->cal_tjacob();
     const bool whoami = this->mpu.testConnection();
     if (whoami) {
@@ -71,8 +71,8 @@ void Schneider::one_step() {
     // ボリュームの値を読み取る
     const float volume_value = volume.read();
 
-    this->q[0] = 0;
-    this->q[1] = 0;
+    this->inputs[0] = 0;
+    this->inputs[1] = 0;
 
     const bool joyEffective = abs(joy[0]) > joyThreshold || abs(joy[1]) > joyThreshold;
     const bool volumeEffective = volume_value < volumeIneffectiveRange.first
@@ -113,18 +113,18 @@ auto Schneider::read_joy() -> std::array<float, 3> {
 inline void Schneider::cal_tjacob() {
     using std::cos;
     using std::sin;
-    this->t_jacobianmatrix[0][0] = cos(this->q[2]);
-    this->t_jacobianmatrix[0][1] = sin(this->q[2]);
-    this->t_jacobianmatrix[0][2] = (a + sin(this->q[2])) / I;
-    this->t_jacobianmatrix[1][0] = cos(this->q[3]);
-    this->t_jacobianmatrix[1][1] = sin(this->q[3]);
-    this->t_jacobianmatrix[1][2] = (-a - sin(this->q[3])) / I;
-    this->t_jacobianmatrix[2][0] = -this->q[0] * sin(this->q[2]);
-    this->t_jacobianmatrix[2][1] = this->q[0] * cos(this->q[2]);
-    this->t_jacobianmatrix[2][2] = this->q[0] * cos(this->q[2]) / I;
-    this->t_jacobianmatrix[3][0] = -this->q[1] * sin(this->q[3]);
-    this->t_jacobianmatrix[3][1] = this->q[1] * cos(this->q[3]);
-    this->t_jacobianmatrix[3][2] = -this->q[1] * cos(this->q[3]) / I;
+    this->t_jacobianmatrix[0][0] = cos(this->inputs[2]);
+    this->t_jacobianmatrix[0][1] = sin(this->inputs[2]);
+    this->t_jacobianmatrix[0][2] = (step_width_a + sin(this->inputs[2])) / I_z;
+    this->t_jacobianmatrix[1][0] = cos(this->inputs[3]);
+    this->t_jacobianmatrix[1][1] = sin(this->inputs[3]);
+    this->t_jacobianmatrix[1][2] = (-step_width_a - sin(this->inputs[3])) / I_z;
+    this->t_jacobianmatrix[2][0] = -this->inputs[0] * sin(this->inputs[2]);
+    this->t_jacobianmatrix[2][1] = this->inputs[0] * cos(this->inputs[2]);
+    this->t_jacobianmatrix[2][2] = this->inputs[0] * cos(this->inputs[2]) / I_z;
+    this->t_jacobianmatrix[3][0] = -this->inputs[1] * sin(this->inputs[3]);
+    this->t_jacobianmatrix[3][1] = this->inputs[1] * cos(this->inputs[3]);
+    this->t_jacobianmatrix[3][2] = -this->inputs[1] * cos(this->inputs[3]) / I_z;
 }
 
 auto Schneider::cal_q(const std::array<float, 3>& joy) -> void {
@@ -135,15 +135,15 @@ auto Schneider::cal_q(const std::array<float, 3>& joy) -> void {
                        : (joy[0] < 0 && joy[1] >= 0) ? 3
                                                      : 5;
     for (int i = 2; i < 4; ++i) {
-        this->q[i] = coef * schneider_PI / 4;
+        this->inputs[i] = coef * schneider_PI / 4;
     }
 
     led(2);
     for (int i = 0; i < trial_num; i++) {
         this->state_equation();
 
-        double diff = pow(this->x[0] - joy[0], 2) + pow(this->x[1] - joy[1], 2)
-                      + pow(this->x[2] - joy[2], 2);
+        double diff = pow(this->outputs[0] - joy[0], 2) + pow(this->outputs[1] - joy[1], 2)
+                      + pow(this->outputs[2] - joy[2], 2);
         if (diff < diffThreshold) {
             break;
         }
@@ -151,12 +151,13 @@ auto Schneider::cal_q(const std::array<float, 3>& joy) -> void {
         this->cal_tjacob();
         for (int j = 0; j < 4; j++) {
             for (int k = 0; k < 3; k++) {
-                this->q[j] -= e * this->t_jacobianmatrix[j][k] * (this->x[k] - joy[k]);
+                this->inputs[j]
+                    -= step_width_e * this->t_jacobianmatrix[j][k] * (this->outputs[k] - joy[k]);
             }
             if (j == 0 || j == 1) {
                 // 0.5に近づくように7次関数でバイアスをかけてる。多分。
                 constexpr int biasOrder = 7;
-                this->q[j] -= pow(2 * this->q[j] - 1, biasOrder);
+                this->inputs[j] -= pow(2 * this->inputs[j] - 1, biasOrder);
             }
         }
     }
@@ -166,43 +167,48 @@ auto Schneider::cal_q(const std::array<float, 3>& joy) -> void {
 inline void Schneider::state_equation() {
     using std::cos;
     using std::sin;
-    this->x[0] = this->q[0] * cos(this->q[2]) + this->q[1] * cos(this->q[3]);
-    this->x[1] = this->q[0] * sin(this->q[2]) + this->q[1] * sin(this->q[3]);
-    this->x[2] = (a * (this->q[0] - this->q[1]) + this->q[0] * sin(this->q[2])
-                  - this->q[1] * sin(this->q[3]))
-                 / I;
+    this->outputs[0]
+        = this->inputs[0] * cos(this->inputs[2]) + this->inputs[1] * cos(this->inputs[3]);
+    this->outputs[1]
+        = this->inputs[0] * sin(this->inputs[2]) + this->inputs[1] * sin(this->inputs[3]);
+    this->outputs[2]
+        = (step_width_a * (this->inputs[0] - this->inputs[1])
+           + this->inputs[0] * sin(this->inputs[2]) - this->inputs[1] * sin(this->inputs[3]))
+          / I_z;
 }
 
 void Schneider::set_q(const std::array<float, 3>& gyro) {
     using std::abs;
-    if (abs(this->q[0] <= joyThreshold)) {
-        this->q[0] = 0;
+    if (abs(this->inputs[0] <= joyThreshold)) {
+        this->inputs[0] = 0;
     }
-    if (abs(this->q[1] <= joyThreshold)) {
-        this->q[1] = 0;
+    if (abs(this->inputs[1] <= joyThreshold)) {
+        this->inputs[1] = 0;
     }
-    this->fet_1 = this->q[0];
-    this->fet_2 = this->q[1];
+    this->fet_1 = this->inputs[0];
+    this->fet_2 = this->inputs[1];
 
-    while (this->q[2] >= schneider_PI) {
-        this->q[2] -= 2 * schneider_PI;
+    while (this->inputs[2] >= schneider_PI) {
+        this->inputs[2] -= 2 * schneider_PI;
     }
-    while (this->q[3] >= schneider_PI) {
-        this->q[3] -= 2 * schneider_PI;
+    while (this->inputs[3] >= schneider_PI) {
+        this->inputs[3] -= 2 * schneider_PI;
     }
-    while (this->q[2] < -schneider_PI) {
-        this->q[2] += 2 * schneider_PI;
+    while (this->inputs[2] < -schneider_PI) {
+        this->inputs[2] += 2 * schneider_PI;
     }
-    while (this->q[3] < -schneider_PI) {
-        this->q[3] += 2 * schneider_PI;
+    while (this->inputs[3] < -schneider_PI) {
+        this->inputs[3] += 2 * schneider_PI;
     }
 
-    if (0 < this->q[2] && this->q[2] < schneider_PI) {
-        const int width = static_cast<int>(500 + 1900 / schneider_PI * this->q[2] - 2200 * gyro[2]);
+    if (0 < this->inputs[2] && this->inputs[2] < schneider_PI) {
+        const int width
+            = static_cast<int>(500 + 1900 / schneider_PI * this->inputs[2] - 2200 * gyro[2]);
         this->servo_1.pulsewidth_us(width);
     }
-    if (0 < this->q[3] && this->q[3] < schneider_PI) {
-        const int width = static_cast<int>(500 + 1900 / schneider_PI * this->q[3] + 2200 * gyro[2]);
+    if (0 < this->inputs[3] && this->inputs[3] < schneider_PI) {
+        const int width
+            = static_cast<int>(500 + 1900 / schneider_PI * this->inputs[3] + 2200 * gyro[2]);
         this->servo_2.pulsewidth_us(width);
     }
 }

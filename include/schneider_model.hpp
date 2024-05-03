@@ -15,12 +15,12 @@ namespace omniboat {
  * @brief z軸周りの慣性モーメント
  * @note もっと正確な値の方がいいかも
  */
-constexpr float I = 1;  // NOLINT: FIXME
+constexpr float I_z = 1;  // NOLINT: FIXME
 /**
  * @brief ステップ幅
  */
-constexpr float e = 0.01;  // NOLINT: FIXME
-constexpr float a = 0.1;   // NOLINT: FIXME
+constexpr float step_width_e = 0.01;  // NOLINT: FIXME
+constexpr float step_width_a = 0.1;   // NOLINT: FIXME
 
 /**
  * @brief 試行回数
@@ -117,12 +117,12 @@ private:
     /**
      * @brief 入力値
      */
-    std::array<float, 4> q;
+    std::array<float, 4> inputs;
 
     /**
      * @brief qに対しての出力
      */
-    std::array<float, 3> x;
+    std::array<float, 3> outputs;
 
     /**
      * @brief ヤコビ行列の計算を行う関数\nヤコビ行列は、入力からモータの出力を計算するための行列
