@@ -105,11 +105,6 @@ public:
 
 private:
     /**
-     * @brief 機体の姿勢
-     */
-    float phi;
-
-    /**
      * @brief ボタンが押されたときに機体を停止させる関数(割り込み処理)
      */
     void ticker_flip();
