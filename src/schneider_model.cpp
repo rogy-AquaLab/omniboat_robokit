@@ -26,13 +26,15 @@ Schneider::Schneider() :
     led2(PA_3),
     led3(PA_4),
     pc(USBTX, USBRX) {
+    constexpr auto servo_pwm_period_ms = 20;
+
     this->led(1);
     this->led(2);
     this->led(3);
     printf("start up\n");
 
-    this->servo_1.period_ms(pwmPeriodMs);
-    this->servo_2.period_ms(pwmPeriodMs);
+    this->servo_1.period_ms(servo_pwm_period_ms);
+    this->servo_2.period_ms(servo_pwm_period_ms);
 }
 
 Schneider::~Schneider() {
@@ -60,6 +62,12 @@ void Schneider::init() {
 
 void Schneider::one_step() {
     using std::abs;
+    // ジョイスティックの値の実効下限値
+    constexpr auto joy_min = 0.4F;
+    // つまみの値の実効範囲 (x < volume_under || volume_over < x)
+    constexpr auto volume_under = 0.4F;
+    constexpr auto volume_over = 0.7F;
+
     this->led(3);
 
     // ジャイロセンサの値を読み取る
@@ -74,9 +82,8 @@ void Schneider::one_step() {
     this->q[0] = 0;
     this->q[1] = 0;
 
-    const bool joyEffective = abs(joy[0]) > joyThreshold || abs(joy[1]) > joyThreshold;
-    const bool volumeEffective = volume_value < volumeIneffectiveRange.first
-                                 || volumeIneffectiveRange.second < volume_value;
+    const bool joyEffective = abs(joy[0]) > joy_min && abs(joy[1]) > joy_min;
+    const bool volumeEffective = volume_value < volume_under || volume_over < volume_value;
 
     if (joyEffective) {
         this->cal_q(joy);
@@ -101,11 +108,14 @@ void Schneider::debug() {
 }
 
 auto Schneider::read_joy() -> std::array<float, 3> {
+    // ジョイスティックの中心値
+    constexpr auto joy_center = 0.5F;
+
     const auto joy_x = this->adcIn1.read();
     const auto joy_y = this->adcIn2.read();
 
-    const auto dest_x = (joy_x - joyCenter) * 2;
-    const auto dest_y = (joy_y - joyCenter) * 2;
+    const auto dest_x = (joy_x - joy_center) * 2;
+    const auto dest_y = (joy_y - joy_center) * 2;
     const auto dest_rot = 0.0F;
     return {dest_x, dest_y, dest_rot};
 }
@@ -129,6 +139,11 @@ inline void Schneider::cal_tjacob() {
 
 auto Schneider::cal_q(const std::array<float, 3>& joy) -> void {
     using std::pow;
+    // ステップ幅
+    constexpr auto e = 0.01F;
+    // 試行回数
+    constexpr auto trial_num = 1000;
+
     // 初期値
     const float coef = (joy[0] >= 0 && joy[1] >= 0)  ? 1
                        : (joy[0] >= 0 && joy[1] < 0) ? -1
@@ -140,11 +155,14 @@ auto Schneider::cal_q(const std::array<float, 3>& joy) -> void {
 
     led(2);
     for (int i = 0; i < trial_num; i++) {
+        // 目標値との差の2乗ノルム(diff)の実効下限値
+        constexpr auto diff_min = 0.001;
+
         this->state_equation();
 
         double diff = pow(this->x[0] - joy[0], 2) + pow(this->x[1] - joy[1], 2)
                       + pow(this->x[2] - joy[2], 2);
-        if (diff < diffThreshold) {
+        if (diff < diff_min) {
             break;
         }
 
@@ -175,10 +193,13 @@ inline void Schneider::state_equation() {
 
 void Schneider::set_q(const std::array<float, 3>& gyro) {
     using std::abs;
-    if (abs(this->q[0] <= joyThreshold)) {
+    // 系への入力値の実効下限値
+    constexpr float input_min = 0.4F;
+
+    if (abs(this->q[0]) <= input_min) {
         this->q[0] = 0;
     }
-    if (abs(this->q[1] <= joyThreshold)) {
+    if (abs(this->q[1]) <= input_min) {
         this->q[1] = 0;
     }
     this->fet_1 = this->q[0];
@@ -208,15 +229,23 @@ void Schneider::set_q(const std::array<float, 3>& gyro) {
 }
 
 void Schneider::rotate(const float& volume_value) {
-    this->fet_1 = fetDuty;
-    this->fet_2 = fetDuty;
+    // volumeのしきい値
+    constexpr auto volume_threshold = 0.5F;
+    // サーボモータ出力値(pulse width)
+    constexpr auto minor_rotate_pulse_width_us = 550;
+    constexpr auto major_rotate_pulse_width_us = 2350;
+    // DCモータ出力値(duty比)
+    constexpr auto fet_duty = 0.5F;
+
+    this->fet_1 = fet_duty;
+    this->fet_2 = fet_duty;
     // ifとelseで内容が同じだといわれたがそんなことない
-    if (volume_value < volumeThreshold) {
-        this->servo_1.pulsewidth_us(minorRotatePulsewidthUs);
-        this->servo_2.pulsewidth_us(majorRotatePulsewidthUs);
+    if (volume_value < volume_threshold) {
+        this->servo_1.pulsewidth_us(minor_rotate_pulse_width_us);
+        this->servo_2.pulsewidth_us(major_rotate_pulse_width_us);
     } else {
-        this->servo_2.pulsewidth_us(minorRotatePulsewidthUs);
-        this->servo_1.pulsewidth_us(majorRotatePulsewidthUs);
+        this->servo_2.pulsewidth_us(minor_rotate_pulse_width_us);
+        this->servo_1.pulsewidth_us(major_rotate_pulse_width_us);
     }
 }
 

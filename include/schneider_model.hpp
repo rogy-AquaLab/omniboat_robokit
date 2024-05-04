@@ -7,10 +7,12 @@
 
 #include "MPU6050.h"
 
-constexpr float schneider_PI = 3.141592653589;
-
 namespace omniboat {
 
+/**
+ * @brief π
+ */
+constexpr float schneider_PI = 3.1415927F;
 /**
  * @brief z軸周りの慣性モーメント
  * @note もっと正確な値の方がいいかも
@@ -19,58 +21,7 @@ constexpr float I = 1;  // NOLINT: FIXME
 /**
  * @brief ステップ幅
  */
-constexpr float e = 0.01;  // NOLINT: FIXME
-constexpr float a = 0.1;   // NOLINT: FIXME
-
-/**
- * @brief 試行回数
- */
-constexpr int trial_num = 1000;
-
-/**
- * @brief volumeの閾値
- */
-constexpr float volumeThreshold = 0.5F;
-
-/**
- * @brief ジョイスティックの下限値
- */
-constexpr float joyThreshold = 0.4F;
-
-/**
- * @brief ジョイスティックの中央値
- */
-constexpr float joyCenter = 0.5F;
-
-/**
- * @brief volumeの下限値・上限値
- */
-constexpr std::pair<float, float> volumeIneffectiveRange = {0.4F, 0.7F};
-
-/**
- * @brief pulsewidthの小さいほうの値
- */
-constexpr int minorRotatePulsewidthUs = 550;
-
-/**
- * @brief pulsewidthの大きいほうの値
- */
-constexpr int majorRotatePulsewidthUs = 2350;
-
-/**
- * @brief 座標・姿勢の目標値と現在値の偏差の有効範囲の最小値 (それ未満は偏差0とみなす)
- */
-constexpr float diffThreshold = 0.001F;
-
-/**
- * @brief サーボのPWM周期
- */
-constexpr int pwmPeriodMs = 20;
-
-/**
- * @brief DCモータ用FETへのPWM出力(duty比)
- */
-constexpr float fetDuty = 0.5F;
+constexpr float a = 0.1;  // NOLINT: FIXME
 
 /**
  * @brief モータへの出力を計算するクラス
