@@ -27,16 +27,7 @@ Schneider::Schneider() :
     fet_2(PA_10),
     led1(PA_1),
     led2(PA_3),
-    led3(PA_4),
-    pc(USBTX, USBRX) {
-    led(1);
-    led(2);
-    led(3);
-    printf("start up\n");
-
-    servo_1.period_ms(20);
-    servo_2.period_ms(20);
-}
+    led3(PA_4) {}
 // NOLINTEND(cppcoreguidelines-pro-type-member-init)
 
 Schneider::~Schneider() {
