@@ -40,7 +40,7 @@ Schneider::Schneider() :
     led2(PA_3),
     led3(PA_4),
     pc(USBTX, USBRX) {
-    constexpr auto servo_pwm_period_ms = 20U;
+    constexpr uint8_t servo_pwm_period_ms = 20U;
 
     this->led(1);
     this->led(2);
@@ -77,10 +77,10 @@ void Schneider::init() {
 void Schneider::one_step() {
     using std::abs;
     // ジョイスティックの値の実効下限値
-    constexpr auto joy_min = 0.4F;
+    constexpr float joy_min = 0.4F;
     // つまみの値の実効範囲 (x < volume_under || volume_over < x で有効)
-    constexpr auto volume_under = 0.4F;
-    constexpr auto volume_over = 0.7F;
+    constexpr float volume_under = 0.4F;
+    constexpr float volume_over = 0.7F;
 
     this->led(3);
 
@@ -123,7 +123,7 @@ void Schneider::debug() {
 
 auto Schneider::read_joy() -> std::array<float, 3> {
     // ジョイスティックの中心値
-    constexpr auto joy_center = 0.5F;
+    constexpr float joy_center = 0.5F;
 
     const auto joy_x = this->adcIn1.read();
     const auto joy_y = this->adcIn2.read();
@@ -154,9 +154,9 @@ inline void Schneider::cal_tjacob() {
 auto Schneider::cal_q(const std::array<float, 3>& joy) -> void {
     using std::pow;
     // ステップ幅
-    constexpr auto e = 0.01F;  // NOLINT: FIXME
+    constexpr float e = 0.01F;  // NOLINT: FIXME
     // 試行回数
-    constexpr auto trial_num = 1000;
+    constexpr size_t trial_num = 1000U;
 
     // 初期値
     const float coef = (joy[0] >= 0 && joy[1] >= 0)  ? 1
@@ -170,7 +170,7 @@ auto Schneider::cal_q(const std::array<float, 3>& joy) -> void {
     led(2);
     for (int i = 0; i < trial_num; i++) {
         // 目標値との差の2乗ノルム(diff)の実効下限値
-        constexpr auto diff_min = 0.001F;
+        constexpr float diff_min = 0.001F;
 
         this->state_equation();
 
@@ -244,12 +244,12 @@ void Schneider::set_q(const std::array<float, 3>& gyro) {
 
 void Schneider::rotate(const float& volume_value) {
     // volumeのしきい値
-    constexpr auto volume_threshold = 0.5F;
+    constexpr float volume_threshold = 0.5F;
     // サーボモータ出力値(pulse width)
-    constexpr auto minor_rotate_pulsewidth_us = 550;
-    constexpr auto major_rotate_pulsewidth_us = 2350;
+    constexpr uint16_t minor_rotate_pulsewidth_us = 550U;
+    constexpr uint16_t major_rotate_pulsewidth_us = 2350U;
     // DCモータ出力値(duty比)
-    constexpr auto fet_duty = 0.5F;
+    constexpr float fet_duty = 0.5F;
 
     this->fet_1 = fet_duty;
     this->fet_2 = fet_duty;
