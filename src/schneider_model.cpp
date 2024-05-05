@@ -10,6 +10,20 @@
 
 namespace omniboat {
 
+/**
+ * @brief π
+ */
+constexpr float schneider_PI = 3.1415927F;
+/**
+ * @brief z軸周りの慣性モーメント
+ * @note もっと正確な値の方がいいかも
+ */
+constexpr float I = 1.0F;  // NOLINT: FIXME
+/**
+ * @brief ステップ幅
+ */
+constexpr float a = 0.1F;  // NOLINT: FIXME
+
 Schneider::Schneider() :
     t_jacobianmatrix(),
     q(),
@@ -26,7 +40,7 @@ Schneider::Schneider() :
     led2(PA_3),
     led3(PA_4),
     pc(USBTX, USBRX) {
-    constexpr auto servo_pwm_period_ms = 20;
+    constexpr auto servo_pwm_period_ms = 20U;
 
     this->led(1);
     this->led(2);
@@ -64,7 +78,7 @@ void Schneider::one_step() {
     using std::abs;
     // ジョイスティックの値の実効下限値
     constexpr auto joy_min = 0.4F;
-    // つまみの値の実効範囲 (x < volume_under || volume_over < x)
+    // つまみの値の実効範囲 (x < volume_under || volume_over < x で有効)
     constexpr auto volume_under = 0.4F;
     constexpr auto volume_over = 0.7F;
 
@@ -140,7 +154,7 @@ inline void Schneider::cal_tjacob() {
 auto Schneider::cal_q(const std::array<float, 3>& joy) -> void {
     using std::pow;
     // ステップ幅
-    constexpr auto e = 0.01F;
+    constexpr auto e = 0.01F;  // NOLINT: FIXME
     // 試行回数
     constexpr auto trial_num = 1000;
 
@@ -196,10 +210,10 @@ void Schneider::set_q(const std::array<float, 3>& gyro) {
     // 系への入力値の実効下限値
     constexpr float input_min = 0.4F;
 
-    if (abs(this->q[0]) <= input_min) {
+    if (abs(this->q[0] <= input_min)) {
         this->q[0] = 0;
     }
-    if (abs(this->q[1]) <= input_min) {
+    if (abs(this->q[1] <= input_min)) {
         this->q[1] = 0;
     }
     this->fet_1 = this->q[0];
@@ -232,8 +246,8 @@ void Schneider::rotate(const float& volume_value) {
     // volumeのしきい値
     constexpr auto volume_threshold = 0.5F;
     // サーボモータ出力値(pulse width)
-    constexpr auto minor_rotate_pulse_width_us = 550;
-    constexpr auto major_rotate_pulse_width_us = 2350;
+    constexpr auto minor_rotate_pulsewidth_us = 550;
+    constexpr auto major_rotate_pulsewidth_us = 2350;
     // DCモータ出力値(duty比)
     constexpr auto fet_duty = 0.5F;
 
@@ -241,11 +255,11 @@ void Schneider::rotate(const float& volume_value) {
     this->fet_2 = fet_duty;
     // ifとelseで内容が同じだといわれたがそんなことない
     if (volume_value < volume_threshold) {
-        this->servo_1.pulsewidth_us(minor_rotate_pulse_width_us);
-        this->servo_2.pulsewidth_us(major_rotate_pulse_width_us);
+        this->servo_1.pulsewidth_us(minor_rotate_pulsewidth_us);
+        this->servo_2.pulsewidth_us(major_rotate_pulsewidth_us);
     } else {
-        this->servo_2.pulsewidth_us(minor_rotate_pulse_width_us);
-        this->servo_1.pulsewidth_us(major_rotate_pulse_width_us);
+        this->servo_2.pulsewidth_us(minor_rotate_pulsewidth_us);
+        this->servo_1.pulsewidth_us(major_rotate_pulsewidth_us);
     }
 }
 

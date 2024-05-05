@@ -10,20 +10,6 @@
 namespace omniboat {
 
 /**
- * @brief π
- */
-constexpr float schneider_PI = 3.1415927F;
-/**
- * @brief z軸周りの慣性モーメント
- * @note もっと正確な値の方がいいかも
- */
-constexpr float I = 1;  // NOLINT: FIXME
-/**
- * @brief ステップ幅
- */
-constexpr float a = 0.1;  // NOLINT: FIXME
-
-/**
  * @brief モータへの出力を計算するクラス
  */
 class Schneider {
