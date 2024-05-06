@@ -122,7 +122,7 @@ private:
     /**
      * @brief ヤコビ行列の計算を行う関数\nヤコビ行列は、入力からモータの出力を計算するための行列
      */
-    std::array<std::array<float, 3>, 4> cal_tjacob();
+    std::array<std::array<float, 3>, 4> cal_tjacob() const;
 
     /**
      * @brief 状態方程式の計算を行う関数
