@@ -146,7 +146,7 @@ auto Schneider::cal_q(const std::array<float, 3>& joy) -> void {
             break;
         }
 
-        std::array<std::array<float, 3>, 4> t_jacobianmatrix = this->cal_tjacob();
+        const std::array<std::array<float, 3>, 4> t_jacobianmatrix = this->cal_tjacob();
         for (int j = 0; j < 4; j++) {
             for (int k = 0; k < 3; k++) {
                 this->q[j] -= e * t_jacobianmatrix[j][k] * (this->x[k] - joy[k]);
