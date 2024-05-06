@@ -106,7 +106,7 @@ auto Schneider::read_joy() -> std::array<float, 3> {
     return {dest_x, dest_y, dest_rot};
 }
 
-inline std::array<std::array<float, 3>, 4> Schneider::cal_tjacob() {
+inline std::array<std::array<float, 3>, 4> Schneider::cal_tjacob() const {
     using std::cos;
     using std::sin;
     std::array<std::array<float, 3>, 4> t_jacobianmatrix;
