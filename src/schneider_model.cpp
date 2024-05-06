@@ -11,7 +11,6 @@
 namespace omniboat {
 
 Schneider::Schneider() :
-    t_jacobianmatrix(),
     q(),
     x(),
     adcIn1(A4),
@@ -44,9 +43,6 @@ void Schneider::init() {
     constexpr float initialQ = 0.01F;
     constexpr float initialX = 0.0F;
 
-    for (auto& row : this->t_jacobianmatrix) {
-        fill(row.begin(), row.end(), 0);
-    }
     fill(this->q.begin(), this->q.end(), initialQ);
     fill(this->x.begin(), this->x.end(), initialX);
     this->cal_tjacob();
@@ -110,21 +106,23 @@ auto Schneider::read_joy() -> std::array<float, 3> {
     return {dest_x, dest_y, dest_rot};
 }
 
-inline void Schneider::cal_tjacob() {
+inline std::array<std::array<float, 3>, 4> Schneider::cal_tjacob() {
     using std::cos;
     using std::sin;
-    this->t_jacobianmatrix[0][0] = cos(this->q[2]);
-    this->t_jacobianmatrix[0][1] = sin(this->q[2]);
-    this->t_jacobianmatrix[0][2] = (a + sin(this->q[2])) / I;
-    this->t_jacobianmatrix[1][0] = cos(this->q[3]);
-    this->t_jacobianmatrix[1][1] = sin(this->q[3]);
-    this->t_jacobianmatrix[1][2] = (-a - sin(this->q[3])) / I;
-    this->t_jacobianmatrix[2][0] = -this->q[0] * sin(this->q[2]);
-    this->t_jacobianmatrix[2][1] = this->q[0] * cos(this->q[2]);
-    this->t_jacobianmatrix[2][2] = this->q[0] * cos(this->q[2]) / I;
-    this->t_jacobianmatrix[3][0] = -this->q[1] * sin(this->q[3]);
-    this->t_jacobianmatrix[3][1] = this->q[1] * cos(this->q[3]);
-    this->t_jacobianmatrix[3][2] = -this->q[1] * cos(this->q[3]) / I;
+    std::array<std::array<float, 3>, 4> t_jacobianmatrix;
+    t_jacobianmatrix[0][0] = cos(this->q[2]);
+    t_jacobianmatrix[0][1] = sin(this->q[2]);
+    t_jacobianmatrix[0][2] = (a + sin(this->q[2])) / I;
+    t_jacobianmatrix[1][0] = cos(this->q[3]);
+    t_jacobianmatrix[1][1] = sin(this->q[3]);
+    t_jacobianmatrix[1][2] = (-a - sin(this->q[3])) / I;
+    t_jacobianmatrix[2][0] = -this->q[0] * sin(this->q[2]);
+    t_jacobianmatrix[2][1] = this->q[0] * cos(this->q[2]);
+    t_jacobianmatrix[2][2] = this->q[0] * cos(this->q[2]) / I;
+    t_jacobianmatrix[3][0] = -this->q[1] * sin(this->q[3]);
+    t_jacobianmatrix[3][1] = this->q[1] * cos(this->q[3]);
+    t_jacobianmatrix[3][2] = -this->q[1] * cos(this->q[3]) / I;
+    return t_jacobianmatrix;
 }
 
 auto Schneider::cal_q(const std::array<float, 3>& joy) -> void {
@@ -148,10 +146,10 @@ auto Schneider::cal_q(const std::array<float, 3>& joy) -> void {
             break;
         }
 
-        this->cal_tjacob();
+        std::array<std::array<float, 3>, 4> t_jacobianmatrix = this->cal_tjacob();
         for (int j = 0; j < 4; j++) {
             for (int k = 0; k < 3; k++) {
-                this->q[j] -= e * this->t_jacobianmatrix[j][k] * (this->x[k] - joy[k]);
+                this->q[j] -= e * t_jacobianmatrix[j][k] * (this->x[k] - joy[k]);
             }
             if (j == 0 || j == 1) {
                 // 0.5に近づくように7次関数でバイアスをかけてる。多分。
