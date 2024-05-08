@@ -7,8 +7,11 @@
 #include "rtos.h"
 
 #include "schneider_model.hpp"
+#include "trace.hpp"
 
 namespace omniboat {
+
+using trace::LedId;
 
 /**
  * @brief π
@@ -34,15 +37,12 @@ Schneider::Schneider() :
     servo_1(PB_4),
     servo_2(PA_11),
     fet_1(PA_9),
-    fet_2(PA_10),
-    led1(PA_1),
-    led2(PA_3),
-    led3(PA_4) {
+    fet_2(PA_10) {
     constexpr uint8_t servo_pwm_period_ms = 20U;
 
-    this->led(1);
-    this->led(2);
-    this->led(3);
+    trace::toggle(LedId::First);
+    trace::toggle(LedId::Second);
+    trace::toggle(LedId::Third);
     printf("start up\n");
 
     this->servo_1.period_ms(servo_pwm_period_ms);
@@ -50,7 +50,7 @@ Schneider::Schneider() :
 }
 
 Schneider::~Schneider() {
-    this->led(1);
+    trace::toggle(LedId::First);
 }
 
 void Schneider::init() {
@@ -77,7 +77,7 @@ void Schneider::one_step() {
     constexpr float volume_under = 0.4F;
     constexpr float volume_over = 0.7F;
 
-    this->led(3);
+    trace::toggle(LedId::Third);
 
     // ジャイロセンサの値を読み取る
     const auto gyro = this->read_gyro();
@@ -104,7 +104,7 @@ void Schneider::one_step() {
         this->fet_2 = 0;
     }
     this->debug();
-    this->led(3);
+    trace::toggle(LedId::Third);
 }
 
 void Schneider::debug() {
@@ -164,7 +164,7 @@ auto Schneider::cal_q(const std::array<float, 3>& joy) -> void {
         this->q[i] = coef * schneider_PI / 4;
     }
 
-    led(2);
+    trace::toggle(LedId::Second);
     for (size_t i = 0; i < trial_num; i++) {
         // 目標値との差の2乗ノルム(diff)の実効下限値
         constexpr float diff_min = 0.001F;
@@ -189,7 +189,7 @@ auto Schneider::cal_q(const std::array<float, 3>& joy) -> void {
             }
         }
     }
-    this->led(2);
+    trace::toggle(LedId::Second);
 }
 
 inline void Schneider::state_equation() {
@@ -264,16 +264,6 @@ auto Schneider::read_gyro() -> std::array<float, 3> {
     std::array<float, 3> gyro;
     this->mpu.getGyro(gyro.data());
     return gyro;
-}
-
-void Schneider::led(int num) {
-    // 3つの連続した明示的なブランチがあるといわれたがそんなことない
-    switch (num) {
-    case 1: this->led1 = !this->led1; break;
-    case 2: this->led2 = !this->led2; break;
-    case 3: this->led3 = !this->led3; break;
-    default: break;
-    }
 }
 
 }  // namespace omniboat
