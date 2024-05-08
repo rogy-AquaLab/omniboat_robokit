@@ -120,7 +120,7 @@ private:
     std::array<float, 4> inputs;
 
     /**
-     * @brief qに対しての出力
+     * @brief inputsに対しての出力
      */
     std::array<float, 3> outputs;
 
