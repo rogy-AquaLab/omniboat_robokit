@@ -170,8 +170,6 @@ private:
     DigitalOut led1;
     DigitalOut led2;
     DigitalOut led3;
-
-    BufferedSerial pc;
 };
 }  // namespace omniboat
 

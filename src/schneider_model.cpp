@@ -23,8 +23,7 @@ Schneider::Schneider() :
     fet_2(PA_10),
     led1(PA_1),
     led2(PA_3),
-    led3(PA_4),
-    pc(USBTX, USBRX) {
+    led3(PA_4) {
     this->led(1);
     this->led(2);
     this->led(3);
