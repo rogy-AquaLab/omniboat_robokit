@@ -172,10 +172,10 @@ inline void Schneider::state_equation() {
 
 void Schneider::set_q(const std::array<float, 3>& gyro) {
     using std::abs;
-    if (abs(this->q[0] <= joyThreshold)) {
+    if (abs(this->q[0]) <= joyThreshold) {
         this->q[0] = 0;
     }
-    if (abs(this->q[1] <= joyThreshold)) {
+    if (abs(this->q[1]) <= joyThreshold) {
         this->q[1] = 0;
     }
     this->fet_1 = this->q[0];
