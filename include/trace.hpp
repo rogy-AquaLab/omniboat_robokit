@@ -1,6 +1,8 @@
 #ifndef OMNIBOAT_ROBOKIT_TRACE_HPP
 #define OMNIBOAT_ROBOKIT_TRACE_HPP
 
+#include <cstdint>
+
 namespace trace {
 enum class LedId : uint8_t
 {
