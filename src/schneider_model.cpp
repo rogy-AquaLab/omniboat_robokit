@@ -115,16 +115,16 @@ inline void Schneider::cal_tjacob() {
     using std::sin;
     this->t_jacobianmatrix[0][0] = cos(this->inputs[2]);
     this->t_jacobianmatrix[0][1] = sin(this->inputs[2]);
-    this->t_jacobianmatrix[0][2] = (step_width_a + sin(this->inputs[2])) / I_z;
+    this->t_jacobianmatrix[0][2] = (step_width_a + sin(this->inputs[2])) / inertia_z;
     this->t_jacobianmatrix[1][0] = cos(this->inputs[3]);
     this->t_jacobianmatrix[1][1] = sin(this->inputs[3]);
-    this->t_jacobianmatrix[1][2] = (-step_width_a - sin(this->inputs[3])) / I_z;
+    this->t_jacobianmatrix[1][2] = (-step_width_a - sin(this->inputs[3])) / inertia_z;
     this->t_jacobianmatrix[2][0] = -this->inputs[0] * sin(this->inputs[2]);
     this->t_jacobianmatrix[2][1] = this->inputs[0] * cos(this->inputs[2]);
-    this->t_jacobianmatrix[2][2] = this->inputs[0] * cos(this->inputs[2]) / I_z;
+    this->t_jacobianmatrix[2][2] = this->inputs[0] * cos(this->inputs[2]) / inertia_z;
     this->t_jacobianmatrix[3][0] = -this->inputs[1] * sin(this->inputs[3]);
     this->t_jacobianmatrix[3][1] = this->inputs[1] * cos(this->inputs[3]);
-    this->t_jacobianmatrix[3][2] = -this->inputs[1] * cos(this->inputs[3]) / I_z;
+    this->t_jacobianmatrix[3][2] = -this->inputs[1] * cos(this->inputs[3]) / inertia_z;
 }
 
 auto Schneider::cal_q(const std::array<float, 3>& joy) -> void {
@@ -174,7 +174,7 @@ inline void Schneider::state_equation() {
     this->outputs[2]
         = (step_width_a * (this->inputs[0] - this->inputs[1])
            + this->inputs[0] * sin(this->inputs[2]) - this->inputs[1] * sin(this->inputs[3]))
-          / I_z;
+          / inertia_z;
 }
 
 void Schneider::set_q(const std::array<float, 3>& gyro) {
