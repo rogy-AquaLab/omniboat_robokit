@@ -168,7 +168,7 @@ auto Schneider::cal_q(const std::array<float, 3>& joy) -> void {
     }
 
     led(2);
-    for (int i = 0; i < trial_num; i++) {
+    for (size_t i = 0; i < trial_num; i++) {
         // 目標値との差の2乗ノルム(diff)の実効下限値
         constexpr float diff_min = 0.001F;
 
