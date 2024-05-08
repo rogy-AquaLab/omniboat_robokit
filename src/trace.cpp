@@ -14,9 +14,11 @@
 #endif  // TRACE_LED3_PIN
 
 namespace trace {
+// NOLINTBEGIN(modernize-use-trailing-return-type)
 mbed::DigitalOut led_first(TRACE_LED1_PIN);
 mbed::DigitalOut led_second(TRACE_LED2_PIN);
 mbed::DigitalOut led_third(TRACE_LED3_PIN);
+// NOLINTEND(modernize-use-trailing-return-type)
 
 void init() {
     led_first.write(0);
@@ -24,7 +26,7 @@ void init() {
     led_third.write(0);
 }
 
-void toggle(LedId id) {
+void toggle(LedId id) {  // NOLINT(readability-identifier-length)
     switch (id) {
     case LedId::First: led_first.write(1 - led_first.read()); break;
     case LedId::Second: led_second.write(1 - led_second.read()); break;
@@ -32,7 +34,7 @@ void toggle(LedId id) {
     }
 }
 
-void on(LedId id) {
+void on(LedId id) {  // NOLINT(readability-identifier-length)
     switch (id) {
     case LedId::First: led_first.write(1); break;
     case LedId::Second: led_second.write(1); break;
@@ -40,7 +42,7 @@ void on(LedId id) {
     }
 }
 
-void off(LedId id) {
+void off(LedId id) {  // NOLINT(readability-identifier-length)
     switch (id) {
     case LedId::First: led_first.write(0); break;
     case LedId::Second: led_second.write(0); break;

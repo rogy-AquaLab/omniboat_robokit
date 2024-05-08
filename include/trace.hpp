@@ -2,7 +2,8 @@
 #define OMNIBOAT_ROBOKIT_TRACE_HPP
 
 namespace trace {
-enum class LedId : uint8_t {
+enum class LedId : uint8_t
+{
     First,
     Second,
     Third
