@@ -33,6 +33,21 @@ constexpr int trial_num = 1000;
 constexpr float volumeThreshold = 0.5F;
 
 /**
+ * @brief ジョイスティックの下限値
+ */
+constexpr float joyThreshold = 0.4F;
+
+/**
+ * @brief ジョイスティックの中央値
+ */
+constexpr float joyCenter = 0.5F;
+
+/**
+ * @brief volumeの下限値・上限値
+ */
+constexpr std::pair<float, float> volumeIneffectiveRange = {0.4F, 0.7F};
+
+/**
  * @brief pulsewidthの小さいほうの値
  */
 constexpr int minorRotatePulsewidthUs = 550;
@@ -43,11 +58,30 @@ constexpr int minorRotatePulsewidthUs = 550;
 constexpr int majorRotatePulsewidthUs = 2350;
 
 /**
+ * @brief 座標・姿勢の目標値と現在値の偏差の有効範囲の最小値 (それ未満は偏差0とみなす)
+ */
+constexpr float diffThreshold = 0.001F;
+
+/**
+ * @brief サーボのPWM周期
+ */
+constexpr int pwmPeriodMs = 20;
+
+/**
+ * @brief DCモータ用FETへのPWM出力(duty比)
+ */
+constexpr float fetDuty = 0.5F;
+
+/**
  * @brief モータへの出力を計算するクラス
  */
 class Schneider {
 public:
     Schneider();
+    Schneider(const Schneider&) = delete;
+    Schneider(Schneider&&) = default;
+    auto operator=(const Schneider&) -> Schneider& = delete;
+    auto operator=(Schneider&&) -> Schneider& = default;
     ~Schneider();
     void debug();
 
@@ -71,29 +105,9 @@ public:
 
 private:
     /**
-     * @brief 機体の姿勢
-     */
-    float phi;
-
-    /**
-     * @brief ジャイロセンサの値
-     */
-    std::array<float, 3> gyro;
-
-    /**
      * @brief ボタンが押されたときに機体を停止させる関数(割り込み処理)
      */
     void ticker_flip();
-
-    /**
-     * @brief ヤコビ行列
-     */
-    std::array<std::array<float, 3>, 4> t_jacobianmatrix;
-
-    /**
-     * @brief ジョイスティックからの入力(目標値)
-     */
-    std::array<float, 3> x_d;
 
     /**
      * @brief 入力値
@@ -106,14 +120,9 @@ private:
     std::array<float, 3> x;
 
     /**
-     * @brief つまみの入力値
-     */
-    float volume_;
-
-    /**
      * @brief ヤコビ行列の計算を行う関数\nヤコビ行列は、入力からモータの出力を計算するための行列
      */
-    void cal_tjacob();
+    std::array<std::array<float, 3>, 4> cal_tjacob() const;
 
     /**
      * @brief 状態方程式の計算を行う関数
@@ -124,26 +133,29 @@ private:
      * @brief
      * モータへの出力を計算する関数\nモータへの出力は、勾配を使って目的関数を最小化するように計算する
      */
-    void cal_q();
+    auto cal_q(const std::array<float, 3>& joy) -> void;
 
     /**
      * @brief モータへの信号値に変換する関数
      */
-    void set_q();
+    void set_q(const std::array<float, 3>& gyro);
 
     /**
-     * @brief ジョイコンの値を読み取って、x_dに格納する
+     * @brief ジョイコンの値を読み取り、目標値を算出して配列として返す
      *
-     * @param joy_x ジョイコンのx軸の値
-     * @param joy_y ジョイコンのy軸の値
-     * @param rotate 回転の値
+     * @return std::array<float, 3> index0: x, index1: y, index2: rotation
      */
-    void joy_read(float joy_x, float joy_y, int rotate);
+    auto read_joy() -> std::array<float, 3>;
 
     /**
      * @brief つまみの値をから機体を回転させる関数
      */
-    void rotate();
+    void rotate(const float& volume_value);
+
+    /**
+     * @brief ジャイロセンサの値を読み取る
+     */
+    auto read_gyro() -> std::array<float, 3>;
 
     AnalogIn adcIn1;  // ジョイスティック
     AnalogIn adcIn2;  // ジョイスティック
