@@ -33,13 +33,6 @@ public:
      */
     void flip_shneider();
 
-    /**
-     * @brief ledを点滅させる関数
-     *
-     * @param num 点滅させるledの番号
-     */
-    void led(int num);
-
 private:
     /**
      * @brief ボタンが押されたときに機体を停止させる関数(割り込み処理)
@@ -103,10 +96,6 @@ private:
     PwmOut servo_2;  // servo
     PwmOut fet_1;    // DC
     PwmOut fet_2;    // DC
-
-    DigitalOut led1;
-    DigitalOut led2;
-    DigitalOut led3;
 };
 }  // namespace omniboat
 
