@@ -42,12 +42,12 @@ private:
     /**
      * @brief 入力値
      */
-    std::array<float, 4> q;
+    std::array<float, 4> inputs;
 
     /**
-     * @brief qに対しての出力
+     * @brief inputsに対しての出力
      */
-    std::array<float, 3> x;
+    std::array<float, 3> outputs;
 
     /**
      * @brief ヤコビ行列の計算を行う関数\nヤコビ行列は、入力からモータの出力を計算するための行列
