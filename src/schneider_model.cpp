@@ -41,14 +41,14 @@ Schneider::~Schneider() {
 
 void Schneider::init() {
     using std::fill;
-    constexpr float initialQ = 0.01F;
-    constexpr float initialX = 0.0F;
+    constexpr float initialInputs = 0.01F;
+    constexpr float initialOutputs = 0.0F;
 
     for (auto& row : this->t_jacobianmatrix) {
         fill(row.begin(), row.end(), 0);
     }
-    fill(this->inputs.begin(), this->inputs.end(), initialQ);
-    fill(this->outputs.begin(), this->outputs.end(), initialX);
+    fill(this->inputs.begin(), this->inputs.end(), initialInputs);
+    fill(this->outputs.begin(), this->outputs.end(), initialOutputs);
     this->cal_tjacob();
     const bool whoami = this->mpu.testConnection();
     if (whoami) {
