@@ -211,10 +211,10 @@ void Schneider::set_q(const std::array<float, 3>& gyro) {
     // 系への入力値の実効下限値
     constexpr float input_min = 0.4F;
 
-    if (abs(this->inputs[0] <= input_min)) {
+    if (abs(this->inputs[0]) <= input_min) {
         this->inputs[0] = 0;
     }
-    if (abs(this->inputs[1] <= input_min)) {
+    if (abs(this->inputs[1]) <= input_min) {
         this->inputs[1] = 0;
     }
     this->fet_1 = this->inputs[0];
