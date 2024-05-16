@@ -15,3 +15,8 @@ result-*
 
 # output of `pio run -t compiledb`
 compile_commands.json
+
+# Python Environments
+.venv
+venv
+venv.bak
