@@ -8,15 +8,13 @@
 
 #include "schneider_model.hpp"
 #include "trace.hpp"
+#include "utils.hpp"
 
 namespace omniboat {
 
 using trace::LedId;
+using utils::PI;
 
-/**
- * @brief π
- */
-constexpr float schneider_PI = 3.1415927F;
 /**
  * @brief z軸周りの慣性モーメント
  * @note もっと正確な値の方がいいかも
@@ -161,7 +159,7 @@ auto Schneider::cal_q(const std::array<float, 3>& joy) -> void {
                        : (joy[0] < 0 && joy[1] >= 0) ? 3
                                                      : 5;
     for (int i = 2; i < 4; ++i) {
-        this->inputs[i] = coef * schneider_PI / 4;
+        this->inputs[i] = coef * PI / 4;
     }
 
     trace::toggle(LedId::Second);
@@ -220,27 +218,25 @@ void Schneider::set_q(const std::array<float, 3>& gyro) {
     this->fet_1 = this->inputs[0];
     this->fet_2 = this->inputs[1];
 
-    while (this->inputs[2] >= schneider_PI) {
-        this->inputs[2] -= 2 * schneider_PI;
+    while (this->inputs[2] >= PI) {
+        this->inputs[2] -= 2 * PI;
     }
-    while (this->inputs[3] >= schneider_PI) {
-        this->inputs[3] -= 2 * schneider_PI;
+    while (this->inputs[3] >= PI) {
+        this->inputs[3] -= 2 * PI;
     }
-    while (this->inputs[2] < -schneider_PI) {
-        this->inputs[2] += 2 * schneider_PI;
+    while (this->inputs[2] < -PI) {
+        this->inputs[2] += 2 * PI;
     }
-    while (this->inputs[3] < -schneider_PI) {
-        this->inputs[3] += 2 * schneider_PI;
+    while (this->inputs[3] < -PI) {
+        this->inputs[3] += 2 * PI;
     }
 
-    if (0 < this->inputs[2] && this->inputs[2] < schneider_PI) {
-        const int width
-            = static_cast<int>(500 + 1900 / schneider_PI * this->inputs[2] - 2200 * gyro[2]);
+    if (0 < this->inputs[2] && this->inputs[2] < PI) {
+        const int width = static_cast<int>(500 + 1900 / PI * this->inputs[2] - 2200 * gyro[2]);
         this->servo_1.pulsewidth_us(width);
     }
-    if (0 < this->inputs[3] && this->inputs[3] < schneider_PI) {
-        const int width
-            = static_cast<int>(500 + 1900 / schneider_PI * this->inputs[3] + 2200 * gyro[2]);
+    if (0 < this->inputs[3] && this->inputs[3] < PI) {
+        const int width = static_cast<int>(500 + 1900 / PI * this->inputs[3] + 2200 * gyro[2]);
         this->servo_2.pulsewidth_us(width);
     }
 }
