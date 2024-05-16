@@ -33,13 +33,6 @@ public:
      */
     void flip_shneider();
 
-    /**
-     * @brief ledを点滅させる関数
-     *
-     * @param num 点滅させるledの番号
-     */
-    void led(int num);
-
 private:
     /**
      * @brief ボタンが押されたときに機体を停止させる関数(割り込み処理)
@@ -49,12 +42,12 @@ private:
     /**
      * @brief 入力値
      */
-    std::array<float, 4> q;
+    std::array<float, 4> inputs;
 
     /**
-     * @brief qに対しての出力
+     * @brief inputsに対しての出力
      */
-    std::array<float, 3> x;
+    std::array<float, 3> outputs;
 
     /**
      * @brief ヤコビ行列の計算を行う関数\nヤコビ行列は、入力からモータの出力を計算するための行列
@@ -103,10 +96,6 @@ private:
     PwmOut servo_2;  // servo
     PwmOut fet_1;    // DC
     PwmOut fet_2;    // DC
-
-    DigitalOut led1;
-    DigitalOut led2;
-    DigitalOut led3;
 };
 }  // namespace omniboat
 
