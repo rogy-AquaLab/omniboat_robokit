@@ -62,6 +62,15 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Cache
+        uses: actions/cache@v4
+        if: ${{ github.ref == 'refs/heads/main' }}
+        with:
+          path: |
+            ~/.cache/pip
+            ~/.platformio/.cache
+            .pio/cache
+          key: ${{ runner.os }}-pio
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
