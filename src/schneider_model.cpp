@@ -35,10 +35,7 @@ Schneider::Schneider() :
     inputs(),
     outputs(),
     last_output({0, 0}, {0, 0}),
-    adcIn1(A4),
-    adcIn2(A5),
-    volume(A6),
-    mpu(D4, D5),
+    input_modules({A4, A5}, A6, {D4, D5}),
     servo_1(PB_4),
     servo_2(PA_11),
     fet_1(PA_9),
@@ -66,7 +63,7 @@ void Schneider::init() {
     fill(this->inputs.begin(), this->inputs.end(), initialInputs);
     fill(this->outputs.begin(), this->outputs.end(), initialOutputs);
     this->cal_tjacob();
-    const bool whoami = this->mpu.testConnection();
+    const bool whoami = this->input_modules.mpu_whoami();
     if (whoami) {
         printf("WHOAMI succeeded\n");
     } else {
@@ -91,7 +88,7 @@ void Schneider::one_step() {
 
     trace::toggle(LedId::Third);
 
-    const packet::InputValues input = this->read_input();
+    const packet::InputValues input = this->input_modules.read();
     const std::array<float, 3> joy = map_joy(input.joy);
 
     this->inputs[0] = 0;
@@ -121,14 +118,6 @@ void Schneider::debug() {
     // printf("volume=%f\n",volume.read());
     // printf("gyro[2]=%f\n",gyro[2]);
     // printf("\n");
-}
-
-auto Schneider::read_input() -> packet::InputValues {
-    const std::pair<float, float> joy(this->adcIn1.read(), this->adcIn2.read());
-    const float volume = this->volume.read();
-    std::array<float, 3> gyro;
-    this->mpu.getGyro(gyro.data());
-    return packet::InputValues(joy, volume, gyro);
 }
 
 inline std::array<std::array<float, 3>, 4> Schneider::cal_tjacob() const {

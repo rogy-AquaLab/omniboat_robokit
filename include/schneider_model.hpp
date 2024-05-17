@@ -6,6 +6,7 @@
 #include "mbed.h"
 
 #include "MPU6050.h"
+#include "device/input.hpp"
 #include "packet/input.hpp"
 #include "packet/output.hpp"
 
@@ -61,8 +62,6 @@ private:
      */
     packet::OutputValues last_output;
 
-    auto read_input() -> packet::InputValues;
-
     /**
      * @brief 状態方程式の計算を行う関数
      */
@@ -92,10 +91,7 @@ private:
 
     auto write_output(const packet::OutputValues& output) -> void;
 
-    AnalogIn adcIn1;  // ジョイスティック
-    AnalogIn adcIn2;  // ジョイスティック
-    AnalogIn volume;
-    MPU6050 mpu;  // 慣性計測ユニット(imu)
+    device::InputModules input_modules;
 
     PwmOut servo_1;  // servo
     PwmOut servo_2;  // servo
