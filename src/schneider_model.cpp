@@ -26,29 +26,17 @@ constexpr float inertia_z = 1;
  */
 constexpr float step_width_a = 0.1;
 
-// サーボモータ出力値(pulse width)
-// FIXME: もともと550, 2350だったので要検証
-constexpr int minor_pulsewidth_us = 500;
-constexpr int major_pulsewidth_us = 2400;
-
 Schneider::Schneider() :
     inputs(),
     outputs(),
     last_output({0, 0}, {0, 0}),
     input_modules({A4, A5}, A6, {D4, D5}),
-    servo_1(PB_4),
-    servo_2(PA_11),
-    fet_1(PA_9),
-    fet_2(PA_10) {
-    constexpr uint8_t servo_pwm_period_ms = 20U;
-
+    output_modules({PB_4, PA_11}, {PA_9, PA_10}) {
     trace::toggle(LedId::First);
     trace::toggle(LedId::Second);
     trace::toggle(LedId::Third);
     printf("start up\n");
-
-    this->servo_1.period_ms(servo_pwm_period_ms);
-    this->servo_2.period_ms(servo_pwm_period_ms);
+    this->output_modules.init();
 }
 
 Schneider::~Schneider() {
@@ -259,12 +247,6 @@ auto Schneider::stop_fet() const -> packet::OutputValues {
     return output;
 }
 
-/// ラジアン → PWM pulsewidth_us
-constexpr auto servo_value_map(float radian) -> int {
-    return static_cast<int>(
-        (major_pulsewidth_us - minor_pulsewidth_us) * (radian / PI) + minor_pulsewidth_us);
-}
-
 auto Schneider::write_output(const packet::OutputValues& output) -> void {
     if (!output.is_valid()) {
         // TODO: outputの値を出力する
@@ -272,10 +254,7 @@ auto Schneider::write_output(const packet::OutputValues& output) -> void {
         return;
     }
     this->last_output = output;
-    this->servo_1.pulsewidth_us(servo_value_map(output.servo.first));
-    this->servo_2.pulsewidth_us(servo_value_map(output.servo.second));
-    this->fet_1.write(output.dc_motor.first);
-    this->fet_2.write(output.dc_motor.second);
+    this->output_modules.write(output);
 }
 
 }  // namespace omniboat

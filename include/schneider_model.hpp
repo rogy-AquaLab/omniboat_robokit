@@ -7,6 +7,7 @@
 
 #include "MPU6050.h"
 #include "device/input.hpp"
+#include "device/output.hpp"
 #include "packet/input.hpp"
 #include "packet/output.hpp"
 
@@ -92,11 +93,7 @@ private:
     auto write_output(const packet::OutputValues& output) -> void;
 
     device::InputModules input_modules;
-
-    PwmOut servo_1;  // servo
-    PwmOut servo_2;  // servo
-    PwmOut fet_1;    // DC
-    PwmOut fet_2;    // DC
+    device::OutputModules output_modules;
 };
 }  // namespace omniboat
 
