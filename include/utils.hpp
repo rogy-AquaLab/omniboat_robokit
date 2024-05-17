@@ -5,7 +5,7 @@
 namespace utils {
 
 /// 円周率π
-constexpr float PI = 3.1415927F;
+constexpr float PI = 3.1415927F;  // NOLINT(readability-identifier-length)
 
 }  // namespace utils
 

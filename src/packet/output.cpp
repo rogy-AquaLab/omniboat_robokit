@@ -4,8 +4,10 @@
 
 using float_pair = std::pair<float, float>;
 
+// NOLINTBEGIN(bugprone-easily-swappable-parameters): FIXME
 packet::OutputValues::OutputValues(const float_pair &servo, const float_pair &dc_motor) :
     servo(servo), dc_motor(dc_motor) {}
+// NOLINTEND(bugprone-easily-swappable-parameters)
 
 constexpr auto pi_range(float value) -> bool {
     return 0 <= value && value <= utils::PI;

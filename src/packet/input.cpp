@@ -1,8 +1,10 @@
 #include "packet/input.hpp"
 
+// NOLINTBEGIN(bugprone-easily-swappable-parameters): FIXME
 packet::InputValues::InputValues(
     const std::pair<float, float> &joy, const float &volume, const std::array<float, 3> &gyro) :
     joy(joy), volume(volume), gyro(gyro) {}
+// NOLINTEND(bugprone-easily-swappable-parameters)
 
 constexpr auto in_range(const float &value) -> bool {
     return 0 <= value && value <= 1;

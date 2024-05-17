@@ -213,6 +213,10 @@ auto Schneider::set_q(const std::array<float, 3>& gyro) -> packet::OutputValues 
     using float_pair = std::pair<float, float>;
     // 系への入力値の実効下限値
     constexpr float input_min = 0.4F;
+    // 3.64 ~= 2200 * PI / 1900
+    // ea3f45b の src/schneider_model.cpp:238 と同様の計算式になるように
+    // TODO: 係数調整
+    constexpr float gyro_coef = 3.64F;
 
     if (abs(this->inputs[0]) <= input_min) {
         this->inputs[0] = 0;
@@ -237,18 +241,16 @@ auto Schneider::set_q(const std::array<float, 3>& gyro) -> packet::OutputValues 
 
     float_pair servo_output = this->last_output.servo;
     if (0 < this->inputs[2] && this->inputs[2] < PI) {
-        // 3.64 ~= 2200 * PI / 1900
-        // ea3f45b の src/schneider_model.cpp:238 と同様の計算式になるように
-        // TODO: gyroの係数調整
-        servo_output.first = this->inputs[2] - 3.64 * gyro[2];
+        servo_output.first = this->inputs[2] - gyro_coef * gyro[2];
     }
     if (0 < this->inputs[3] && this->inputs[3] < PI) {
-        servo_output.second = this->inputs[3] + 3.64 * gyro[2];
+        servo_output.second = this->inputs[3] + gyro_coef * gyro[2];
     }
     const packet::OutputValues output(servo_output, fet_output);
     return output;
 }
 
+// NOLINTBEGIN(readability-convert-member-functions-to-static)
 auto Schneider::rotate(const float& volume_value) const -> packet::OutputValues {
     using float_pair = std::pair<float, float>;
     // volumeのしきい値
@@ -261,6 +263,7 @@ auto Schneider::rotate(const float& volume_value) const -> packet::OutputValues 
     const packet::OutputValues output(servo_output, {fet_duty, fet_duty});
     return output;
 }
+// NOLINTEND(readability-convert-member-functions-to-static)
 
 auto Schneider::stop_fet() const -> packet::OutputValues {
     packet::OutputValues output(this->last_output.servo, {0, 0});
