@@ -6,6 +6,7 @@
 #include "mbed.h"
 
 #include "MPU6050.h"
+#include "packet/input.hpp"
 #include "packet/output.hpp"
 
 namespace omniboat {
@@ -60,6 +61,8 @@ private:
      */
     packet::OutputValues last_output;
 
+    auto read_input() -> packet::InputValues;
+
     /**
      * @brief 状態方程式の計算を行う関数
      */
@@ -77,13 +80,6 @@ private:
     auto set_q(const std::array<float, 3>& gyro) -> packet::OutputValues;
 
     /**
-     * @brief ジョイコンの値を読み取り、目標値を算出して配列として返す
-     *
-     * @return std::array<float, 3> index0: x, index1: y, index2: rotation
-     */
-    auto read_joy() -> std::array<float, 3>;
-
-    /**
      * @brief つまみの値をから機体を回転させる関数
      */
     auto rotate(const float& volume_value) const -> packet::OutputValues;
@@ -93,11 +89,6 @@ private:
      * @return packet::OutputValues write_outputに渡す値
      */
     auto stop_fet() const -> packet::OutputValues;
-
-    /**
-     * @brief ジャイロセンサの値を読み取る
-     */
-    auto read_gyro() -> std::array<float, 3>;
 
     auto write_output(const packet::OutputValues& output) -> void;
 

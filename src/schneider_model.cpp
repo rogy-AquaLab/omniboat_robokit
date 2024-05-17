@@ -74,6 +74,13 @@ void Schneider::init() {
     }
 }
 
+inline auto map_joy(const std::pair<float, float>& joy) -> std::array<float, 3> {
+    // ジョイスティックの中心値
+    constexpr float joy_center = 0.5F;
+    // [2]はrot
+    return {(joy.first - joy_center) * 2, (joy.second - joy_center) * 2, 0};
+}
+
 void Schneider::one_step() {
     using std::abs;
     // ジョイスティックの値の実効下限値
@@ -84,27 +91,21 @@ void Schneider::one_step() {
 
     trace::toggle(LedId::Third);
 
-    // ジャイロセンサの値を読み取る
-    const auto gyro = this->read_gyro();
-
-    // ジョイコンの値を読み取り、目標値を代入
-    const auto joy = this->read_joy();
-
-    // ボリュームの値を読み取る
-    const float volume_value = volume.read();
+    const packet::InputValues input = this->read_input();
+    const std::array<float, 3> joy = map_joy(input.joy);
 
     this->inputs[0] = 0;
     this->inputs[1] = 0;
 
     const bool joyEffective = abs(joy[0]) > joy_min && abs(joy[1]) > joy_min;
-    const bool volumeEffective = volume_value < volume_under || volume_over < volume_value;
+    const bool volumeEffective = input.volume < volume_under || volume_over < input.volume;
 
     packet::OutputValues output;
     if (joyEffective) {
         this->cal_q(joy);
-        output = this->set_q(gyro);
+        output = this->set_q(input.gyro);
     } else if (volumeEffective) {
-        output = this->rotate(volume_value);
+        output = this->rotate(input.volume);
     } else {
         output = this->stop_fet();
     }
@@ -122,17 +123,12 @@ void Schneider::debug() {
     // printf("\n");
 }
 
-auto Schneider::read_joy() -> std::array<float, 3> {
-    // ジョイスティックの中心値
-    constexpr float joy_center = 0.5F;
-
-    const auto joy_x = this->adcIn1.read();
-    const auto joy_y = this->adcIn2.read();
-
-    const auto dest_x = (joy_x - joy_center) * 2;
-    const auto dest_y = (joy_y - joy_center) * 2;
-    const auto dest_rot = 0.0F;
-    return {dest_x, dest_y, dest_rot};
+auto Schneider::read_input() -> packet::InputValues {
+    const std::pair<float, float> joy(this->adcIn1.read(), this->adcIn2.read());
+    const float volume = this->volume.read();
+    std::array<float, 3> gyro;
+    this->mpu.getGyro(gyro.data());
+    return packet::InputValues(joy, volume, gyro);
 }
 
 inline std::array<std::array<float, 3>, 4> Schneider::cal_tjacob() const {
@@ -269,12 +265,6 @@ auto Schneider::rotate(const float& volume_value) const -> packet::OutputValues 
 auto Schneider::stop_fet() const -> packet::OutputValues {
     packet::OutputValues output(this->last_output.servo, {0, 0});
     return output;
-}
-
-auto Schneider::read_gyro() -> std::array<float, 3> {
-    std::array<float, 3> gyro;
-    this->mpu.getGyro(gyro.data());
-    return gyro;
 }
 
 /// ラジアン → PWM pulsewidth_us
