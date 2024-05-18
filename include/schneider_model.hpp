@@ -6,6 +6,8 @@
 #include "mbed.h"
 
 #include "MPU6050.h"
+#include "packet/input.hpp"
+#include "packet/output.hpp"
 
 namespace omniboat {
 
@@ -55,6 +57,13 @@ private:
     std::array<std::array<float, 3>, 4> cal_tjacob() const;
 
     /**
+     * @brief 最後にアクチュエーターに反映させた値
+     */
+    packet::OutputValues last_output;
+
+    auto read_input() -> packet::InputValues;
+
+    /**
      * @brief 状態方程式の計算を行う関数
      */
     void state_equation();
@@ -68,24 +77,20 @@ private:
     /**
      * @brief モータへの信号値に変換する関数
      */
-    void set_q(const std::array<float, 3>& gyro);
-
-    /**
-     * @brief ジョイコンの値を読み取り、目標値を算出して配列として返す
-     *
-     * @return std::array<float, 3> index0: x, index1: y, index2: rotation
-     */
-    auto read_joy() -> std::array<float, 3>;
+    auto set_q(const std::array<float, 3>& gyro) -> packet::OutputValues;
 
     /**
      * @brief つまみの値をから機体を回転させる関数
      */
-    void rotate(const float& volume_value);
+    auto rotate(const float& volume_value) const -> packet::OutputValues;
 
     /**
-     * @brief ジャイロセンサの値を読み取る
+     * @brief FETへの出力(=DCモーター)を止める関数
+     * @return packet::OutputValues write_outputに渡す値
      */
-    auto read_gyro() -> std::array<float, 3>;
+    auto stop_fet() const -> packet::OutputValues;
+
+    auto write_output(const packet::OutputValues& output) -> void;
 
     AnalogIn adcIn1;  // ジョイスティック
     AnalogIn adcIn2;  // ジョイスティック

@@ -3,20 +3,19 @@
 #include <cmath>
 #include <cstdio>
 #include <thread>
+#include <utility>
 
 #include "rtos.h"
 
 #include "schneider_model.hpp"
 #include "trace.hpp"
+#include "utils.hpp"
 
 namespace omniboat {
 
 using trace::LedId;
+using utils::PI;
 
-/**
- * @brief π
- */
-constexpr float schneider_PI = 3.1415927F;
 /**
  * @brief z軸周りの慣性モーメント
  * @note もっと正確な値の方がいいかも
@@ -27,9 +26,15 @@ constexpr float inertia_z = 1;
  */
 constexpr float step_width_a = 0.1;
 
+// サーボモータ出力値(pulse width)
+// FIXME: もともと550, 2350だったので要検証
+constexpr int minor_pulsewidth_us = 500;
+constexpr int major_pulsewidth_us = 2400;
+
 Schneider::Schneider() :
     inputs(),
     outputs(),
+    last_output({0, 0}, {0, 0}),
     adcIn1(A4),
     adcIn2(A5),
     volume(A6),
@@ -69,6 +74,13 @@ void Schneider::init() {
     }
 }
 
+inline auto map_joy(const std::pair<float, float>& joy) -> std::array<float, 3> {
+    // ジョイスティックの中心値
+    constexpr float joy_center = 0.5F;
+    // [2]はrot
+    return {(joy.first - joy_center) * 2, (joy.second - joy_center) * 2, 0};
+}
+
 void Schneider::one_step() {
     using std::abs;
     // ジョイスティックの値の実効下限値
@@ -79,30 +91,25 @@ void Schneider::one_step() {
 
     trace::toggle(LedId::Third);
 
-    // ジャイロセンサの値を読み取る
-    const auto gyro = this->read_gyro();
-
-    // ジョイコンの値を読み取り、目標値を代入
-    const auto joy = this->read_joy();
-
-    // ボリュームの値を読み取る
-    const float volume_value = volume.read();
+    const packet::InputValues input = this->read_input();
+    const std::array<float, 3> joy = map_joy(input.joy);
 
     this->inputs[0] = 0;
     this->inputs[1] = 0;
 
     const bool joyEffective = abs(joy[0]) > joy_min && abs(joy[1]) > joy_min;
-    const bool volumeEffective = volume_value < volume_under || volume_over < volume_value;
+    const bool volumeEffective = input.volume < volume_under || volume_over < input.volume;
 
+    packet::OutputValues output;
     if (joyEffective) {
         this->cal_q(joy);
-        this->set_q(gyro);
+        output = this->set_q(input.gyro);
     } else if (volumeEffective) {
-        this->rotate(volume_value);
+        output = this->rotate(input.volume);
     } else {
-        this->fet_1 = 0;
-        this->fet_2 = 0;
+        output = this->stop_fet();
     }
+    this->write_output(output);
     this->debug();
     trace::toggle(LedId::Third);
 }
@@ -116,17 +123,12 @@ void Schneider::debug() {
     // printf("\n");
 }
 
-auto Schneider::read_joy() -> std::array<float, 3> {
-    // ジョイスティックの中心値
-    constexpr float joy_center = 0.5F;
-
-    const auto joy_x = this->adcIn1.read();
-    const auto joy_y = this->adcIn2.read();
-
-    const auto dest_x = (joy_x - joy_center) * 2;
-    const auto dest_y = (joy_y - joy_center) * 2;
-    const auto dest_rot = 0.0F;
-    return {dest_x, dest_y, dest_rot};
+auto Schneider::read_input() -> packet::InputValues {
+    const std::pair<float, float> joy(this->adcIn1.read(), this->adcIn2.read());
+    const float volume = this->volume.read();
+    std::array<float, 3> gyro;
+    this->mpu.getGyro(gyro.data());
+    return packet::InputValues(joy, volume, gyro);
 }
 
 inline std::array<std::array<float, 3>, 4> Schneider::cal_tjacob() const {
@@ -161,7 +163,7 @@ auto Schneider::cal_q(const std::array<float, 3>& joy) -> void {
                        : (joy[0] < 0 && joy[1] >= 0) ? 3
                                                      : 5;
     for (int i = 2; i < 4; ++i) {
-        this->inputs[i] = coef * schneider_PI / 4;
+        this->inputs[i] = coef * PI / 4;
     }
 
     trace::toggle(LedId::Second);
@@ -206,10 +208,15 @@ inline void Schneider::state_equation() {
           / inertia_z;
 }
 
-void Schneider::set_q(const std::array<float, 3>& gyro) {
+auto Schneider::set_q(const std::array<float, 3>& gyro) -> packet::OutputValues {
     using std::abs;
+    using float_pair = std::pair<float, float>;
     // 系への入力値の実効下限値
     constexpr float input_min = 0.4F;
+    // 3.64 ~= 2200 * PI / 1900
+    // ea3f45b の src/schneider_model.cpp:238 と同様の計算式になるように
+    // TODO: 係数調整
+    constexpr float gyro_coef = 3.64F;
 
     if (abs(this->inputs[0]) <= input_min) {
         this->inputs[0] = 0;
@@ -217,59 +224,69 @@ void Schneider::set_q(const std::array<float, 3>& gyro) {
     if (abs(this->inputs[1]) <= input_min) {
         this->inputs[1] = 0;
     }
-    this->fet_1 = this->inputs[0];
-    this->fet_2 = this->inputs[1];
+    const float_pair fet_output = {this->inputs[0], this->inputs[1]};
 
-    while (this->inputs[2] >= schneider_PI) {
-        this->inputs[2] -= 2 * schneider_PI;
+    while (this->inputs[2] >= PI) {
+        this->inputs[2] -= 2 * PI;
     }
-    while (this->inputs[3] >= schneider_PI) {
-        this->inputs[3] -= 2 * schneider_PI;
+    while (this->inputs[3] >= PI) {
+        this->inputs[3] -= 2 * PI;
     }
-    while (this->inputs[2] < -schneider_PI) {
-        this->inputs[2] += 2 * schneider_PI;
+    while (this->inputs[2] < -PI) {
+        this->inputs[2] += 2 * PI;
     }
-    while (this->inputs[3] < -schneider_PI) {
-        this->inputs[3] += 2 * schneider_PI;
+    while (this->inputs[3] < -PI) {
+        this->inputs[3] += 2 * PI;
     }
 
-    if (0 < this->inputs[2] && this->inputs[2] < schneider_PI) {
-        const int width
-            = static_cast<int>(500 + 1900 / schneider_PI * this->inputs[2] - 2200 * gyro[2]);
-        this->servo_1.pulsewidth_us(width);
+    float_pair servo_output = this->last_output.servo;
+    if (0 < this->inputs[2] && this->inputs[2] < PI) {
+        servo_output.first = this->inputs[2] - gyro_coef * gyro[2];
     }
-    if (0 < this->inputs[3] && this->inputs[3] < schneider_PI) {
-        const int width
-            = static_cast<int>(500 + 1900 / schneider_PI * this->inputs[3] + 2200 * gyro[2]);
-        this->servo_2.pulsewidth_us(width);
+    if (0 < this->inputs[3] && this->inputs[3] < PI) {
+        servo_output.second = this->inputs[3] + gyro_coef * gyro[2];
     }
+    const packet::OutputValues output(servo_output, fet_output);
+    return output;
 }
 
-void Schneider::rotate(const float& volume_value) {
+// NOLINTBEGIN(readability-convert-member-functions-to-static)
+auto Schneider::rotate(const float& volume_value) const -> packet::OutputValues {
+    using float_pair = std::pair<float, float>;
     // volumeのしきい値
     constexpr float volume_threshold = 0.5F;
-    // サーボモータ出力値(pulse width)
-    constexpr uint16_t minor_rotate_pulsewidth_us = 550U;
-    constexpr uint16_t major_rotate_pulsewidth_us = 2350U;
     // DCモータ出力値(duty比)
     constexpr float fet_duty = 0.5F;
 
-    this->fet_1 = fet_duty;
-    this->fet_2 = fet_duty;
-    // ifとelseで内容が同じだといわれたがそんなことない
-    if (volume_value < volume_threshold) {
-        this->servo_1.pulsewidth_us(minor_rotate_pulsewidth_us);
-        this->servo_2.pulsewidth_us(major_rotate_pulsewidth_us);
-    } else {
-        this->servo_2.pulsewidth_us(minor_rotate_pulsewidth_us);
-        this->servo_1.pulsewidth_us(major_rotate_pulsewidth_us);
-    }
+    const float_pair servo_output
+        = volume_value < volume_threshold ? float_pair{0, PI} : float_pair{PI, 0};
+    const packet::OutputValues output(servo_output, {fet_duty, fet_duty});
+    return output;
+}
+// NOLINTEND(readability-convert-member-functions-to-static)
+
+auto Schneider::stop_fet() const -> packet::OutputValues {
+    packet::OutputValues output(this->last_output.servo, {0, 0});
+    return output;
 }
 
-auto Schneider::read_gyro() -> std::array<float, 3> {
-    std::array<float, 3> gyro;
-    this->mpu.getGyro(gyro.data());
-    return gyro;
+/// ラジアン → PWM pulsewidth_us
+constexpr auto servo_value_map(float radian) -> int {
+    return static_cast<int>(
+        (major_pulsewidth_us - minor_pulsewidth_us) * (radian / PI) + minor_pulsewidth_us);
+}
+
+auto Schneider::write_output(const packet::OutputValues& output) -> void {
+    if (!output.is_valid()) {
+        // TODO: outputの値を出力する
+        printf("ERROR: received invalid OutputValues\n");
+        return;
+    }
+    this->last_output = output;
+    this->servo_1.pulsewidth_us(servo_value_map(output.servo.first));
+    this->servo_2.pulsewidth_us(servo_value_map(output.servo.second));
+    this->fet_1.write(output.dc_motor.first);
+    this->fet_2.write(output.dc_motor.second);
 }
 
 }  // namespace omniboat
