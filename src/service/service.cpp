@@ -1,5 +1,6 @@
 #include <algorithm>
 #include <cmath>
+#include <cstdio>
 
 #include "service/service.hpp"
 #include "trace.hpp"
@@ -65,6 +66,7 @@ auto service::Service::call(const packet::InputValues& input_values) -> packet::
     }
     this->last_output = output;
     trace::toggle(LedId::Third);
+    return output;
 }
 
 inline auto service::Service::cal_tjacob() const -> std::array<std::array<float, 3>, 4> {
@@ -160,7 +162,7 @@ auto service::Service::set_q(const std::array<float, 3>& gyro) -> packet::Output
     if (abs(this->inputs[1]) <= input_min) {
         this->inputs[1] = 0;
     }
-    const float_pair fet_output = {this->inputs[0], this->inputs[1]};
+    const float_pair dc_motor_output = {this->inputs[0], this->inputs[1]};
 
     while (this->inputs[2] >= PI) {
         this->inputs[2] -= 2 * PI;
@@ -182,7 +184,7 @@ auto service::Service::set_q(const std::array<float, 3>& gyro) -> packet::Output
     if (0 < this->inputs[3] && this->inputs[3] < PI) {
         servo_output.second = this->inputs[3] + gyro_coef * gyro[2];
     }
-    const packet::OutputValues output(servo_output, fet_output);
+    const packet::OutputValues output(servo_output, dc_motor_output);
     return output;
 }
 
@@ -192,11 +194,11 @@ auto service::Service::rotate(const float& volume_value) const -> packet::Output
     // volumeのしきい値
     constexpr float volume_threshold = 0.5F;
     // DCモータ出力値(duty比)
-    constexpr float fet_duty = 0.5F;
+    constexpr float dc_motor_duty = 0.5F;
 
     const float_pair servo_output
         = volume_value < volume_threshold ? float_pair{0, PI} : float_pair{PI, 0};
-    const packet::OutputValues output(servo_output, {fet_duty, fet_duty});
+    const packet::OutputValues output(servo_output, {dc_motor_duty, dc_motor_duty});
     return output;
 }
 // NOLINTEND(readability-convert-member-functions-to-static)

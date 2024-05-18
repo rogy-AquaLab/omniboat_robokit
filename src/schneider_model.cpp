@@ -14,7 +14,6 @@
 namespace omniboat {
 
 using trace::LedId;
-using utils::PI;
 
 /**
  * @brief z軸周りの慣性モーメント
