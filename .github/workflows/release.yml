@@ -49,6 +49,8 @@ jobs:
 
   create-release:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     needs:
       - check-main-branch
       - build-book
@@ -63,3 +65,5 @@ jobs:
       - run: |
           gh release create $GITHUB_REF_NAME book.tar.gz \
             -d -t $GITHUB_REF_NAME -n "" --verify-tag
+        env:
+          GH_TOKEN: ${{ github.token }}
