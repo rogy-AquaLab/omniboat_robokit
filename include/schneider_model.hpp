@@ -9,7 +9,16 @@
 #include "device/output.hpp"
 #include "packet/input.hpp"
 #include "packet/output.hpp"
+
+#ifdef USE_SIMPLE_SERVICE
+
+#include "service/simple_service.hpp"
+
+#else  // USE_SIMPLE_SERVICE
+
 #include "service/service.hpp"
+
+#endif  // USE_SIMPLE_SERVICE
 
 namespace omniboat {
 
@@ -49,7 +58,16 @@ private:
 
     device::InputModules input_modules;
     device::OutputModules output_modules;
+
+#ifdef USE_SIMPLE_SERVICE
+
+    service::SimpleService service;
+
+#else  // USE_SIMPLE_SERVICE
+
     service::Service service;
+
+#endif  // USE_SIMPLE_SERVICE
 };
 
 }  // namespace omniboat
