@@ -1,14 +1,14 @@
-#include "schneider_model.hpp"
+#include "machine.hpp"
 #include "trace.hpp"
 
 auto main() -> int {
     trace::init();
-    omniboat::Schneider schneider;
-    schneider.init();
-    schneider.debug();
+    omniboat::Machine machine;
+    machine.init();
+    machine.debug();
     while (true) {
         trace::toggle(trace::LedId::First);
-        schneider.one_step();
+        machine.one_step();
         // wait(1);
     }
 }
