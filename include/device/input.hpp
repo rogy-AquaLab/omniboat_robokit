@@ -36,9 +36,26 @@ public:
      * @param volume_pin ツマミのピン
      * @param mpu_pins MPU6050のピン (sda, scl)
      */
+    class Builder {
+    private:
+        std::pair<PinName, PinName> _joy_pins;
+        PinName _volume_pin;
+        std::pair<PinName, PinName> _mpu_pins;
+
+    public:
+        auto joy_pins(const std::pair<PinName, PinName>& pins) -> Builder&;
+        auto volume_pin(const PinName& pin) -> Builder&;
+        auto mpu_pins(const std::pair<PinName, PinName>& pins) -> Builder&;
+        auto build() -> InputModules;
+    };
+
+private:
     InputModules(
-        const std::pair<PinName, PinName>& joy_pins, const PinName& volume_pin,
-        const std::pair<PinName, PinName>& mpu_pins);
+        const std::pair<PinName, PinName>& _joy_pins, const PinName& _volume_pin,
+        const std::pair<PinName, PinName>& _mpu_pins);
+
+public:
+    static auto builder() -> Builder;
 
     InputModules() = delete;
     ~InputModules() = default;
