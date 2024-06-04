@@ -19,19 +19,18 @@ auto device::InputModules::read_gyro() -> std::array<float, 3> {
     mpu(mpu_pins.first, mpu_pins.second) {}
 // NOLINTEND(bugprone-easily-swappable-parameters)
 */
-auto device::InputModules::Builder::joy_pins(const PinName& pin) -> Builder& {
-    this->joy_pins
-        = std::make_pair(mbed::AnalogIn(joy_pins.first), mbed::AnalogIn(joy_pins.second));
+auto device::InputModules::Builder::joy_pins(const std::pair<PinName, PinName>& pins) -> Builder& {
+    this->_joy_pins = std::make_pair((pins.first), (pins.second));
     return *this;
 }
 
 auto device::InputModules::Builder::volume_pin(const PinName& pin) -> Builder& {
-    this->volume_pin = mbed::AnalogIn(volume_pin);
+    this->_volume_pin = pin;
     return *this;
 }
 
-auto device::InputModules::Builder::mpu_pins(const PinName& pin) -> Builder& {
-    this->mpu_pins = MPU6050(mpu_pins.first, mpu_pins.second);
+auto device::InputModules::Builder::mpu_pins(const std::pair<PinName, PinName>& pins) -> Builder& {
+    this->_mpu_pins = std::make_pair((pins.first), (pins.second));
     return *this;
 }
 auto device::InputModules::builder() -> Builder {
