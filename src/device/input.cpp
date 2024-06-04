@@ -1,3 +1,5 @@
+#include <utility>
+
 #include "device/input.hpp"
 
 auto device::InputModules::read_joy() -> std::pair<float, float> {
@@ -33,12 +35,17 @@ auto device::InputModules::Builder::mpu_pins(const std::pair<PinName, PinName>& 
     this->_mpu_pins = std::make_pair((pins.first), (pins.second));
     return *this;
 }
-auto device::InputModules::builder() -> Builder {
-    return Builder();
+
+auto device::InputModules::Builder::build() -> InputModules {
+    return InputModules(this->_joy_pins, this->_volume_pin, this->_mpu_pins);
 }
 
 auto device::InputModules::mpu_whoami() -> bool {
     return this->mpu.testConnection();
+}
+
+auto device::InputModules::builder() -> Builder {
+    return Builder();
 }
 
 auto device::InputModules::read() -> packet::InputValues {

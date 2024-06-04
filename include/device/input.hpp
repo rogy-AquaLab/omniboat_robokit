@@ -46,6 +46,7 @@ public:
         auto joy_pins(const std::pair<PinName, PinName>& pins) -> Builder&;
         auto volume_pin(const PinName& pin) -> Builder&;
         auto mpu_pins(const std::pair<PinName, PinName>& pins) -> Builder&;
+        auto build() -> InputModules;
     };
 
 private:
@@ -55,7 +56,6 @@ private:
 
 public:
     static auto builder() -> Builder;
-    InputModules(Builder builder);
 
     InputModules() = delete;
     ~InputModules() = default;
