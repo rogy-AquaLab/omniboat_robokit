@@ -27,7 +27,7 @@ constexpr float step_width_a = 0.1;
 
 Machine::Machine() :
     output_modules({PB_4, PA_11}, {PA_9, PA_10}), service() {
-    input_modules = device::InputModules::Builder()
+    device::InputModules input_modules = device::InputModules::Builder()
         .joy_x_pin(A4)
         .joy_y_pin(A5)
         .volume_pin(A6)
