@@ -56,7 +56,7 @@ public:
 public:
     static auto builder() -> Builder;
 
-    InputModules(Builder& builder);
+    InputModules(Builder* builder);
 
     InputModules() = delete;
     ~InputModules() = default;
