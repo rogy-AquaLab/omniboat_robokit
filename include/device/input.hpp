@@ -38,24 +38,25 @@ public:
      */
     class Builder {
     private:
-        std::pair<PinName, PinName> _joy_pins;
+        PinName _joy_x_pin;
+        PinName _joy_y_pin;
         PinName _volume_pin;
-        std::pair<PinName, PinName> _mpu_pins;
+        PinName _mpu_sda_pin;
+        PinName _mpu_scl_pin;
 
     public:
-        auto joy_pins(const std::pair<PinName, PinName>& pins) -> Builder&;
+        auto joy_x_pin(const PinName& pin) -> Builder&; //joy_pins.first
+        auto joy_y_pin(const PinName& pin) -> Builder&; //joy_pins.second
         auto volume_pin(const PinName& pin) -> Builder&;
-        auto mpu_pins(const std::pair<PinName, PinName>& pins) -> Builder&;
+        auto mpu_sda_pin(const PinName& pin) -> Builder&; //mpu_pins.first
+        auto mpu_scl_pin(const PinName& pin) -> Builder&; //mpu_pins.second
         auto build() -> InputModules;
     };
 
-private:
-    InputModules(
-        const std::pair<PinName, PinName>& _joy_pins, const PinName& _volume_pin,
-        const std::pair<PinName, PinName>& _mpu_pins);
-
 public:
     static auto builder() -> Builder;
+
+    InputModules(Builder& builder);
 
     InputModules() = delete;
     ~InputModules() = default;

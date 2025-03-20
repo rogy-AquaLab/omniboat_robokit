@@ -21,8 +21,13 @@ auto device::InputModules::read_gyro() -> std::array<float, 3> {
     mpu(mpu_pins.first, mpu_pins.second) {}
 // NOLINTEND(bugprone-easily-swappable-parameters)
 */
-auto device::InputModules::Builder::joy_pins(const std::pair<PinName, PinName>& pins) -> Builder& {
-    this->_joy_pins = std::make_pair((pins.first), (pins.second));
+auto device::InputModules::Builder::joy_x_pin(const PinName& pin) -> Builder& {
+    this->_joy_x_pin = pin;
+    return *this;
+}
+
+auto device::InputModules::Builder::joy_y_pin(const PinName& pin) -> Builder& {
+    this->_joy_y_pin = pin;
     return *this;
 }
 
@@ -31,13 +36,18 @@ auto device::InputModules::Builder::volume_pin(const PinName& pin) -> Builder& {
     return *this;
 }
 
-auto device::InputModules::Builder::mpu_pins(const std::pair<PinName, PinName>& pins) -> Builder& {
-    this->_mpu_pins = std::make_pair((pins.first), (pins.second));
+auto device::InputModules::Builder::mpu__sda_pin(const PinName& pin) -> Builder& {
+    this->_mpu_sda_pin = pin;
+    return *this;
+}
+
+auto device::InputModules::Builder::mpu_scl_pin(const PinName& pin) -> Builder& {
+    this->_mpu_scl_pin = pin;
     return *this;
 }
 
 auto device::InputModules::Builder::build() -> InputModules {
-    return InputModules(this->_joy_pins, this->_volume_pin, this->_mpu_pins);
+    return InputModules(this);
 }
 
 auto device::InputModules::mpu_whoami() -> bool {
@@ -47,6 +57,11 @@ auto device::InputModules::mpu_whoami() -> bool {
 auto device::InputModules::builder() -> Builder {
     return Builder();
 }
+
+auto device::InputModules::InputModules(Builder* builder) :
+    joy(builder->_joy_x_pin, builder->_joy_y_pin),
+    volume(builder->_volume_pin),
+    mpu(builder->_mpu_sda_pin, builder->_mpu_scl_pin) {}
 
 auto device::InputModules::read() -> packet::InputValues {
     const std::pair<float, float> joy = this->read_joy();
