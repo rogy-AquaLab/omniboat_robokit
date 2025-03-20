@@ -31,10 +31,12 @@ private:
 
 public:
     /**
-     * @brief Construct a new Input Modules object
-     * @param joy_pins ジョイスティックのピン2つ
+     * @brief InputModulesをbuildするクラス
+     * @param _joy_x_pin ジョイスティックのピン(x)
+     * @param _joy_y_pin ジョイスティックのピン(y)
      * @param volume_pin ツマミのピン
-     * @param mpu_pins MPU6050のピン (sda, scl)
+     * @param _mpu_sda_pin MPU6050のピン (sda)
+     * @param _mpu_scl_pin MPU6050のピン (scl)
      */
     class Builder {
     public:
@@ -44,11 +46,11 @@ public:
         PinName _mpu_sda_pin;
         PinName _mpu_scl_pin;
 
-        auto joy_x_pin(const PinName& pin) -> Builder&; //joy_pins.first
-        auto joy_y_pin(const PinName& pin) -> Builder&; //joy_pins.second
+        auto joy_x_pin(const PinName& pin) -> Builder&;  // joy_pins.first
+        auto joy_y_pin(const PinName& pin) -> Builder&;  // joy_pins.second
         auto volume_pin(const PinName& pin) -> Builder&;
-        auto mpu_sda_pin(const PinName& pin) -> Builder&; //mpu_pins.first
-        auto mpu_scl_pin(const PinName& pin) -> Builder&; //mpu_pins.second
+        auto mpu_sda_pin(const PinName& pin) -> Builder&;  // mpu_pins.first
+        auto mpu_scl_pin(const PinName& pin) -> Builder&;  // mpu_pins.second
         auto build() -> InputModules;
     };
 
