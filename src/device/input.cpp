@@ -36,7 +36,7 @@ auto device::InputModules::Builder::volume_pin(const PinName& pin) -> Builder& {
     return *this;
 }
 
-auto device::InputModules::Builder::mpu__sda_pin(const PinName& pin) -> Builder& {
+auto device::InputModules::Builder::mpu_sda_pin(const PinName& pin) -> Builder& {
     this->_mpu_sda_pin = pin;
     return *this;
 }
