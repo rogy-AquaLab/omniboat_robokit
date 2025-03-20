@@ -37,14 +37,13 @@ public:
      * @param mpu_pins MPU6050のピン (sda, scl)
      */
     class Builder {
-    private:
+    public:
         PinName _joy_x_pin;
         PinName _joy_y_pin;
         PinName _volume_pin;
         PinName _mpu_sda_pin;
         PinName _mpu_scl_pin;
 
-    public:
         auto joy_x_pin(const PinName& pin) -> Builder&; //joy_pins.first
         auto joy_y_pin(const PinName& pin) -> Builder&; //joy_pins.second
         auto volume_pin(const PinName& pin) -> Builder&;
