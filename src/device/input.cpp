@@ -12,15 +12,6 @@ auto device::InputModules::read_gyro() -> std::array<float, 3> {
     return gyro;
 }
 
-// NOLINTBEGIN(bugprone-easily-swappable-parameters)
-/**device::InputModules::InputModules(
-    const std::pair<PinName, PinName>& joy_pins, const PinName& volume_pin,
-    const std::pair<PinName, PinName>& mpu_pins) :
-    joy(joy_pins.first, joy_pins.second),
-    volume(volume_pin),
-    mpu(mpu_pins.first, mpu_pins.second) {}
-// NOLINTEND(bugprone-easily-swappable-parameters)
-*/
 auto device::InputModules::Builder::joy_x_pin(const PinName& pin) -> Builder& {
     this->_joy_x_pin = pin;
     return *this;
