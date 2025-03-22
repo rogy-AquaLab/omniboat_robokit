@@ -37,9 +37,9 @@ auto device::InputModules::Builder::mpu_scl_pin(const PinName& pin) -> Builder& 
     return *this;
 }
 
-auto device::InputModules::Builder::build() -> InputModules {
-    return InputModules(this);
-}
+// auto device::InputModules::Builder::build() -> InputModules {
+//     return InputModules(this);
+// }
 
 auto device::InputModules::mpu_whoami() -> bool {
     return this->mpu.testConnection();
@@ -49,10 +49,10 @@ auto device::InputModules::builder() -> Builder {
     return Builder();
 }
 
-device::InputModules::InputModules(Builder* builder) :
-    joy(builder->_joy_x_pin, builder->_joy_y_pin),
-    volume(builder->_volume_pin),
-    mpu(builder->_mpu_sda_pin, builder->_mpu_scl_pin) {}
+device::InputModules::InputModules(Builder& builder) :
+    joy(builder._joy_x_pin, builder._joy_y_pin),
+    volume(builder._volume_pin),
+    mpu(builder._mpu_sda_pin, builder._mpu_scl_pin) {}
 
 auto device::InputModules::read() -> packet::InputValues {
     const std::pair<float, float> joy = this->read_joy();

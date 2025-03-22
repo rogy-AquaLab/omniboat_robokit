@@ -51,17 +51,17 @@ public:
         auto volume_pin(const PinName& pin) -> Builder&;
         auto mpu_sda_pin(const PinName& pin) -> Builder&;  // mpu_pins.first
         auto mpu_scl_pin(const PinName& pin) -> Builder&;  // mpu_pins.second
-        auto build() -> InputModules;
+        // auto build() -> InputModules;
     };
 
 public:
     static auto builder() -> Builder;
 
-    InputModules(Builder* builder);
+    InputModules(Builder& builder);
 
     InputModules() = delete;
     ~InputModules() = default;
-    InputModules(const InputModules&) = delete;
+    InputModules(const InputModules&) = default;
     auto operator=(const InputModules&) -> InputModules& = delete;
     InputModules(InputModules&&) = default;
     auto operator=(InputModules&&) -> InputModules& = default;
