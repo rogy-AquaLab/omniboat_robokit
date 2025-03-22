@@ -45,7 +45,7 @@ auto device::InputModules::mpu_whoami() -> bool {
     return this->mpu.testConnection();
 }
 
-static auto device::InputModules::builder() -> Builder {
+auto device::InputModules::builder() -> Builder {
     return Builder();
 }
 
