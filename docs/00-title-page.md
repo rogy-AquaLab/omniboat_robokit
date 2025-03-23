@@ -39,7 +39,7 @@
 - Twitterアカウント: [@rogy_aqua](https://twitter.com/rogy_aqua)
 - メールアドレス: `rogy.aqua[ at ]gmail.com`(`[ at ]`を`@`に置き換えてください)
 
-また、[東京工業大学ロボット技術研究会2024年度新歓ページ](https://www.rogiken.org/shinkan/2024/)も参照してください。
+また、[東京工業大学ロボット技術研究会2025年度新歓ページ](https://www.rogiken.org/shinkan/2025/)も参照してください。
 
 ## ドキュメントの見方
 
