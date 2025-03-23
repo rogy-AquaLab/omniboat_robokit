@@ -54,7 +54,6 @@ public:
         auto build() -> InputModules;
     };
 
-public:
     static auto builder() -> Builder;
 
     InputModules(Builder* builder);
