@@ -25,6 +25,7 @@ constexpr float inertia_z = 1;
  */
 constexpr float step_width_a = 0.1;
 
+
 Machine::Machine() : 
     input_modules(device::InputModules::builder()
                       .joy_x_pin(A4)
