@@ -60,7 +60,7 @@ public:
 
     InputModules() = delete;
     ~InputModules() = default;
-    InputModules(const InputModules&) = default;
+    InputModules(const InputModules&) = delete;
     auto operator=(const InputModules&) -> InputModules& = delete;
     InputModules(InputModules&&) = default;
     auto operator=(InputModules&&) -> InputModules& = default;
