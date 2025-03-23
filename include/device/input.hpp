@@ -21,7 +21,7 @@ private:
     mbed::AnalogIn volume;
 
     /// 慣性計測ユニット(imu)
-    MPU6050 mpu;
+    std::unique_ptr<MPU6050> mpu;
 
     /// ジョイスティックの値を読む
     auto read_joy() -> std::pair<float, float>;
@@ -51,13 +51,13 @@ public:
         auto volume_pin(const PinName& pin) -> Builder&;
         auto mpu_sda_pin(const PinName& pin) -> Builder&;  // mpu_pins.first
         auto mpu_scl_pin(const PinName& pin) -> Builder&;  // mpu_pins.second
-        // auto build() -> InputModules;
+        auto build() -> InputModules;
     };
 
 public:
     static auto builder() -> Builder;
 
-    InputModules(Builder& builder);
+    InputModules(Builder* builder);
 
     InputModules() = delete;
     ~InputModules() = default;
