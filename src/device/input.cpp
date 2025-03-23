@@ -1,5 +1,5 @@
-#include <utility>
 #include <memory>
+#include <utility>
 
 #include "device/input.hpp"
 
