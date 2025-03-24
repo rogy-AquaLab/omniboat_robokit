@@ -7,7 +7,9 @@ set -eu -o pipefail
     exit 0
 }
 
-image_table='
+mkdir -p docs/gdrive
+
+python3 ./docs/scripts/curl-parallel.py docs/gdrive << 'EOF'
 https://drive.google.com/uc?export=view&id=1FC_E3_lNt-Vslql-hdyLgg66JuzH03v4 machine_motorcheck.JPG
 https://drive.google.com/uc?export=view&id=1U2vqTDOPuZD9QEEEdGIkl6tpNqhT2pd9 machine_servohorn_1.JPG
 https://drive.google.com/uc?export=view&id=1hi_kIYDqL_yKklyqnXTGz2I7zg23TVZf machine_servohorn_2.JPG
@@ -53,10 +55,6 @@ https://drive.google.com/uc?export=view&id=1Pkl7_I0LfjXmAdgMyfRhl0gCG0nUYlfz mac
 https://drive.google.com/uc?export=view&id=1pWWufLMa0HndS-UWNBSQTp-QR_QeU8GC circuit_unneecessary_parts.jpg
 https://drive.google.com/uc?export=view&id=10R2sZHjN3y5k5n30vRVk9lFr4MvlwaEG circuit_servo_connector.jpg
 https://drive.google.com/uc?export=view&id=1XjU9bHCO3EBnlH2KG0587n7T5HJX1Wns circuit_xhconnector.jpg
-'
-
-mkdir -p docs/gdrive
-
-echo "$image_table" | python3 ./docs/scripts/curl-parallel.py docs/gdrive
+EOF
 
 cat | jq -c '.[1]'
