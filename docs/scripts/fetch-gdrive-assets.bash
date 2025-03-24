@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -eu
+set -eu -o pipefail
 
 [ $# -gt 1 ] && [ "$1" = "supports" ] && {
     echo $@ >&2
@@ -57,13 +57,6 @@ https://drive.google.com/uc?export=view&id=1XjU9bHCO3EBnlH2KG0587n7T5HJX1Wns cir
 
 mkdir -p docs/gdrive
 
-echo "$image_table" | while read img_line; do
-	[ ! -n "$img_line" ] && continue
-	args=($img_line)
-	url="${args[0]}"
-	out_path="docs/gdrive/${args[1]}"
-	echo "$url -> $out_path" >&2
-	curl -fsSL -o "$out_path" "$url"
-done
+echo "$image_table" | python3 ./docs/scripts/curl-parallel.py docs/gdrive
 
 cat | jq -c '.[1]'
