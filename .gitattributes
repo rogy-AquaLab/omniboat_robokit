@@ -1,4 +1,4 @@
-* text=auto eol=crlf
+* text=auto eol=lf
 
 **/*.jpg !text !filter !merge !diff
 **/*.jpeg !text !filter !merge !diff
