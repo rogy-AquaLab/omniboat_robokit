@@ -30,7 +30,7 @@ private:
     auto read_gyro() -> std::array<float, 3>;
 
     InputModules(
-        std::pair<mbed::AnalogIn,mbed::AnalogIn> joy, mbed::AnalogIn volume,
+        std::pair<mbed::AnalogIn, mbed::AnalogIn> joy, mbed::AnalogIn volume,
         unique_ptr<MPU6050> mpu) :
         joy(joy), volume(volume), mpu(std::move(mpu)) {}
 

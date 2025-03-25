@@ -40,8 +40,8 @@ auto device::InputModules::Builder::mpu_scl_pin(const PinName& pin) -> Builder& 
 
 auto device::InputModules::Builder::build() -> InputModules {
     return InputModules{
-        std::make_pair<mbed::AnalogIn,mbed::AnalogIn>(this->_joy_x_pin,this->_joy_y_pin),
-        this->_volume_pin,std::make_unique<MPU6050>(this->_mpu_sda_pin,this->_mpu_scl_pin)
+        std::make_pair<mbed::AnalogIn, mbed::AnalogIn>(this->_joy_x_pin, this->_joy_y_pin),
+        this->_volume_pin, std::make_unique<MPU6050>(this->_mpu_sda_pin, this->_mpu_scl_pin)
     };
 }
 
