@@ -29,7 +29,8 @@ private:
     /// IMUの値を読む
     auto read_gyro() -> std::array<float, 3>;
 
-    InputModules(std::pair<mbed::AnalogIn,mbed::AnalogIn> joy,mbed::AnalogIn volume,unique_ptr<MPU6050> mpu) : joy(joy),volume(volume),mpu(std::move(mpu)) {}
+    InputModules(std::pair<mbed::AnalogIn,mbed::AnalogIn> joy,mbed::AnalogIn volume,unique_ptr<MPU6050> mpu)
+        : joy(joy),volume(volume),mpu(std::move(mpu)) {}
 
 public:
     /**
@@ -55,6 +56,13 @@ public:
         auto mpu_sda_pin(const PinName& pin) -> Builder&;  // mpu_pins.first
         auto mpu_scl_pin(const PinName& pin) -> Builder&;  // mpu_pins.second
         auto build() -> InputModules;
+        
+        Builder() = default;
+        ~Builder() = default;
+        Builder(const Builder&) = delete;
+        auto operator=(const Builder&) -> Builder& = delete;
+        Builder(Builder&&) = default;
+        auto operator=(Builder&&) -> Builder& = default;
     };
 
     static auto builder() -> Builder;
