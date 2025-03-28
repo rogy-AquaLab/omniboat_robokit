@@ -54,11 +54,11 @@ public:
         PinName _mpu_scl_pin;
 
     public:
-        auto joy_x_pin(const PinName& pin) -> Builder&;  
-        auto joy_y_pin(const PinName& pin) -> Builder&;  
+        auto joy_x_pin(const PinName& pin) -> Builder&;
+        auto joy_y_pin(const PinName& pin) -> Builder&;
         auto volume_pin(const PinName& pin) -> Builder&;
-        auto mpu_sda_pin(const PinName& pin) -> Builder&;  
-        auto mpu_scl_pin(const PinName& pin) -> Builder&;  
+        auto mpu_sda_pin(const PinName& pin) -> Builder&;
+        auto mpu_scl_pin(const PinName& pin) -> Builder&;
         auto build() -> InputModules;
 
         Builder() = default;
