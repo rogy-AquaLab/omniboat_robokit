@@ -43,7 +43,7 @@ auto device::InputModules::Builder::build() -> InputModules {
     mbed::AnalogIn joy_y(this->_joy_y_pin);
     mbed::AnalogIn volume(this->_volume_pin);
     auto mpu = std::make_unique<MPU6050>(this->_mpu_sda_pin, this->_mpu_scl_pin);
-    return InputModules{std::make_pair(joy_x,joy_y), volume, std::move(mpu)};
+    return InputModules{std::make_pair(joy_x, joy_y), volume, std::move(mpu)};
 }
 
 auto device::InputModules::mpu_whoami() -> bool {
