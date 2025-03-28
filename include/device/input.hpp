@@ -32,7 +32,7 @@ private:
     // NOLINTBEGIN(bugprone-easily-swappable-parameters)
     InputModules(
         std::pair<mbed::AnalogIn, mbed::AnalogIn> joy, mbed::AnalogIn volume,
-        unique_ptr<MPU6050> mpu) :
+        unique_ptr<MPU6050>&& mpu) :
         joy(joy), volume(volume), mpu(std::move(mpu)) {}
     // NOLINTEND(bugprone-easily-swappable-parameters)
 
@@ -54,11 +54,11 @@ public:
         PinName _mpu_scl_pin;
 
     public:
-        auto joy_x_pin(const PinName& pin) -> Builder&;  // joy_pins.first
-        auto joy_y_pin(const PinName& pin) -> Builder&;  // joy_pins.second
+        auto joy_x_pin(const PinName& pin) -> Builder&;  
+        auto joy_y_pin(const PinName& pin) -> Builder&;  
         auto volume_pin(const PinName& pin) -> Builder&;
-        auto mpu_sda_pin(const PinName& pin) -> Builder&;  // mpu_pins.first
-        auto mpu_scl_pin(const PinName& pin) -> Builder&;  // mpu_pins.second
+        auto mpu_sda_pin(const PinName& pin) -> Builder&;  
+        auto mpu_scl_pin(const PinName& pin) -> Builder&;  
         auto build() -> InputModules;
 
         Builder() = default;
