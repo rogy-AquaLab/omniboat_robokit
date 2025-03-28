@@ -32,7 +32,7 @@ private:
     // NOLINTBEGIN(bugprone-easily-swappable-parameters)
     InputModules(
         std::pair<mbed::AnalogIn, mbed::AnalogIn> joy, mbed::AnalogIn volume,
-        unique_ptr<MPU6050>&& mpu) :
+        std::unique_ptr<MPU6050>&& mpu) :
         joy(joy), volume(volume), mpu(std::move(mpu)) {}
     // NOLINTEND(bugprone-easily-swappable-parameters)
 
