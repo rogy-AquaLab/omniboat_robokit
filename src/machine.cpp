@@ -33,7 +33,10 @@ Machine::Machine() :
                       .mpu_sda_pin(D4)
                       .mpu_scl_pin(D5)
                       .build()),
-    output_modules({PB_4, PA_11}, {PA_9, PA_10}),
+    output_modules(device::OutputModules::builder()
+                      .servo_pins({PB_4, PA_11})
+                      .dc_motor_pins({PA_9, PA_10})
+                      .build()),
     service() {
     trace::toggle(LedId::First);
     trace::toggle(LedId::Second);
