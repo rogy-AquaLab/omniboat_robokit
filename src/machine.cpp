@@ -26,7 +26,15 @@ constexpr float inertia_z = 1;
 constexpr float step_width_a = 0.1;
 
 Machine::Machine() :
-    input_modules({A4, A5}, A6, {D4, D5}), output_modules({PB_4, PA_11}, {PA_9, PA_10}), service() {
+    input_modules(device::InputModules::builder()
+                      .joy_x_pin(A4)
+                      .joy_y_pin(A5)
+                      .volume_pin(A6)
+                      .mpu_sda_pin(D4)
+                      .mpu_scl_pin(D5)
+                      .build()),
+    output_modules({PB_4, PA_11}, {PA_9, PA_10}),
+    service() {
     trace::toggle(LedId::First);
     trace::toggle(LedId::Second);
     trace::toggle(LedId::Third);

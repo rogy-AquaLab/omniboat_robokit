@@ -21,7 +21,7 @@ private:
     mbed::AnalogIn volume;
 
     /// 慣性計測ユニット(imu)
-    MPU6050 mpu;
+    std::unique_ptr<MPU6050> mpu;
 
     /// ジョイスティックの値を読む
     auto read_joy() -> std::pair<float, float>;
@@ -29,16 +29,47 @@ private:
     /// IMUの値を読む
     auto read_gyro() -> std::array<float, 3>;
 
+    // NOLINTBEGIN(bugprone-easily-swappable-parameters)
+    InputModules(
+        std::pair<mbed::AnalogIn, mbed::AnalogIn> joy, mbed::AnalogIn volume,
+        std::unique_ptr<MPU6050>&& mpu) :
+        joy(joy), volume(volume), mpu(std::move(mpu)) {}
+    // NOLINTEND(bugprone-easily-swappable-parameters)
+
 public:
     /**
-     * @brief Construct a new Input Modules object
-     * @param joy_pins ジョイスティックのピン2つ
+     * @brief InputModulesをbuildするクラス
+     * @param _joy_x_pin ジョイスティックのピン(x)
+     * @param _joy_y_pin ジョイスティックのピン(y)
      * @param volume_pin ツマミのピン
-     * @param mpu_pins MPU6050のピン (sda, scl)
+     * @param _mpu_sda_pin MPU6050のピン (sda)
+     * @param _mpu_scl_pin MPU6050のピン (scl)
      */
-    InputModules(
-        const std::pair<PinName, PinName>& joy_pins, const PinName& volume_pin,
-        const std::pair<PinName, PinName>& mpu_pins);
+    class Builder {
+    private:
+        PinName _joy_x_pin;
+        PinName _joy_y_pin;
+        PinName _volume_pin;
+        PinName _mpu_sda_pin;
+        PinName _mpu_scl_pin;
+
+    public:
+        auto joy_x_pin(const PinName& pin) -> Builder&;
+        auto joy_y_pin(const PinName& pin) -> Builder&;
+        auto volume_pin(const PinName& pin) -> Builder&;
+        auto mpu_sda_pin(const PinName& pin) -> Builder&;
+        auto mpu_scl_pin(const PinName& pin) -> Builder&;
+        auto build() -> InputModules;
+
+        Builder() = default;
+        ~Builder() = default;
+        Builder(const Builder&) = delete;
+        auto operator=(const Builder&) -> Builder& = delete;
+        Builder(Builder&&) = default;
+        auto operator=(Builder&&) -> Builder& = default;
+    };
+
+    static auto builder() -> Builder;
 
     InputModules() = delete;
     ~InputModules() = default;
