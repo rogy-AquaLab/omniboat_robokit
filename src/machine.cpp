@@ -25,13 +25,24 @@ constexpr float inertia_z = 1;
  */
 constexpr float step_width_a = 0.1;
 
-Machine::Machine(std::unique_ptr<device::InputModules>&& inputmodules, std::unique_ptr<device::OutputModules>&& outputmodules) :
-    input_modules(std::move(inputmodules)),output_modules(std::move(outputmodules)),service() {
+Machine::Machine() :
+    input_modules(device::InputModules::builder()
+                      .joy_x_pin(A4)
+                      .joy_y_pin(A5)
+                      .volume_pin(A6)
+                      .mpu_sda_pin(D4)
+                      .mpu_scl_pin(D5)
+                      .build()),
+    output_modules(device::OutputModules::builder()
+                      .servo_pins({PB_4, PA_11})
+                      .dc_motor_pins({PA_9, PA_10})
+                      .build()),
+    service() {
     trace::toggle(LedId::First);
     trace::toggle(LedId::Second);
     trace::toggle(LedId::Third);
     printf("start up\n");
-    this->output_modules->init();
+    this->output_modules.init();
 }
 
 Machine::~Machine() {
@@ -40,7 +51,7 @@ Machine::~Machine() {
 
 void Machine::init() {
     this->service.init();
-    const bool whoami = this->input_modules->mpu_whoami();
+    const bool whoami = this->input_modules.mpu_whoami();
     if (whoami) {
         printf("WHOAMI succeeded\n");
     } else {
@@ -56,9 +67,9 @@ inline auto map_joy(const std::pair<float, float>& joy) -> std::array<float, 3> 
 }
 
 void Machine::one_step() {
-    const packet::InputValues input = this->input_modules->read();
+    const packet::InputValues input = this->input_modules.read();
     const packet::OutputValues output = this->service.call(input);
-    this->output_modules->write(output);
+    this->output_modules.write(output);
     trace::toggle(LedId::Third);
 }
 
@@ -69,53 +80,6 @@ void Machine::debug() {
     // printf("volume=%f\n",volume.read());
     // printf("gyro[2]=%f\n",gyro[2]);
     // printf("\n");
-}
-
-auto Machine::Builder::joy_x_pin(const PinName& pin) -> Builder& {
-    this->_joy_x_pin = pin;
-    return *this;
-}
-
-auto Machine::Builder::joy_y_pin(const PinName& pin) -> Builder& {
-    this->_joy_y_pin = pin;
-    return *this;
-}
-
-auto Machine::Builder::volume_pin(const PinName& pin) -> Builder& {
-    this->_volume_pin = pin;
-    return *this;
-}
-
-auto Machine::Builder::mpu_sda_pin(const PinName& pin) -> Builder& {
-    this->_mpu_sda_pin = pin;
-    return *this;
-}
-
-auto Machine::Builder::mpu_scl_pin(const PinName& pin) -> Builder& {
-    this->_mpu_scl_pin = pin;
-    return *this;
-}
-
-auto Machine::Builder::servo_pins(const std::pair<PinName,PinName>& pins) -> Builder& {
-    this->_servo_pins = pins;
-    return *this;
-}
-
-auto Machine::Builder::dc_motor_pins(const std::pair<PinName,PinName>& pins) -> Builder& {
-    this->_dc_motor_pins = pins;
-    return *this;
-}
-
-auto Machine::Builder::build() -> Machine{
-    auto mpu = std::make_unique<MPU6050>(this->_mpu_sda_pin,this->_mpu_scl_pin);
-    auto inputmodules = std::make_unique<device::InputModules>(std::make_pair(this->_joy_x_pin,this->_joy_y_pin),
-    this->_volume_pin,std::move(mpu));
-    auto outputmodules = std::make_unique<device::OutputModules>(this-> _servo_pins,this->_dc_motor_pins);
-    return Machine(std::move(inputmodules),std::move(outputmodules));
-}
-
-auto Machine::builder() -> Builder{
-    return Builder();
 }
 
 }  // namespace omniboat
