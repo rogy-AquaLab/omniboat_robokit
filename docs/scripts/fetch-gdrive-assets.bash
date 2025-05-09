@@ -55,6 +55,15 @@ https://drive.google.com/uc?export=view&id=1Pkl7_I0LfjXmAdgMyfRhl0gCG0nUYlfz mac
 https://drive.google.com/uc?export=view&id=1pWWufLMa0HndS-UWNBSQTp-QR_QeU8GC circuit_unneecessary_parts.jpg
 https://drive.google.com/uc?export=view&id=10R2sZHjN3y5k5n30vRVk9lFr4MvlwaEG circuit_servo_connector.jpg
 https://drive.google.com/uc?export=view&id=1XjU9bHCO3EBnlH2KG0587n7T5HJX1Wns circuit_xhconnector.jpg
+https://drive.google.com/uc?export=view&id=18ISq4FrCiJ_V0WCmrVkqQUnvENkVGkH_ circuit_pin_joy.jpg
+https://drive.google.com/uc?export=view&id=16ZzvcGpJsf3JtWUT6ym3aVfm6oqb-zzI circuit_mpu_front.jpg
+https://drive.google.com/uc?export=view&id=14WF6i6QQFTHYHmMqP5uWRdao8KWlyDhi circuit_mpu_back.jpg
+https://drive.google.com/uc?export=view&id=1TpkyoZWJbxGlszfPzc76PtWxe_Q-IkEL circuit_joy.jpg
+https://drive.google.com/uc?export=view&id=1NFyZ_IauGkTlOB4y1mpkFVs3jh81CyKK machine_motorcover_inside.jpg
+https://drive.google.com/uc?export=view&id=136cc7_6MM1vkR1_DoypQsO_qoNAMXcQM machine_construct_propeller_CW.jpg
+https://drive.google.com/uc?export=view&id=1l8H0-32B6yQ2-3MuaseNw43oixt-miqH machine_construct_propeller_CW_inside.jpg
+https://drive.google.com/uc?export=view&id=1RpJc3voGm1Q7Dr9bdYaFOnfdHx1KlvBq machine_construct_propeller_CCW.jpg
+https://drive.google.com/uc?export=view&id=17_IUlD05AdgTPJ3hmWskZ4SzZ-tikzPF machine_construct_propeller_CCW_inside.jpg
 EOF
 
 cat | jq -c '.[1]'
