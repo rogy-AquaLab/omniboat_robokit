@@ -8,17 +8,15 @@
 
 配布するプログラムは[PlatformIO](https://platformio.org)を利用して開発されています。特に[mbedフレームワーク](https://docs.platformio.org/en/latest/frameworks/mbed.html)を利用し、フォーマッターに[clang-format](https://clang.llvm.org/docs/ClangFormat.html), リンターに[clang-tidy](https://clang.llvm.org/extra/clang-tidy/)を使用しています。
 
-<div class="warning">
-
-リンターは将来変わる可能性があります。([#122](https://github.com/rogy-AquaLab/omniboat_robokit/issues/122))
-
-</div>
-
 使用するエディターは[VSCode](https://code.visualstudio.com)を想定していますが、[CLion](https://www.jetbrains.com/ja-jp/clion/)などPlatformIOが適切に動作する環境であれば特に問いません。
 
 ## ドキュメント開発
 
-このドキュメントは[mdBook](https://github.com/rust-lang/mdBook)を利用してGitHub Pagesの内容が生成されています。mdBookの詳細な使用方法に関しては、[mdBook Documentation](https://rust-lang.github.io/mdBook/)を参照してください。
+このドキュメントは[mdBook](https://github.com/rust-lang/mdBook)を利用してGitHub Pagesの内容が生成されています。mdBookの詳細な使用方法に関しては、[mdBook Documentation](https://rust-lang.github.io/mdBook/)を参照してください。また、ドキュメント生成の際には以下のツールが必要です。
+
+- [python](https://www.python.org)
+- [curl](https://curl.se)
+- [jq](https://jqlang.org)
 
 ### 画像の使用に関して
 
@@ -42,14 +40,14 @@ Google Driveに保存されている画像ファイルは[Google Driveの画像�
 
 **2: 控えた情報をスクリプトに追記する**
 
-`docs/scripts/fetch-gdrive-assets.bash`の`image_table='`とある行の次*など*に以下の内容を追記します。
+`docs/scripts/fetch-gdrive-assets.bash`の`python3 ./docs/scripts/curl-parallel.py docs/gdrive << 'EOF'`とある行の次*など*に以下の内容を追記します。
 
 ```bash
-image_magic='
+python3 ./docs/scripts/curl-parallel.py docs/gdrive << 'EOF'
 ...
 https://drive.google.com/uc?export=view&id=xxx xxx.jpeg
 ...
-'
+EOF
 ```
 
 適当な場所に追記してください。
@@ -137,7 +135,3 @@ PlatformIOに関連する依存関係は2種類あります: PlatformIOそれ自
 - [lib_deps — PlatformIO latest documentation](https://docs.platformio.org/en/latest/projectconf/sections/env/options/library/lib_deps.html)
 
 特にGCCコンパイラのバージョンは[platformio/toolchain-gccarmnoneeabi](https://registry.platformio.org/tools/platformio/toolchain-gccarmnoneeabi)で明記されているため、定期的(こちらも1年おきが目安)に更新する必要があります。
-
-## Nix, direnv
-
-略
