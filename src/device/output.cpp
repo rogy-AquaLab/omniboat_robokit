@@ -22,13 +22,23 @@ auto device::OutputModules::write_dc_motor(const std::pair<float, float>& values
     this->dc_motor.second.write(values.second);
 }
 
-// NOLINTBEGIN(bugprone-easily-swappable-parameters)
-device::OutputModules::OutputModules(
-    const std::pair<PinName, PinName>& servo_pins,
-    const std::pair<PinName, PinName>& dc_motor_pins) :
-    servo(servo_pins.first, servo_pins.second),
-    dc_motor(dc_motor_pins.first, dc_motor_pins.second) {}
-// NOLINTEND(bugprone-easily-swappable-parameters)
+auto device::OutputModules::Builder::servo_pins(const std::pair<PinName,PinName>& pins) -> Builder& {
+    this->_servo_pins = pins;
+    return *this;
+}
+
+auto device::OutputModules::Builder::dc_motor_pins(const std::pair<PinName,PinName>& pins) -> Builder& {
+    this->_dc_motor_pins = pins;
+    return *this;
+}
+
+auto device::OutputModules::Builder::build() -> OutputModules {
+    return OutputModules(_servo_pins,_dc_motor_pins);
+}
+
+auto device::OutputModules::builder() -> OutputModules::Builder {
+    return OutputModules::Builder();
+}
 
 auto device::OutputModules::init() -> void {
     constexpr int pwm_period_ms = 20;
