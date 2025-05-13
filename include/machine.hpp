@@ -18,7 +18,7 @@ namespace omniboat {
  */
 class Machine {
 public:
-    Machine();
+    Machine(device::InputModules::Builder input_builder,device::OutputModules::Builder output_builder);
     Machine(const Machine&) = delete;
     Machine(Machine&&) = default;
     auto operator=(const Machine&) -> Machine& = delete;
@@ -39,6 +39,24 @@ public:
     //  * @brief 機体を停止させる関数
     //  */
     // void flip_shneider();
+
+    class Builder{
+    private:
+        device::InputModules::Builder input_builder;
+        device::OutputModules::Builder output_builder;
+
+    public:
+        auto set_input(const device::InputModules::Builder& modules) -> Builder&;
+        auto set_output(const device::OutputModules::Builder& modules) -> Builder&;
+        auto build() -> std::unique_ptr<Machine>;
+
+        Builder() = default;
+        ~Builder() = default;
+        Builder(const Builder&) = delete;
+        auto operator=(const Builder&) -> Builder& = delete;
+        Builder(Builder&&) = default;
+        auto operator=(Builder&&) -> Builder& = default;
+    };
 
 private:
     // flip_shneider と同様
