@@ -9,7 +9,7 @@ jobs:
     outputs:
       contains: ${{ steps.check.outputs.contains }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           ref: main
           fetch-depth: 0
@@ -30,7 +30,7 @@ jobs:
       # FIXME: duplicate of .github/workflows/main.yml:112
       MDBOOK_VERSION: v0.4.36
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           ref: ${{ github.ref }}
       - run: |
@@ -56,7 +56,7 @@ jobs:
       - build-book
     if: ${{ needs.check-main-branch.outputs.contains == 'true' }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           ref: ${{ github.ref }}
       - uses: actions/download-artifact@v4
