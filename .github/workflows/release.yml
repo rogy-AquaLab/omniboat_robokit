@@ -42,7 +42,7 @@ jobs:
       - run: |
           ./mdbook build
           tar czf book.tar.gz book
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         with:
           name: book-archive
           path: ./book.tar.gz
